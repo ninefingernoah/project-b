@@ -1,0 +1,99 @@
+using System;
+using static System.Console;
+public class Menu
+{
+    protected int _selectedIndex;
+    protected string[] _options;
+    protected string _prompt;
+
+    public Menu(string prompt, string[] options)
+    {
+        _prompt = prompt;
+        _options = options;
+        _selectedIndex = 0;
+    }
+
+    /// <summary>
+    /// Displays the menu
+    /// </summary>
+    public virtual void DisplayOptions()
+    {
+        ForegroundColor = ConsoleColor.White;
+        BackgroundColor = ConsoleColor.Black;
+        WriteLine(_prompt);
+        Write("\n \n");
+        for(int i = 0; i < _options.Length; i++)
+        {
+            if(_options[i] == "-")
+            {
+                WriteLine();
+                continue;
+            }
+            if(i == _selectedIndex)
+            {
+                ForegroundColor = ConsoleColor.Black;
+                BackgroundColor = ConsoleColor.White;
+            }
+            else
+            {
+                ForegroundColor = ConsoleColor.White;
+                BackgroundColor = ConsoleColor.Black;
+            }
+            WriteLine(_options[i]);
+        }
+        // Reset the color
+        ForegroundColor = ConsoleColor.White;
+        BackgroundColor = ConsoleColor.Black;
+    }
+
+    /// <summary>
+    /// Runs the menu and returns the index of the selected option
+    /// </summary>
+    /// <param name="loggedIn">If the user is logged in</param>
+    /// <returns>The index of the selected option</returns>
+    public virtual int Run(bool loggedIn = false)
+    {
+        ConsoleKey keyPressed;
+        // Run the menu until the user presses enter
+        do
+        {
+            Clear();
+            DisplayOptions();
+            
+            ConsoleKeyInfo keyInfo = ReadKey(true);
+            keyPressed = keyInfo.Key;
+
+            // Move the selection up or down
+            if(keyPressed == ConsoleKey.DownArrow || keyPressed == ConsoleKey.S)
+            {
+                _selectedIndex++;
+                if(_selectedIndex >= _options.Length)
+                {
+                    _selectedIndex = 0;
+                }
+                if(_options[_selectedIndex] == "-")
+                {
+                    _selectedIndex++;
+                }
+            }
+            else if(keyPressed == ConsoleKey.UpArrow || keyPressed == ConsoleKey.W)
+            {
+                _selectedIndex--;
+                if(_selectedIndex < 0)
+                {
+                    _selectedIndex = _options.Length - 1;
+                }
+                if(_options[_selectedIndex] == "-")
+                {
+                    _selectedIndex--;
+                }
+            }
+
+        } while (keyPressed != ConsoleKey.Enter);
+
+        return _selectedIndex;
+    }
+
+    
+    
+}
