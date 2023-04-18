@@ -26,3 +26,5 @@ obj/project-b.csproj.nuget.dgspec.json
 obj/project-b.csproj.nuget.g.props
 obj/project.assets.json
 obj/project.nuget.cache
+obj
+bin
