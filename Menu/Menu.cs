@@ -20,8 +20,7 @@ public class Menu
     {
         ForegroundColor = ConsoleColor.White;
         BackgroundColor = ConsoleColor.Black;
-        WriteLine(_prompt);
-        Write("\n \n");
+        if (_prompt != "") WriteLine(_prompt); Write("\n");
         for(int i = 0; i < _options.Length; i++)
         {
             if(_options[i] == "-")
