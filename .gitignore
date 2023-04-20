@@ -28,3 +28,5 @@ obj/project.assets.json
 obj/project.nuget.cache
 obj
 bin
+.vscode/launch.json
+.vscode/tasks.json
