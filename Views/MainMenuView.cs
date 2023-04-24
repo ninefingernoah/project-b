@@ -1,5 +1,3 @@
-<<<<<<< Updated upstream
-=======
 public class MainMenuView {
     private static readonly MainMenuView instance = new MainMenuView();
     public Dictionary<string, string> ViewBag = new Dictionary<string, string>();
@@ -34,4 +32,3 @@ public class MainMenuView {
         }
     }
 }
->>>>>>> Stashed changes

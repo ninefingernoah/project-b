@@ -1,5 +1,3 @@
-<<<<<<< Updated upstream
-=======
 using System;
 using static System.Console;
 public class Menu
@@ -103,4 +101,3 @@ public class Menu
     
     
 }
->>>>>>> Stashed changes

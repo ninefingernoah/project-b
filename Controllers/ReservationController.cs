@@ -1,5 +1,3 @@
-<<<<<<< Updated upstream
-=======
 public sealed class ReservationController {
     private static readonly ReservationController instance = new ReservationController();
 
@@ -36,4 +34,3 @@ public sealed class ReservationController {
         }
     }
 }
->>>>>>> Stashed changes
