@@ -7,6 +7,9 @@ public class MainMenuView {
     private MainMenuView() {
     }
 
+    /// <summary>
+    /// Displays the main menu.
+    /// </summary>
     public void Display() {
         List<string> optionsList = new List<string>() {
             "Registreren",
@@ -20,6 +23,9 @@ public class MainMenuView {
         ViewBag["MainMenuSelection"] = choice.ToString();
     }
 
+    /// <summary>
+    /// The singleton instance of the main menu controller. Used for accessing the controller. Thread safe.
+    /// </summary>
     public static MainMenuView Instance {
         get {
             return instance;

@@ -6,6 +6,9 @@ public class SeatController {
     private SeatController() {
     }
 
+    /// <summary>
+    /// The singleton instance of the main menu controller. Used for accessing the controller. Thread safe.
+    /// </summary>
     public static SeatController Instance {
         get {
             return instance;
