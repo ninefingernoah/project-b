@@ -2,8 +2,13 @@ using System;
 using static System.Console;
 public class Menu
 {
+    /// <summary>The index of the option that the user currently has selected</summary>
     protected int _selectedIndex;
+
+    /// <summary>The options that the user can choose from</summary>
     protected string[] _options;
+
+    /// <summary>The prompt that will be displayed to the user</summary>
     protected string _prompt;
 
     public Menu(string prompt, string[] options)
