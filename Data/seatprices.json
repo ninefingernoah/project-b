@@ -1,0 +1,111 @@
+{
+    "Boeing 737": {
+      "destinations": {
+        "Londen": {
+          "blue": 220,
+          "yellow": 250
+        },
+        "Madrid": {
+          "blue": 150,
+          "yellow": 180
+        },
+        "Stockholm": {
+          "blue": 150,
+          "yellow": 180
+        },
+        "Berlijn": {
+          "blue": 150,
+          "yellow": 180
+        },
+        "Praag": {
+          "blue": 180,
+          "yellow": 210
+        },
+        "Rome": {
+          "blue": 200,
+          "yellow": 230
+        }
+      }
+    },
+    "Airbus 330": {
+      "destinations": {
+        "Londen": {
+          "white": 220,
+          "dark blue": 250,
+          "purple": 280,
+          "pink": 310,
+          "grey (business class)": 380
+        },
+        "Madrid": {
+          "white": 150,
+          "dark blue": 180,
+          "purple": 210,
+          "pink": 240,
+          "grey (business class)": 310
+        },
+        "Stockholm": {
+          "white": 150,
+          "dark blue": 180,
+          "purple": 210,
+          "pink": 240,
+          "grey (business class)": 310
+        },
+        "Berlijn": {
+          "white": 150,
+          "dark blue": 180,
+          "purple": 210,
+          "pink": 240,
+          "grey (business class)": 310
+        },
+        "Praag": {
+          "white": 180,
+          "dark blue": 210,
+          "purple": 240,
+          "pink": 270,
+          "grey (business class)": 340
+        },
+        "Rome": {
+          "white": 200,
+          "dark blue": 230,
+          "purple": 270,
+          "pink": 300,
+          "grey (business class)": 370
+        }
+      }
+    },
+    "Boeing 787": {
+      "destinations": {
+        "Londen": {
+          "white": 220,
+          "blue": 280,
+          "orange (business class)": 380
+        },
+        "Madrid": {
+          "white": 150,
+          "blue": 210,
+          "orange (business class)": 310
+        },
+        "Stockholm": {
+          "white": 150,
+          "blue": 210,
+          "orange (business class)": 310
+        },
+        "Berlijn": {
+          "white": 150,
+          "blue": 210,
+          "orange (business class)": 310
+        },
+        "Praag": {
+          "white": 180,
+          "blue": 240,
+          "orange (business class)": 340
+        },
+        "Rome": {
+          "white": 200,
+          "blue": 270,
+          "orange (business class)": 370
+        }
+      }
+    }
+  }
+  

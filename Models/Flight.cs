@@ -25,6 +25,30 @@ public class Flight {
         _takenSeats = new List<Seat>();
     }
 
+    public void AddTakenSeat(Seat seat) {
+        _takenSeats.Add(seat);
+    }
+
+    public void RemoveTakenSeat(Seat seat) {
+        _takenSeats.Remove(seat);
+    }
+
+    public bool IsSeatTaken(Seat seat) {
+        foreach (Seat takenSeat in _takenSeats) {
+            if (takenSeat.Number == seat.Number) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public void SetSeatPrices() {
+        Dictionary<string, double> prices = SeatManager.GetSeatPrices(this);
+        foreach (Seat seat in _airplane.Seats) {
+            seat.Price = prices[seat.Color];
+        }
+    }
+
     public override string ToString()
     {
         string flightString = $"Flight {Id} from {Departure} to {Destination}\n";

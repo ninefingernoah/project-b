@@ -14,6 +14,7 @@ public class Airplane {
         _totalCapacity = totalCapacity;
         _seats = new List<Seat>();
         _name = name;
+        InitializeSeats();
     }
 
     public void AddSeat(Seat seat) {
@@ -33,6 +34,9 @@ public class Airplane {
         return null;
     }
 
-    // public abstract void InitializeSeats();
+    public void InitializeSeats() {
+        // get seats from database w seatmanager
+        // add seats to _seats
+    }
 
 }

@@ -13,3 +13,5 @@ C:\Users\noahm\Documents\school\semester 2\Project B v2\project-b\obj\Debug\net6
 C:\Users\noahm\Documents\school\semester 2\Project B v2\project-b\obj\Debug\net6.0\project-b.pdb
 C:\Users\noahm\Documents\school\semester 2\Project B v2\project-b\obj\Debug\net6.0\project-b.genruntimeconfig.cache
 C:\Users\noahm\Documents\school\semester 2\Project B v2\project-b\obj\Debug\net6.0\ref\project-b.dll
+C:\Users\noahm\Documents\school\semester 2\Project B v2\project-b\bin\Debug\net6.0\Newtonsoft.Json.dll
+C:\Users\noahm\Documents\school\semester 2\Project B v2\project-b\obj\Debug\net6.0\project-b.csproj.CopyComplete

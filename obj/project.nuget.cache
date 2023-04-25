@@ -1,8 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "3MYvTXBjiM6b+Utl1PJrnLQS71EKqh29Zn7r4QxwDKL4P9P24hm+WILWKNrGvuZpySVp0vJwYBrUwL4BSKMGTw==",
+  "dgSpecHash": "QjrHJKN60PtPgliW4pU0xWuopGyXY4nIkASrvRhMHSVXJWQ17bjx2Mpu7pePQc/nlcdh8V3i0Oee/eXPME5O4g==",
   "success": true,
   "projectFilePath": "C:\\Users\\noahm\\Documents\\school\\semester 2\\Project B v2\\project-b\\project-b.csproj",
-  "expectedPackageFiles": [],
+  "expectedPackageFiles": [
+    "C:\\Users\\noahm\\.nuget\\packages\\newtonsoft.json\\13.0.3\\newtonsoft.json.13.0.3.nupkg.sha512"
+  ],
   "logs": []
 }
