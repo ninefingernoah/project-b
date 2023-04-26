@@ -21,6 +21,11 @@ public static class DatabaseManager {
         return dt;
     }
 
+    /// <summary>
+    /// Queries for a non-result from the database
+    /// </summary>
+    /// <param name="query">The query to be executed</param>
+    /// <return>
     public static bool QueryNonResult(string query) {
         SQLiteConnection conn = OpenConnection();
         SQLiteCommand command = new SQLiteCommand(query, conn);
