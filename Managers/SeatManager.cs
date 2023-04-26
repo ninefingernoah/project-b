@@ -25,11 +25,15 @@ public static class SeatManager {
     public static Dictionary<string, double> GetSeatPrices(Flight flight) {
         // Get seat prices from json
         JObject jsonObj = JSONManager.GetJSON("seatprices.json");
-        string location = flight.Departure == "Schiphol" ? flight.Destination : flight.Departure;
-        JToken priceToken = jsonObj.SelectToken($"$.{flight.Airplane.Name}.{location}");
+        string location = flight.Departure.City == "Amsterdam" ? flight.Destination.City : flight.Departure.City;
+        /* JToken priceToken = jsonObj.SelectToken($"$.{flight.Airplane.Name}.destinations.{location}");
         if (priceToken != null) {
             return JsonConvert.DeserializeObject<Dictionary<string, double>>(priceToken.ToString())!;
         }
-        return null;
+        return null; */
+        var prices = jsonObj[flight.Airplane.Name]["destinations"][location]
+        .Children<JProperty>()
+        .ToDictionary(prop => prop.Name, prop => prop.Value.Value<double>());
+        return prices;
     }
 }

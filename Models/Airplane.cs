@@ -37,6 +37,12 @@ public class Airplane {
     public void InitializeSeats() {
         // get seats from database w seatmanager
         // add seats to _seats
+        // test code
+        /* for (int i = 0; i < _totalCapacity/4; i++) {
+            _seats.Add(new Seat(i.ToString(), "white"));
+            _seats.Add(new Seat(i.ToString(), "dark_blue"));
+            _seats.Add(new Seat(i.ToString(), "purple"));
+        } */
     }
 
 }

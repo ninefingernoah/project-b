@@ -15,13 +15,21 @@ public sealed class ReservationController {
         }
     }
 
-    // TODO: Document method. I have no clue what this method does.
+    /// <summary>
+    /// Sends the user to the seat selection view. Handles the user input.
+    /// </summary>
+    /// <param name="flight">The flight for which the user wants to select seats.</param>
     public void ShowSeatSelection(Flight flight) {
         SeatSelectionView.Instance.Display(flight);
         try {
             int selection = int.Parse(SeatSelectionView.Instance.ViewBag["SeatViewSelection"]);
             if (selection == 1) {
+                // TODO:
                 // confirm seats
+                // create reservation
+                // get seats from viewbag
+                // add seats to reservation
+                // add reservation to database
             }
             else if (selection == 2) {
                 // return to flight details
