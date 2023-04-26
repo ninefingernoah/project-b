@@ -47,7 +47,7 @@ public sealed class MainMenuController {
                 break;
         }
         }
-        catch (Exception e) {
+        catch (Exception) {
             Console.WriteLine("Er is iets fout gegaan.");
             // return to main menu
         }

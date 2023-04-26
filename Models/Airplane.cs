@@ -24,7 +24,7 @@ public class Airplane {
         _seats.Remove(seat);
     }
 
-    public Seat GetSeat(string seatNumber) {
+    public Seat? GetSeat(string seatNumber) {
         foreach (Seat seat in _seats) {
             if (seat.Number == seatNumber) {
                 return seat;

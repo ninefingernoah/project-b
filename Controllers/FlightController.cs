@@ -27,14 +27,21 @@ public class FlightController {
         flightView.Display(flight);
         try {
             int selection = int.Parse(flightView.ViewBag["FlightViewSelection"]);
-            if (selection == 0) {
-                //_seatController.Run(flight);
-            }
-            else if (selection == 1) {
-                MainMenuController.Instance.ShowMainMenu();
+            switch(selection)
+            {
+                case 0:
+                    //_seatController.Run(flight);
+                    break;
+                case 1:
+                    MainMenuController.Instance.ShowMainMenu();
+                    break;
+                default:
+                    Console.WriteLine("Er is iets fout gegaan.");
+                    // return to main menu
+                    break;
             }
         }
-        catch (Exception e) {
+        catch (Exception) {
             Console.WriteLine("Er is iets fout gegaan.");
             // return to main menu
         }
