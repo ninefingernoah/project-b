@@ -6,6 +6,9 @@ public class SeatController {
     private SeatController() {
     }
 
+    /// <summary>
+    /// The singleton instance of the main menu controller. Used for accessing the controller. Thread safe.
+    /// </summary>
     public static SeatController Instance {
         get {
             return instance;
@@ -16,11 +19,12 @@ public class SeatController {
         SeatSelectionView.Instance.Display(flight);
         try {
             string selection = SeatSelectionView.Instance.ViewBag["SeatViewSelection"];
+            // TODO: Use a switch statement.
             if (selection == "1") {
                 // reserve seat
             }
         }
-        catch (Exception e) {
+        catch (Exception) {
             Console.WriteLine("Er is iets fout gegaan.");
             // return to main menu
         }

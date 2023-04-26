@@ -1,4 +1,11 @@
+/// <summary>
+/// The controller for the main menu.
+/// </summary>
 public sealed class MainMenuController {
+
+    /// <summary>
+    /// The singleton instance of the main menu controller. Used for accessing the controller. Thread safe.
+    /// </summary>
     private static readonly MainMenuController instance = new MainMenuController();
 
     static MainMenuController() {
@@ -6,12 +13,18 @@ public sealed class MainMenuController {
     private MainMenuController() {
     }
 
+    /// <summary>
+    /// The singleton instance of the main menu controller. Used for accessing the controller. Thread safe.
+    /// </summary>
     public static MainMenuController Instance {
         get {
             return instance;
         }
     }
 
+    /// <summary>
+    /// Shows the main menu and handles the user input.
+    /// </summary>
     public void ShowMainMenu() {
         MainMenuView.Instance.Display();
         try {
@@ -34,7 +47,7 @@ public sealed class MainMenuController {
                 break;
         }
         }
-        catch (Exception e) {
+        catch (Exception) {
             Console.WriteLine("Er is iets fout gegaan.");
             // return to main menu
         }

@@ -6,12 +6,19 @@ public class FlightListController {
     private FlightListController() {
     }
 
+    /// <summary>
+    /// The singleton instance of the main menu controller. Used for accessing the controller. Thread safe.
+    /// </summary>
     public static FlightListController Instance {
         get {
             return instance;
         }
     }
 
+    // TODO: Enhance the documentation. I have no clue what this method does.
+    /// <summary>
+    /// Shows the flights?
+    /// </summary>
     public void ShowFlights() {
         var flights = new List<Flight>();
         // fill list with flights from database
@@ -25,13 +32,14 @@ public class FlightListController {
         try {
             string selection = flightListView.ViewBag["FlightListSelection"];
             int selectionInt = int.Parse(selection);
+            // Could we use a switch statement here? These tend to be more readable and faster.
             if (selectionInt == flights.Count) {
                 MainMenuController.Instance.ShowMainMenu();
                 return;
             }
             FlightController.Instance.ShowFlight(flights[selectionInt]);
         }
-        catch (Exception e) {
+        catch (Exception) {
             Console.WriteLine("Er is iets fout gegaan.");
             // return to main menu
         }
