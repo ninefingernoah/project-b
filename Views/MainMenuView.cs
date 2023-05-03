@@ -1,4 +1,4 @@
-public class MainMenuView {
+public class MainMenuView : IView {
     private static readonly MainMenuView instance = new MainMenuView();
     public Dictionary<string, string> ViewBag = new Dictionary<string, string>();
 

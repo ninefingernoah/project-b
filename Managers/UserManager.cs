@@ -36,9 +36,16 @@ public static class UserManager
         return true;
     }
 
+    public static bool IsLoggedIn()
+    {
+        return CurrentID != 0;
+    }
+
     public static void LogOut()
     {
         CurrentID = 0;
+        // Clear the viewbag. Prevents the user from showing the wrong info when logging in again.
+        LoginView.Instance.ClearViewBag();
     }
 
     public static string HashedPassword(string password)

@@ -1,4 +1,4 @@
-public class FlightView {
+public class FlightView : IView {
     private static readonly FlightView instance = new FlightView();
     public IDictionary<string, string> ViewBag = new Dictionary<string, string>();
 
@@ -20,6 +20,7 @@ public class FlightView {
     /// Displays the flight and handles the user input.
     /// </summary>
     /// <param name="flight">The flight to display.</param>
+    // TODO: Fix error
     public void Display(Flight flight) {
         string[] options = { "Reserveer stoelen", "Terug" };
         Menu menu = new Menu(flight.ToString(), options);
