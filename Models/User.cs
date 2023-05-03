@@ -11,11 +11,10 @@ public class User {
     public string LastName { get => _lastName; set => _lastName = value; }
     public string Password { get => _password; set => _password = value; }
 
-    public User(int id, string email, string firstName, string lastName, string password) {
+    public User(int id, string email, string firstName, string lastName) {
         _id = id;
         _email = email;
         _firstName = firstName;
         _lastName = lastName;
-        _password = password;
     }
 }

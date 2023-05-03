@@ -1,9 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "a3LRuDQwMng4VJFEPR1KzdCkzjTzdn+BufV1UDjYPET1LW4hO7SG578aAQ1rwFw1eT3nEsaj+7Vtj//OJXTaGw==",
+  "dgSpecHash": "cR8UO5b16+o6I0JLoR/KpDSEeLRjF3lYT6tPMlhKDjllEzDuso2POmDhyu4fkDnQ4h3FTlW7cC0OGAQKj9C5EA==",
   "success": true,
   "projectFilePath": "C:\\Users\\Rens\\Documents\\School\\2022-2023\\Projecten\\project-b-air\\project-b.csproj",
   "expectedPackageFiles": [
+    "C:\\Users\\Rens\\.nuget\\packages\\bcrypt.net-next\\4.0.3\\bcrypt.net-next.4.0.3.nupkg.sha512",
     "C:\\Users\\Rens\\.nuget\\packages\\entityframework\\6.4.4\\entityframework.6.4.4.nupkg.sha512",
     "C:\\Users\\Rens\\.nuget\\packages\\microsoft.csharp\\4.7.0\\microsoft.csharp.4.7.0.nupkg.sha512",
     "C:\\Users\\Rens\\.nuget\\packages\\microsoft.netcore.platforms\\3.1.0\\microsoft.netcore.platforms.3.1.0.nupkg.sha512",
