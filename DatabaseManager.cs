@@ -5,6 +5,18 @@ public static class DatabaseManager {
 
     public static void CreateDatabase() {
         // TODO: Implement logic
+        if (!TableExists("users")) {
+            QueryNonResult(@"
+                CREATE TABLE IF NOT EXISTS users (
+                    id INTEGER NOT NULL PRIMARY KEY,
+                    role TEXT NOT NULL,
+                    first_name TEXT NOT NULL,
+                    last_name TEXT NOT NULL,
+                    email TEXT NOT NULL,
+                    password TEXT NOT NULL
+                );
+                ");
+        }
     }
 
     /// <summary>
@@ -38,6 +50,16 @@ public static class DatabaseManager {
         }
         CloseConnection(conn);
         return true;
+    }
+
+    private static bool TableExists(string tablename)
+    {
+        SQLiteConnection conn = OpenConnection();
+        SQLiteCommand command = new SQLiteCommand($"SELECT name FROM sqlite_master WHERE type='table' AND name='{tablename}';", conn);
+        SQLiteDataReader reader = command.ExecuteReader();
+        bool result = reader.HasRows;
+        CloseConnection(conn);
+        return result;
     }
 
     /// <summary>

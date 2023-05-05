@@ -84,10 +84,10 @@ public sealed class UserController {
         bool success = UserManager.Login(email, password);
         if (success)
         {
-            MainMenuController.Instance.ShowMainMenu();
+            ConsoleUtils.Success("U bent succesvol ingelogd!", MainMenuController.Instance.ShowMainMenu);
             return;
         }
-        ConsoleUtils.Error("Inloggen mislukt.", ShowLoginMenu);
+        ConsoleUtils.Error("De combinatie van email en wachtwoord waren niet correct. Probeer het nog een keer!", ShowLoginMenu);
     }
 
     /*

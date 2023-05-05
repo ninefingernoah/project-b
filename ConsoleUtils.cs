@@ -17,7 +17,26 @@ public static class ConsoleUtils
     /// <param name="message">The message to display.</param>
     public static void Error(string message)
     {
+        Console.Clear();
         Console.ForegroundColor = ConsoleColor.Red;
+        Console.WriteLine(message);
+        Console.ResetColor();
+        Console.WriteLine();
+        Console.WriteLine("Druk op een toets om door te gaan...");
+        Console.ReadKey();
+        Console.Clear();
+    }
+
+    public static void Success(string message, Action func)
+    {
+        Success(message);
+        func();
+    }
+
+    public static void Success(string message)
+    {
+        Console.Clear();
+        Console.ForegroundColor = ConsoleColor.Green;
         Console.WriteLine(message);
         Console.ResetColor();
         Console.WriteLine();

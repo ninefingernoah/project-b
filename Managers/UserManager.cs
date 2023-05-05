@@ -28,11 +28,13 @@ public static class UserManager
     {
         if (CurrentID != 0)
             return false;
-        string inputPassword = HashedPassword(password);
-        DataTable dt = DatabaseManager.QueryResult($"SELECT * FROM users WHERE email = '{email}' AND password = '{inputPassword}'");
-        if (dt.Rows.Count < 1)
+        DataTable dt = DatabaseManager.QueryResult($"SELECT * FROM users WHERE email = '{email}';");
+        if (dt.Rows.Count == 0)
             return false;
-        CurrentID = (int)dt.Rows[0]["id"];
+        string dbPassword = (string)dt.Rows[0]["password"];
+        if (!BCrypt.Net.BCrypt.Verify(password, dbPassword))
+            return false;
+        CurrentID = (int)(long)dt.Rows[0]["id"];
         return true;
     }
 
