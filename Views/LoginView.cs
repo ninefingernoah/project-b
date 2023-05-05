@@ -25,7 +25,8 @@ public class LoginView : IView {
         // TODO: Is deze manier een beetje oke?
         List<string> optionsList = new List<string>() {
             $"Email: {ViewBag["email"]}",
-            $"Password: {ViewBag["password"]}",
+            $"Password: {ViewBag["displaypassword"]}",
+            "-",
             "Login",
             "Ga terug"
         };
@@ -36,10 +37,12 @@ public class LoginView : IView {
     }
 
     private void PopulateViewBag() {
-        if(ViewBag["email"] == null)
+        if(!ViewBag.ContainsKey("email"))
             ViewBag["email"] = "<vul in>";
-        if(ViewBag["password"] == null)
-            ViewBag["password"] = "<vul in>";
+        if(!ViewBag.ContainsKey("password"))
+            ViewBag["password"] = "";
+        if(!ViewBag.ContainsKey("displaypassword"))
+            ViewBag["displaypassword"] = "<vul in>";
     }
 
     public void ClearViewBag() {

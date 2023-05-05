@@ -22,26 +22,75 @@ public sealed class UserController {
         }
     }
 
+    /*
+    *   LOGIN SECTION
+    */
+
+    /// <summary>
+    /// Shows the login menu and handles the user input.
+    /// </summary>
     public void ShowLoginMenu() {
         LoginView.Instance.Display();
         int choice = int.Parse(LoginView.Instance.ViewBag["MainMenuSelection"]);
         switch(choice) {
             case 0:
-            ShowEmailInputMenu();
+                ShowLoginEmailInputMenu();
                 break;
-            case 2:
+            case 1:
+                ShowLoginPasswordInputMenu();
+                break;
+            case 3:
                 // TODO: Implement login
                 // Clear viewbag to prevent the user from showing the wrong info when logging in again.
                 // Navigate to main menu (make sure the user sees the authenticated version)
+                Login(LoginView.Instance.ViewBag["email"], LoginView.Instance.ViewBag["password"]);
                 break;
-            case 3:
+            case 4:
                 LoginView.Instance.ClearViewBag();
-                MainMenuView.Instance.Display();
+                MainMenuController.Instance.ShowMainMenu();
                 break;
         }
     }
 
-    public void ShowEmailInputMenu() {
-        
+    private void ShowLoginEmailInputMenu() {
+        StringInputMenu menu = new StringInputMenu("Vul uw emailadres in:");
+        string? email = menu.Run();
+        if (email == null)
+        {
+            ShowLoginMenu();
+            return;
+        }
+
+        LoginView.Instance.ViewBag["email"] = email!;
+        ShowLoginMenu();
     }
+
+    private void ShowLoginPasswordInputMenu() {
+        StringInputMenu menu = new StringInputMenu("Vul uw wachtwoord in:");
+        string? password = menu.Run();
+        if (password == null)
+        {
+            ShowLoginMenu();
+            return;
+        }
+        
+        LoginView.Instance.ViewBag["password"] = password!;
+        LoginView.Instance.ViewBag["displaypassword"] = new string('*', password!.Length);
+        ShowLoginMenu();
+    }
+
+    private void Login(string email, string password)
+    {
+        bool success = UserManager.Login(email, password);
+        if (success)
+        {
+            MainMenuController.Instance.ShowMainMenu();
+            return;
+        }
+        ConsoleUtils.Error("Inloggen mislukt.", ShowLoginMenu);
+    }
+
+    /*
+    *   REGISTER SECTION
+    */
 }

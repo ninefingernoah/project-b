@@ -34,7 +34,7 @@ public sealed class MainMenuController {
                 // Registreren
                 break;
             case 1:
-                // Inloggen
+                UserController.Instance.ShowLoginMenu();
                 break;
             case 2:
                 FlightListController.Instance.ShowFlights();
