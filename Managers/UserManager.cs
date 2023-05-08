@@ -54,4 +54,25 @@ public static class UserManager
     {
         return BCrypt.Net.BCrypt.HashPassword(password);
     }
+
+    public static void Register(string fname, string lname, string email, string pass)
+    {
+        if (UserExists(email))
+        {
+            ConsoleUtils.Error("Een gebruiker met dit emailadres bestaat al.", UserController.Instance.ShowRegisterMenu);
+            return;
+        }
+        string hashedPass = HashedPassword(pass);
+        DatabaseManager.QueryNonResult($"INSERT INTO users (first_name, last_name, role, email, password) VALUES ('{fname}', '{lname}', 'USER', '{email}', '{hashedPass}');");
+        if (!Login(email, pass))
+        {
+            throw new Exception("Failed to login after registering.");
+        }
+    }
+
+    public static bool UserExists(string email)
+    {
+        DataTable dt = DatabaseManager.QueryResult($"SELECT * FROM users WHERE email = '{email}';");
+        return dt.Rows.Count > 0;
+    }
 }

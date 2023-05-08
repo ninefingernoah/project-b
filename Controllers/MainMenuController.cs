@@ -40,7 +40,7 @@ public sealed class MainMenuController {
             int selectionInt = int.Parse(MainMenuView.Instance.ViewBag["MainMenuSelection"]);
             switch (selectionInt) {
             case 0:
-                // Registreren
+                UserController.Instance.ShowRegisterMenu();
                 break;
             case 1:
                 UserController.Instance.ShowLoginMenu();
@@ -49,7 +49,6 @@ public sealed class MainMenuController {
                 FlightListController.Instance.ShowFlights();
                 break;
             case 3:
-                Environment.Exit(0);
                 break;
             default:
                 Console.WriteLine("Ongeldige keuze.");
