@@ -16,7 +16,7 @@ public static class UserManager
     {
         if (dr == null)
             return null;
-        int id = (int)dr["id"];
+        int id = (int)(long)dr["id"];
         string email = (string)dr["email"];
         string firstName = (string)dr["first_name"];
         string lastName = (string)dr["last_name"];
