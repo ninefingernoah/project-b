@@ -47,9 +47,7 @@
             "System.Data.SQLITE": {
               "target": "Package",
               "version": "[1.0.117, )"
-            }
-          },
-          "dependencies": {
+            },
             "Newtonsoft.Json": {
               "target": "Package",
               "version": "[13.0.3, )"
