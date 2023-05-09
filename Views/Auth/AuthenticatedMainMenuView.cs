@@ -1,10 +1,10 @@
-public class MainMenuView : IView {
-    private static readonly MainMenuView instance = new MainMenuView();
+public class AuthenticatedMainMenuView : IView {
+    private static readonly AuthenticatedMainMenuView instance = new AuthenticatedMainMenuView();
     public Dictionary<string, string> ViewBag = new Dictionary<string, string>();
 
-    static MainMenuView() {
+    static AuthenticatedMainMenuView() {
     }
-    private MainMenuView() {
+    private AuthenticatedMainMenuView() {
     }
 
     /// <summary>
@@ -12,13 +12,13 @@ public class MainMenuView : IView {
     /// </summary>
     public void Display() {
         List<string> optionsList = new List<string>() {
-            "Registreren",
-            "Inloggen",
-            "Zoek vlucht",
-            "Afsluiten"
+            "Bekijk reserveringen",
+            "Bekijk accountgegegvens",
+            "-",
+            "Uitloggen"
         };
         string[] options = optionsList.ToArray();
-        Menu mainMenu = new Menu("Main Menu", options);
+        Menu mainMenu = new Menu($"Welkom {UserManager.GetCurrentUser()!.FirstName}", options);
         int choice = mainMenu.Run();
         ViewBag["MainMenuSelection"] = choice.ToString();
     }
@@ -26,7 +26,7 @@ public class MainMenuView : IView {
     /// <summary>
     /// The singleton instance of the main menu controller. Used for accessing the controller. Thread safe.
     /// </summary>
-    public static MainMenuView Instance {
+    public static AuthenticatedMainMenuView Instance {
         get {
             return instance;
         }

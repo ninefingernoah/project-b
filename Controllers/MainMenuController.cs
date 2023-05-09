@@ -26,30 +26,75 @@ public sealed class MainMenuController {
     /// Shows the main menu and handles the user input.
     /// </summary>
     public void ShowMainMenu() {
+        if(UserManager.IsLoggedIn()) {
+            ShowAuthenticatedMainMenu();
+        } else {
+            ShowUnauthenticatedMainMenu();
+        }
+    }
+
+    /// <summary>
+    /// Shows the unauthenticated main menu and handles the user input.
+    /// </summary>
+    private void ShowUnauthenticatedMainMenu()
+    {
         MainMenuView.Instance.Display();
         try {
             int selectionInt = int.Parse(MainMenuView.Instance.ViewBag["MainMenuSelection"]);
             switch (selectionInt) {
             case 0:
-                // Registreren
+                RegisterController.Instance.ShowRegisterMenu();
                 break;
             case 1:
-                // Inloggen
+                LoginController.Instance.ShowLoginMenu();
                 break;
             case 2:
                 FlightListController.Instance.ShowFlights();
                 break;
             case 3:
-                Environment.Exit(0);
                 break;
             default:
                 Console.WriteLine("Ongeldige keuze.");
                 break;
         }
         }
-        catch (Exception e) {
-            Console.WriteLine("Er is iets fout gegaan.");
+        catch (Exception) {
+            ConsoleUtils.Error("Er is iets fout gegaan.");
+            ShowMainMenu();
             // return to main menu
         }
     }
+
+    /// <summary>
+    /// Shows the authenticated main menu and handles the user input.
+    /// </summary>
+    private void ShowAuthenticatedMainMenu()
+    {
+        AuthenticatedMainMenuView.Instance.Display();
+        try
+        {
+            int selection = int.Parse(AuthenticatedMainMenuView.Instance.ViewBag["MainMenuSelection"]);
+            switch (selection)
+            {
+                case 0:
+                    // FlightListController.Instance.ShowFlights();
+                    break;
+                case 1:
+                    // View account info
+                    break;
+                case 3:
+                    // Log out
+                    UserManager.LogOut();
+                    ConsoleUtils.Success("U bent uitgelogd.");
+                    ShowUnauthenticatedMainMenu();
+                    break;
+            }
+        }
+        catch (Exception)
+        {
+            ConsoleUtils.Error("Er is iets fout gegaan.");
+            ShowMainMenu();
+        }
+    }
+    
 }

@@ -11,10 +11,11 @@ public class Passenger {
     public string LastName { get => _lastName; set => _lastName = value; }
     public string DocumentNumber { get => _documentNumber; set => _documentNumber = value; }
 
-    public Passenger(int id, string email, string firstName, string lastName, string password) {
+    public Passenger(int id, string email, string firstName, string lastName, string documentNumber) {
         _id = id;
         _email = email;
         _firstName = firstName;
         _lastName = lastName;
+        _documentNumber = documentNumber;
     }
 }

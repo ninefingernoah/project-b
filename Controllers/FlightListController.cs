@@ -34,13 +34,14 @@ public class FlightListController {
         try {
             string selection = flightListView.ViewBag["FlightListSelection"];
             int selectionInt = int.Parse(selection);
+            // Could we use a switch statement here? These tend to be more readable and faster.
             if (selectionInt == flights.Count) {
                 MainMenuController.Instance.ShowMainMenu();
                 return;
             }
             FlightController.Instance.ShowFlight(flights[selectionInt]);
         }
-        catch (Exception e) {
+        catch (Exception) {
             Console.WriteLine("Er is iets fout gegaan.");
             // return to main menu
         }
