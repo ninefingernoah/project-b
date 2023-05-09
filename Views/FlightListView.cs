@@ -21,7 +21,7 @@ public class FlightListView : IView {
     /// </summary>
     /// <param name="flights">The flights to display.</param>
     public void Show(List<Flight> flights) {
-        string[] options = flights.Select(f => f.Id.ToString()).ToArray();
+        string[] options = flights.Select(f => f.Destination.ToString()).ToArray();
         options.Append("-");
         options.Append("Terug");
         Menu menu = new Menu("Gevonden vluchten", options);
