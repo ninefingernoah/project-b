@@ -33,6 +33,9 @@ public sealed class MainMenuController {
         }
     }
 
+    /// <summary>
+    /// Shows the unauthenticated main menu and handles the user input.
+    /// </summary>
     private void ShowUnauthenticatedMainMenu()
     {
         MainMenuView.Instance.Display();
@@ -40,10 +43,10 @@ public sealed class MainMenuController {
             int selectionInt = int.Parse(MainMenuView.Instance.ViewBag["MainMenuSelection"]);
             switch (selectionInt) {
             case 0:
-                UserController.Instance.ShowRegisterMenu();
+                RegisterController.Instance.ShowRegisterMenu();
                 break;
             case 1:
-                UserController.Instance.ShowLoginMenu();
+                LoginController.Instance.ShowLoginMenu();
                 break;
             case 2:
                 FlightListController.Instance.ShowFlights();
@@ -62,6 +65,9 @@ public sealed class MainMenuController {
         }
     }
 
+    /// <summary>
+    /// Shows the authenticated main menu and handles the user input.
+    /// </summary>
     private void ShowAuthenticatedMainMenu()
     {
         AuthenticatedMainMenuView.Instance.Display();

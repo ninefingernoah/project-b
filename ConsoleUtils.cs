@@ -27,12 +27,21 @@ public static class ConsoleUtils
         Console.Clear();
     }
 
+    /// <summary>
+    /// Clears the console and displays the given message.
+    /// </summary>
+    /// <param name="message">The message to display.</param>
+    /// <param name="func">The function to call after the user presses a key.</param>
     public static void Success(string message, Action func)
     {
         Success(message);
         func();
     }
 
+    /// <summary>
+    /// Clears the console and displays the given message.
+    /// </summary>
+    /// <param name="message">The message to display.</param>
     public static void Success(string message)
     {
         Console.Clear();
