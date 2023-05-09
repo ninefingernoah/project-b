@@ -1,4 +1,4 @@
-public class FlightListView {
+public class FlightListView : IView {
     public IDictionary<string, string> ViewBag = new Dictionary<string, string>();
     private static readonly FlightListView instance = new FlightListView();
 
@@ -28,4 +28,7 @@ public class FlightListView {
         int selection = menu.Run();
         ViewBag["FlightListSelection"] = selection.ToString();
     }
+
+    public void Display()
+    {}
 }

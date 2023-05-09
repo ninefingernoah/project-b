@@ -1,16 +1,16 @@
-public class LoginView : IView {
-    private static readonly LoginView instance = new LoginView();
+public class RegisterView : IView {
+    private static readonly RegisterView instance = new RegisterView();
     public Dictionary<string, string> ViewBag = new Dictionary<string, string>();
 
-    static LoginView() {
+    static RegisterView() {
     }
-    private LoginView() {
+    private RegisterView() {
     }
 
     /// <summary>
     /// The singleton instance of the main menu controller. Used for accessing the controller. Thread safe.
     /// </summary>
-    public static LoginView Instance {
+    public static RegisterView Instance {
         get {
             return instance;
         }
@@ -24,15 +24,18 @@ public class LoginView : IView {
         PopulateViewBag();
         // TODO: Is deze manier een beetje oke?
         List<string> optionsList = new List<string>() {
+            $"Voornaam: {ViewBag["firstname"]}",
+            $"Achternaam: {ViewBag["lastname"]}",
             $"Email: {ViewBag["email"]}",
-            $"Password: {ViewBag["displaypassword"]}",
+            $"Wachtwoord: {ViewBag["displaypassword"]}",
+            $"Bevestig wachtwoord: {ViewBag["cdisplaypassword"]}",
             "-",
-            "Login",
+            "Registreer",
             "Ga terug"
         };
         string[] options = optionsList.ToArray();
-        Menu loginMenu = new Menu("Inloggen", options);
-        int choice = loginMenu.Run();
+        Menu registermenu = new Menu("Registreren", options);
+        int choice = registermenu.Run();
         ViewBag["MainMenuSelection"] = choice.ToString();
     }
 
@@ -43,6 +46,14 @@ public class LoginView : IView {
             ViewBag["password"] = "";
         if(!ViewBag.ContainsKey("displaypassword"))
             ViewBag["displaypassword"] = "<vul in>";
+        if(!ViewBag.ContainsKey("cpassword"))
+            ViewBag["cpassword"] = "";
+        if(!ViewBag.ContainsKey("cdisplaypassword"))
+            ViewBag["cdisplaypassword"] = "<vul in>";
+        if(!ViewBag.ContainsKey("firstname"))
+            ViewBag["firstname"] = "<vul in>";
+        if(!ViewBag.ContainsKey("lastname"))
+            ViewBag["lastname"] = "<vul in>";
     }
 
     public void ClearViewBag() {
