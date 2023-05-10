@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Rens\\School\\2022-2023\\Projects\\Project-b-airline\\project-b\\project-b.csproj": {}
+    "C:\\Users\\noahm\\Documents\\school\\semester 2\\Project B v2\\project-b\\project-b.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Rens\\School\\2022-2023\\Projects\\Project-b-airline\\project-b\\project-b.csproj": {
+    "C:\\Users\\noahm\\Documents\\school\\semester 2\\Project B v2\\project-b\\project-b.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Rens\\School\\2022-2023\\Projects\\Project-b-airline\\project-b\\project-b.csproj",
+        "projectUniqueName": "C:\\Users\\noahm\\Documents\\school\\semester 2\\Project B v2\\project-b\\project-b.csproj",
         "projectName": "project-b",
-        "projectPath": "C:\\Users\\Rens\\School\\2022-2023\\Projects\\Project-b-airline\\project-b\\project-b.csproj",
-        "packagesPath": "C:\\Users\\Rens\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Rens\\School\\2022-2023\\Projects\\Project-b-airline\\project-b\\obj\\",
+        "projectPath": "C:\\Users\\noahm\\Documents\\school\\semester 2\\Project B v2\\project-b\\project-b.csproj",
+        "packagesPath": "C:\\Users\\noahm\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\noahm\\Documents\\school\\semester 2\\Project B v2\\project-b\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\Rens\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\noahm\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -44,13 +44,13 @@
               "target": "Package",
               "version": "[4.0.3, )"
             },
-            "System.Data.SQLITE": {
-              "target": "Package",
-              "version": "[1.0.117, )"
-            },
             "Newtonsoft.Json": {
               "target": "Package",
               "version": "[13.0.3, )"
+            },
+            "System.Data.SQLITE": {
+              "target": "Package",
+              "version": "[1.0.117, )"
             }
           },
           "imports": [
