@@ -46,4 +46,12 @@ public class FlightController {
             // return to main menu
         }
     }
+
+    /// <summary>
+    public void ShowFlightEditor(Flight flight)
+    {
+        FlightEditorView.Instance.PopulateViewBag(flight);
+        FlightEditorView.Instance.Display();
+        
+    }
 }

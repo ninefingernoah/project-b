@@ -25,6 +25,17 @@ public class Flight {
         _takenSeats = new List<Seat>();
     }
 
+    public Flight(Flight flight)
+    {
+        _id = flight.Id;
+        _departure = flight.Departure;
+        _destination = flight.Destination;
+        _departureTime = flight.DepartureTime;
+        _arrivalTime = flight.ArrivalTime;
+        _airplane = flight.Airplane;
+        _takenSeats = flight.TakenSeats;
+    }
+
     public override string ToString()
     {
         string flightString = $"Flight {Id} from {Departure} to {Destination}\n";
