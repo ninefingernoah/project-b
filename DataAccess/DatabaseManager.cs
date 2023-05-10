@@ -28,9 +28,9 @@ public static class DatabaseManager
             ");
         QueryNonResult(@"
                 CREATE TABLE IF NOT EXISTS airplanes (
-	                id	INTEGER NOT NULL PRIMARY KEY,
+	                id INTEGER NOT NULL PRIMARY KEY,
 	                name TEXT NOT NULL,
-	                total_capacity INTEGER NOT NULL,
+	                total_capacity INTEGER NOT NULL
                 );
             ");
         QueryNonResult(@"
