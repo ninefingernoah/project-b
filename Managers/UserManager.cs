@@ -30,7 +30,8 @@ public static class UserManager
         string email = (string)dr["email"];
         string firstName = (string)dr["first_name"];
         string lastName = (string)dr["last_name"];
-        User user = new User(id, email, firstName, lastName);
+        string role = (string)dr["role"];
+        User user = new User(id, email, firstName, lastName, role);
         return user;
     }
 

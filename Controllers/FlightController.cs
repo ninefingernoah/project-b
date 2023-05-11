@@ -145,6 +145,7 @@ public class FlightController
                 MainMenuController.Instance.ShowMainMenu();
                 break;
             case 9: // Go back
+                MainMenuController.Instance.ShowMainMenu();
                 break;
         }
     }
