@@ -56,12 +56,18 @@ public class FlightController
     }
 
     /// <summary>
+    /// Displays the menu for booking a flight and handles the user input. This method populates the viewbag with the flight.
+    /// </summary>
+    /// <param name="flight">The flight to edit.</param>
     public void ShowFlightEditor(Flight flight)
     {
         FlightEditorView.Instance.PopulateViewBag(flight);
         ShowFlightEditor();
     }
 
+    /// <summary>
+    /// Displays the menu for booking a flight and handles the user input. This method assumes the viewbag is already populated with the flight.
+    /// </summary>
     private void ShowFlightEditor()
     {
         if (FlightEditorView.Instance.CurrentFlight == null)
@@ -150,6 +156,10 @@ public class FlightController
         }
     }
 
+    /// <summary>
+    /// Prompts the user for a date and time. Returns null if the user cancels.
+    /// </summary>
+    /// <returns>DateTime or null</returns>
     private DateTime? GetDateTime()
     {
         StringInputMenu menu = new StringInputMenu("Voer een datum in (dd-mm-jjjj), of 'Terug' om terug te gaan.");
@@ -193,6 +203,10 @@ public class FlightController
         return dateTime;
     }
 
+    /// <summary>
+    /// Prompts the user to select an airport from a list of airports.
+    /// </summary>
+    /// <returns>Airport or null</returns>
     private Airport? GetAirport()
     {
         List<Airport> airports = AirportManager.GetAirports();
@@ -217,6 +231,7 @@ public class FlightController
     /// <summary>
     /// Prompts the user to select an airplane from a list of airplanes.
     /// </summary>
+    /// <returns>Airplane or null</returns>
     private Airplane? GetAirplane()
     {
         List<Airplane> airplanes = AirplaneManager.GetAirplanes();

@@ -15,6 +15,10 @@ public static class AirplaneManager {
         return true;
     }
 
+    /// <summary>
+    /// Gets an airplane from the database.
+    /// </summary>
+    /// <param name="id">The ID of the airplane to get.</param>
     public static Airplane? GetAirplane(int id) {
         // Get an airplane from the database
         DataRow dr = DatabaseManager.QueryResult($"SELECT * FROM airplanes WHERE id = {id}").Rows[0];
@@ -26,6 +30,9 @@ public static class AirplaneManager {
         return airplane;
     }
 
+    /// <summary>
+    /// Gathers all the airplanes from the database.
+    /// </summary>
     public static List<Airplane> GetAirplanes()
     {
         DataTable dt = DatabaseManager.QueryResult($"SELECT * FROM airplanes");

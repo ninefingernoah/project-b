@@ -1,6 +1,10 @@
 using System.Data;
 public static class FlightManager
 {
+    /// <summary>
+    /// Gets a specific flight from the database and creates a Flight object from it.
+    /// </summary>
+    /// <param name="id">The ID of the flight to get.</param>
     public static Flight GetFlight(int id)
     {
         DataRow dr = DatabaseManager.QueryResult($"SELECT * FROM flights WHERE id = {id}").Rows[0];

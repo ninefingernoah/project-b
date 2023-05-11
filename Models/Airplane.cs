@@ -35,7 +35,7 @@ public class Airplane {
 
     public override string ToString()
     {
-        return $"{Name} ({TotalCapacity} seats)";
+        return $"{Name} ({TotalCapacity} stoelen)";
     }
 
     // public abstract void InitializeSeats();
