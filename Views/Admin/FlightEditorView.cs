@@ -16,8 +16,8 @@ public class FlightEditorView : IView {
         }
 
         List<string> optionsList = new List<string>() {
-            $"Vertrek vanaf: {CurrentFlight.Departure}",
-            $"Aankomst op: {CurrentFlight.Destination}",
+            $"Vertrek vanaf: {CurrentFlight.Departure.Name}",
+            $"Aankomst op: {CurrentFlight.Destination.Name}",
             $"Vliegtuig: {CurrentFlight.Airplane.Name}",
             $"Vertrekdatum: {CurrentFlight.DepartureTime.ToString("dd-MM-yyyy HH:mm")}",
             $"Aankomstdatum: {CurrentFlight.ArrivalTime.ToString("dd-MM-yyyy HH:mm")}",
