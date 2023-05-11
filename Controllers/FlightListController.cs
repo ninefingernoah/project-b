@@ -23,12 +23,10 @@ public class FlightListController {
         var flights = new List<Flight>();
         // fill list with flights from database
         // for now
-        Airplane airplane = new Airplane(1, 100, "Airbus_330");
-        Airport schiphol = new Airport(1, "Schiphol", "Amsterdam", "Netherlands");
-        Airport londen = new Airport(2, "Heathrow", "Londen", "England");
-        flights.Add(new Flight(1, schiphol, londen, new DateTime(2019, 1, 1), new DateTime(2019, 1, 2), airplane));
-        flights.Add(new Flight(2, schiphol, londen, new DateTime(2019, 1, 3), new DateTime(2019, 1, 4), airplane));
-        flights.Add(new Flight(3, schiphol, londen, new DateTime(2019, 1, 5), new DateTime(2019, 1, 6), airplane));
+        Airplane airplane = new Airplane(1, 100, "Boeing je moeder");
+        // flights.Add(new Flight(1, "Amsterdam", "New York", new DateTime(2019, 1, 1), new DateTime(2019, 1, 2), airplane));
+        // flights.Add(new Flight(2, "Amsterdam", "New York", new DateTime(2019, 1, 3), new DateTime(2019, 1, 4), airplane));
+        // flights.Add(new Flight(3, "Amsterdam", "New York", new DateTime(2019, 1, 5), new DateTime(2019, 1, 6), airplane));
         FlightListView flightListView = FlightListView.Instance;
         flightListView.Show(flights);
         try {

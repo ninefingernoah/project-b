@@ -1,22 +1,34 @@
-public static class FlightManager {
+using System.Data;
+public static class FlightManager
+{
+    public static Flight GetFlight(int id)
+    {
+        DataRow dr = DatabaseManager.QueryResult($"SELECT * FROM flights WHERE id = {id}").Rows[0];
+        int departureId = (int)(long)dr["departure_id"];
+        int destinationId = (int)(long)dr["destination_id"];
 
-    public static bool AddFlight(Flight flight) {
-        // Add a flight to the database
-        return true;
-    }
+        Airport? departure = AirportManager.GetAirport(departureId);
+        Airport? destination = AirportManager.GetAirport(destinationId);
+        if (departure == null || destination == null)
+        {
+            throw new Exception("Departure or destination is null");
+        }
 
-    public static bool RemoveFlight(Flight flight) {
-        // Remove a flight from the database
-        return true;
-    }
-
-    public static bool UpdateFlight(Flight flight) {
-        // Update a flight in the database
-        return true;
-    }
-
-    public static Flight GetFlight(int id) {
-        // Get a flight from the database
-        return null;
+        DateTime departureTime = DateTime.Parse((string)dr["departure_time"]);
+        DateTime arrivalTime = DateTime.Parse((string)dr["arrival_time"]);
+        Airplane? airplane = AirplaneManager.GetAirplane((int)(long)dr["airplane_id"]);
+        if (airplane == null)
+        {
+            throw new Exception("Airplane is null");
+        }
+        Flight flight = new Flight(
+            (int)(long)dr["id"],
+            departure,
+            destination,
+            departureTime,
+            arrivalTime,
+            airplane
+        );
+        return flight;
     }
 }

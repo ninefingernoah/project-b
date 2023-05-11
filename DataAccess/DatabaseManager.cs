@@ -38,7 +38,8 @@ public static class DatabaseManager
                     id INTEGER NOT NULL PRIMARY KEY,
                     name TEXT NOT NULL,
                     city TEXT NOT NULL,
-                    country TEXT NOT NULL
+                    country TEXT NOT NULL,
+                    code TEXT NOT NULL
                 );
             ");
         QueryNonResult(@"
@@ -134,7 +135,7 @@ public static class DatabaseManager
             {
                 command.ExecuteNonQuery();
             }
-            catch (SQLiteException ex)
+            catch (SQLiteException)
             {
                 result = false;
             }
