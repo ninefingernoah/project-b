@@ -22,12 +22,20 @@ public class FlightEditorView : IView {
             $"Vertrekdatum: {CurrentFlight.DepartureTime.ToString("dd-MM-yyyy HH:mm")}",
             $"Aankomstdatum: {CurrentFlight.ArrivalTime.ToString("dd-MM-yyyy HH:mm")}",
             "-",
+            "Opslaan",
             "Verwijder",
             "-",
             "Terug"
         };
         string[] options = optionsList.ToArray();
-        Menu editorMenu = new Menu("Vlucht bewerken", options);
+        Menu editorMenu;
+        if(ViewBag.ContainsKey("MainMenuSelection"))
+        {
+            editorMenu = new Menu("Vlucht bewerken", options, int.Parse((string)ViewBag["MainMenuSelection"]));
+        } else
+        {
+            editorMenu = new Menu("Vlucht bewerken", options);
+        }
         int choice = editorMenu.Run();
         ViewBag["MainMenuSelection"] = choice.ToString();
     }

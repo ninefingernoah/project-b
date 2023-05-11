@@ -25,4 +25,20 @@ public static class AirplaneManager {
         );
         return airplane;
     }
+
+    public static List<Airplane> GetAirplanes()
+    {
+        DataTable dt = DatabaseManager.QueryResult($"SELECT * FROM airplanes");
+        List<Airplane> airplanes = new List<Airplane>();
+        foreach(DataRow dr in dt.Rows)
+        {
+            Airplane airplane = new Airplane(
+                (int)(long)dr["id"],
+                (int)(long)dr["total_capacity"],
+                (string)dr["name"]
+            );
+            airplanes.Add(airplane);
+        }
+        return airplanes;
+    }
 }

@@ -31,4 +31,14 @@ public static class FlightManager
         );
         return flight;
     }
+
+    /// <summary>
+    /// Updates the flight in the database.
+    /// </summary>
+    /// <param name="flight">The flight to update.</param>
+    public static void UpdateFlight(Flight flight)
+    {
+        DatabaseManager.QueryNonResult($"UPDATE flights SET departure_id = {flight.Departure.Id}, destination_id = {flight.Destination.Id}, departure_time = '{flight.DepartureTime.ToString("dd-MM-yyyy HH:mm")}', arrival_time = '{flight.ArrivalTime.ToString("dd-MM-yyyy HH:mm")}', airplane_id = {flight.Airplane.Id} WHERE id = {flight.Id}");
+        // TODO: Rebook passengers if airplane capacity is smaller than before.
+    }
 }

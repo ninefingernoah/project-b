@@ -33,6 +33,11 @@ public class Airplane {
         return null;
     }
 
+    public override string ToString()
+    {
+        return $"{Name} ({TotalCapacity} seats)";
+    }
+
     // public abstract void InitializeSeats();
 
 }
