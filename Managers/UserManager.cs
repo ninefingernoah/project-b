@@ -39,7 +39,7 @@ public static class UserManager
     /// </summary>
     public static bool Login(string email, string password)
     {
-        if (CurrentID != 0)
+        if (IsLoggedIn())
             return false;
         DataTable dt = DatabaseManager.QueryResult($"SELECT * FROM users WHERE email = '{email}';");
         if (dt.Rows.Count == 0)
