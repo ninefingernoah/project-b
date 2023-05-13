@@ -34,7 +34,14 @@ public class RegisterView : IView {
             "Ga terug"
         };
         string[] options = optionsList.ToArray();
-        Menu registermenu = new Menu("Registreren", options);
+        Menu registermenu;
+        if (ViewBag.ContainsKey("MainMenuSelection"))
+        {
+            registermenu = new Menu("Registreren", options, int.Parse((string)ViewBag["MainMenuSelection"]));
+        } else
+        {
+            registermenu = new Menu("Registreren", options);
+        }
         int choice = registermenu.Run();
         ViewBag["MainMenuSelection"] = choice.ToString();
     }

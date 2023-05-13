@@ -1,6 +1,10 @@
 using System.Data;
 public static class FlightManager
 {
+    /// <summary>
+    /// Gets a specific flight from the database and creates a Flight object from it.
+    /// </summary>
+    /// <param name="id">The ID of the flight to get.</param>
     public static Flight GetFlight(int id)
     {
         DataRow dr = DatabaseManager.QueryResult($"SELECT * FROM flights WHERE id = {id}").Rows[0];
@@ -77,5 +81,15 @@ public static class FlightManager
             flights.Add(flight);
         }
         return flights;
+    }
+
+    /// <summary>
+    /// Updates the flight in the database.
+    /// </summary>
+    /// <param name="flight">The flight to update.</param>
+    public static void UpdateFlight(Flight flight)
+    {
+        DatabaseManager.QueryNonResult($"UPDATE flights SET departure_id = {flight.Departure.Id}, destination_id = {flight.Destination.Id}, departure_time = '{flight.DepartureTime.ToString("dd-MM-yyyy HH:mm")}', arrival_time = '{flight.ArrivalTime.ToString("dd-MM-yyyy HH:mm")}', airplane_id = {flight.Airplane.Id} WHERE id = {flight.Id}");
+        // TODO: Rebook passengers if airplane capacity is smaller than before.
     }
 }

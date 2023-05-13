@@ -34,6 +34,12 @@ public class Airplane {
         return null;
     }
 
+    public override string ToString()
+    {
+        return $"{Name} ({TotalCapacity} stoelen)";
+    }
+
+    // public abstract void InitializeSeats();
     public void InitializeSeats() {
         // get seats from database w seatmanager
         // add seats to _seats

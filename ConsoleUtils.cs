@@ -55,46 +55,18 @@ public static class ConsoleUtils
     }
 
     /// <summary>
-    /// 
-    public static string ReadString(string message) {
-        Console.Write(message);
-        return Console.ReadLine();
+    /// Clears the console and displays the given message.
+    /// </summary>
+    /// <param name="message">The message to display.</param>
+    public static void Warn(string msg)
+    {
+        Console.Clear();
+        Console.ForegroundColor = ConsoleColor.Yellow;
+        Console.WriteLine(msg);
+        Console.ResetColor();
+        Console.WriteLine();
+        Console.WriteLine("Druk op een toets om door te gaan...");
+        Console.ReadKey();
+        Console.Clear();
     }
-
-    public static int ReadInt(string message) {
-        Console.Write(message);
-        try {
-            return Convert.ToInt32(Console.ReadLine());
-        }
-        catch (Exception e) {
-            Console.WriteLine(e.Message);
-            Console.WriteLine("Er is iets fout gegaan.");
-        }
-        return 0;
-    }
-
-    public static DateTime ReadDateTime(string message) {
-        Console.Write(message);
-        try {
-            return Convert.ToDateTime(Console.ReadLine());
-        }
-        catch (Exception e) {
-            Console.WriteLine(e.Message);
-            Console.WriteLine("Er is iets fout gegaan.");
-        }
-        return DateTime.MinValue;
-    }
-
-    public static double ReadDouble(string message) {
-        Console.Write(message + ": ");
-        try {
-            return Convert.ToDouble(Console.ReadLine());
-        }
-        catch (Exception e) {
-            Console.WriteLine(e.Message);
-            Console.WriteLine("Er is iets fout gegaan.");
-        }
-        return 0;
-    }
-    
 }
