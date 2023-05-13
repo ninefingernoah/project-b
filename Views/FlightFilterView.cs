@@ -20,14 +20,30 @@ public class FlightFilterView : IView {
     /// Displays filter options and sends the user input to the controller.
     /// </summary>
     public void Display() {
+        PopulateViewBag();
         Menu menu = new Menu("Filter vluchten", new string[] {
-            "Datum van vertrek: " + (!ViewBag.ContainsKey("departuredate") ? "<vul in>" : ViewBag["departuredate"]),
-            "Vertrek van: " + (!ViewBag.ContainsKey("departure") ? "<vul in>" : ViewBag["departure"]),
-            "Aankomst in: " + (!ViewBag.ContainsKey("arrival") ? "<vul in>" : ViewBag["arrival"]),
+            "Datum van vertrek",
+            "Vertrek van",
+            "Aankomst in",
             "Zoek",
             "Terug"
         });
 
         ViewBag["FlightFilterSelection"] = menu.Run().ToString();
+    }
+
+    public void PopulateViewBag() {
+        if (!FlightFilterView.Instance.ViewBag.ContainsKey("destinationid")) {
+            FlightFilterView.Instance.ViewBag.Add("destinationid", "0");
+        }
+        if (!FlightFilterView.Instance.ViewBag.ContainsKey("departureid")) {
+            FlightFilterView.Instance.ViewBag.Add("departureid", "0");
+        }
+        if (!FlightFilterView.Instance.ViewBag.ContainsKey("departureDate")) {
+            FlightFilterView.Instance.ViewBag.Add("departureDate", "<vul in>");
+        }
+        if (!FlightFilterView.Instance.ViewBag.ContainsKey("FlightFilterSelection")) {
+            FlightFilterView.Instance.ViewBag.Add("FlightFilterSelection", "");
+        }
     }
 }

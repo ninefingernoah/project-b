@@ -31,7 +31,7 @@ public static class SeatManager {
             return JsonConvert.DeserializeObject<Dictionary<string, double>>(priceToken.ToString())!;
         }
         return null; */
-        var prices = jsonObj[flight.Airplane.Name]["destinations"][location]
+        var prices = jsonObj[location][flight.Airplane.Name]
         .Children<JProperty>()
         .ToDictionary(prop => prop.Name, prop => prop.Value.Value<double>());
         return prices;

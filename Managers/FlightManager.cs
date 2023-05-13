@@ -36,19 +36,19 @@ public static class FlightManager
         return flight;
     }
 
-    public static List<Flight> GetFlights(DateTime? departureTime, Airport? departure, Airport? destination) {
+    public static List<Flight> GetFlights(DateTime? departureTime, int departure_id, int destination_id) {
         string query = "SELECT * FROM flights WHERE ";
-        if (departure != null) {
-            query += $"departure_id = {departure.Id} ";
+        if (departure_id != 0) {
+            query += $"departure_id = {departure_id} ";
         }
-        if (destination != null) {
-            query += $"destination_id = {destination.Id} ";
+        if (destination_id != 0) {
+            query += $"destination_id = {destination_id} ";
         }
-        if (departureTime != null) {
+        if (departureTime == null || departureTime.Value == DateTime.MinValue) {
             query += $"date(departure_time) = date('{departureTime.Value.ToString("yyyy-MM-dd")}') ";
         }
 
-        if (departure == null && destination == null && departureTime == null) {
+        if (departure_id == 0 && destination_id == 0 && (departureTime == null || departureTime.Value == DateTime.MinValue)) {
             query = "SELECT * FROM flights";
         }
 

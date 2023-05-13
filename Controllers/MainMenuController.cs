@@ -55,7 +55,7 @@ public sealed class MainMenuController {
                 LoginController.Instance.ShowLoginMenu();
                 break;
             case 2:
-                FlightListController.Instance.ShowFlights(FlightManager.GetFlights(null, null, null));
+                FlightListController.Instance.ShowFilters();
                 break;
             case 3:
                 break;

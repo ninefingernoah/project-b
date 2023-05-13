@@ -207,7 +207,7 @@ public class FlightController
     /// Prompts the user to select an airport from a list of airports.
     /// </summary>
     /// <returns>Airport or null</returns>
-    private Airport? GetAirport()
+    public Airport? GetAirport()
     {
         List<Airport> airports = AirportManager.GetAirports();
         string[] options = new string[airports.Count + 1];

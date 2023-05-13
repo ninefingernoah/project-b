@@ -20,12 +20,6 @@ public class FlightListController {
     /// </summary>
     /// <param name="flights">The list of flights to show</param>
     public void ShowFlights(List<Flight> flights) {
-        // fill list with flights from database
-        // for now
-        Airplane airplane = new Airplane(1, 100, "Boeing je moeder");
-        // flights.Add(new Flight(1, "Amsterdam", "New York", new DateTime(2019, 1, 1), new DateTime(2019, 1, 2), airplane));
-        // flights.Add(new Flight(2, "Amsterdam", "New York", new DateTime(2019, 1, 3), new DateTime(2019, 1, 4), airplane));
-        // flights.Add(new Flight(3, "Amsterdam", "New York", new DateTime(2019, 1, 5), new DateTime(2019, 1, 6), airplane));
         FlightListView flightListView = FlightListView.Instance;
         flightListView.Display(flights);
         try {
@@ -60,24 +54,26 @@ public class FlightListController {
                     ShowFilters();
                     break;
                 case 1:
-                    StringInputMenu departureMenu = new StringInputMenu("Voer een vertreklocatie in: ");
-                    FlightFilterView.Instance.ViewBag["departure"] = departureMenu.Run();
+                    var temp = FlightController.Instance.GetAirport();
+                    FlightFilterView.Instance.ViewBag["departureid"] = temp.Id.ToString();
                     ShowFilters();
                     break;
                 case 2:
-                    StringInputMenu arrivalMenu = new StringInputMenu("Voer een aankomstlocatie in: ");
-                    FlightFilterView.Instance.ViewBag["arrival"] = arrivalMenu.Run();
+                    temp = FlightController.Instance.GetAirport();
+                    FlightFilterView.Instance.ViewBag["destinationid"] = temp.Id.ToString();
                     ShowFilters();
                     break;
                 case 3:
                     // ZOEK
-                    /* FlightListController.Instance.ShowFlights(FlightManager.GetFlights(
-                        DateTime.Parse(FlightFilterView.Instance.ViewBag["departureDate"]),
-                        FlightFilterView.Instance.ViewBag["departure"],
-                        FlightFilterView.Instance.ViewBag["arrival"]
-                    )); */
+                    DateTime.TryParse(FlightFilterView.Instance.ViewBag["departureDate"], out result);
+                    FlightListController.Instance.ShowFlights(FlightManager.GetFlights(
+                        result,
+                        Int32.Parse(FlightFilterView.Instance.ViewBag["departureid"]),
+                        Int32.Parse(FlightFilterView.Instance.ViewBag["destinationid"])
+                    ));
+                    break;
                 case 4:
-                    MainMenuController.Instance.ShowMainMenu();
+                    ShowFilters();
                     break;
                 default:
                     Console.WriteLine("Ongeldige keuze.");
