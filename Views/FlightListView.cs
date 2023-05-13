@@ -20,7 +20,7 @@ public class FlightListView : IView {
     /// Displays all flights in a list and handles the user input.
     /// </summary>
     /// <param name="flights">The flights to display.</param>
-    public void Show(List<Flight> flights) {
+    public void Display(List<Flight> flights) {
         string[] options = flights.Select(f => f.Id.ToString()).ToArray();
         options.Append("-");
         options.Append("Terug");

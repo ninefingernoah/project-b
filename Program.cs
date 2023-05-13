@@ -7,8 +7,8 @@
     public static void Main(string[] args) {
         DatabaseManager.CreateDatabase();
         var mainMenuController = MainMenuController.Instance;
-        // mainMenuController.ShowMainMenu();
-        FlightController.Instance.ShowFlightEditor(FlightManager.GetFlight(1));
+        mainMenuController.ShowMainMenu();
+        // FlightController.Instance.ShowFlightEditor(FlightManager.GetFlight(1));
     }
 
 }

@@ -49,7 +49,7 @@ public sealed class MainMenuController {
                 LoginController.Instance.ShowLoginMenu();
                 break;
             case 2:
-                FlightListController.Instance.ShowFlights();
+                FlightListController.Instance.ShowFlights(FlightManager.GetFlights(null, null, null));
                 break;
             case 3:
                 break;

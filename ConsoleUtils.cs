@@ -57,12 +57,12 @@ public static class ConsoleUtils
     /// <summary>
     /// 
     public static string ReadString(string message) {
-        Console.Write(message + ": ");
+        Console.Write(message);
         return Console.ReadLine();
     }
 
     public static int ReadInt(string message) {
-        Console.Write(message + ": ");
+        Console.Write(message);
         try {
             return Convert.ToInt32(Console.ReadLine());
         }
@@ -74,7 +74,7 @@ public static class ConsoleUtils
     }
 
     public static DateTime ReadDateTime(string message) {
-        Console.Write(message + ": ");
+        Console.Write(message);
         try {
             return Convert.ToDateTime(Console.ReadLine());
         }
@@ -96,4 +96,5 @@ public static class ConsoleUtils
         }
         return 0;
     }
+    
 }
