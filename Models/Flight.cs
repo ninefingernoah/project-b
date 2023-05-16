@@ -63,7 +63,7 @@ public class Flight {
 
     public override string ToString()
     {
-        string flightString = $"Flight {Id} from {Departure} to {Destination}\n";
+        string flightString = $"Flight {Id} from {Departure.Name} to {Destination.Name}\n";
         flightString += $"Departure: {DepartureTime.ToShortDateString()} at {DepartureTime.ToShortTimeString()}\n";
         flightString += $"Arrival: {ArrivalTime.ToShortDateString()} at {ArrivalTime.ToShortTimeString()}\n";
         flightString += $"Airplane: {Airplane.Name}\n";

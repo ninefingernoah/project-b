@@ -5,6 +5,8 @@ public class FlightFilterView : IView {
     static FlightFilterView() {
     }
     private FlightFilterView() {
+        // Set default values for the ViewBag
+        ResetViewBag();
     }
 
     /// <summary>
@@ -20,11 +22,13 @@ public class FlightFilterView : IView {
     /// Displays filter options and sends the user input to the controller.
     /// </summary>
     public void Display() {
-        PopulateViewBag();
+        // PopulateViewBag();
         Menu menu = new Menu("Filter vluchten", new string[] {
-            "Datum van vertrek",
-            "Vertrek van",
-            "Aankomst in",
+            "Datum van vertrek: " + ViewBag["departureDate"],
+            "Vertrek van: " + (ViewBag["departureid"] == "0" ? "" : AirportManager.GetAirport(int.Parse(ViewBag["departureid"])).Name),
+            "Aankomst in: " + (ViewBag["destinationid"] == "0" ? "" : AirportManager.GetAirport(int.Parse(ViewBag["destinationid"])).Name),
+            "-",
+            "Reset filters",
             "Zoek",
             "Terug"
         });
@@ -32,18 +36,18 @@ public class FlightFilterView : IView {
         ViewBag["FlightFilterSelection"] = menu.Run().ToString();
     }
 
+    /// <summary>
+    /// Populates the ViewBag with default values if they don't exist yet.
+    /// </summary>
     public void PopulateViewBag() {
-        if (!FlightFilterView.Instance.ViewBag.ContainsKey("destinationid")) {
-            FlightFilterView.Instance.ViewBag.Add("destinationid", "0");
-        }
-        if (!FlightFilterView.Instance.ViewBag.ContainsKey("departureid")) {
-            FlightFilterView.Instance.ViewBag.Add("departureid", "0");
-        }
-        if (!FlightFilterView.Instance.ViewBag.ContainsKey("departureDate")) {
-            FlightFilterView.Instance.ViewBag.Add("departureDate", "<vul in>");
-        }
-        if (!FlightFilterView.Instance.ViewBag.ContainsKey("FlightFilterSelection")) {
-            FlightFilterView.Instance.ViewBag.Add("FlightFilterSelection", "");
-        }
+        // deprecated
+    }
+
+    public void ResetViewBag() {
+        ViewBag.Clear();
+        ViewBag.Add("FlightFilterSelection", "");
+        ViewBag.Add("destinationid", "0");
+        ViewBag.Add("departureid", "0");
+        ViewBag.Add("departureDate", "Alle");
     }
 }

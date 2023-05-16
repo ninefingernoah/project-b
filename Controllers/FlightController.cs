@@ -29,6 +29,12 @@ public class FlightController
     /// <param name="flight">The flight to book.</param>
     public void ShowFlight(Flight flight)
     {
+        if (UserManager.IsLoggedIn() && UserManager.GetCurrentUser().IsAdmin())
+        {
+            ShowFlightAdmin(flight);
+            return;
+        }
+
         FlightView flightView = FlightView.Instance;
         flightView.Display(flight);
         try
@@ -40,6 +46,52 @@ public class FlightController
                     //_seatController.Run(flight);
                     break;
                 case 1:
+                    FlightListController.Instance.ShowFlights();
+                    break;
+                default:
+                    Console.WriteLine("Er is iets fout gegaan.");
+                    // return to main menu
+                    break;
+            }
+        }
+        catch (Exception)
+        {
+            Console.WriteLine("Er is iets fout gegaan.");
+            // return to main menu
+        }
+    }
+
+    public void ShowFlightAdmin(Flight flight)
+    {
+        FlightView flightView = FlightView.Instance;
+        flightView.Display(flight);
+        try
+        {
+            int selection = int.Parse(flightView.ViewBag["FlightViewSelection"]);
+            switch (selection)
+            {
+                case 0:
+                    //_seatController.Run(flight);
+                    break;
+                case 1:
+                    ShowFlightEditor(flight);
+                    break;
+                case 2:
+                    string warning = (flight.TakenSeats.Count > 0 ? "Er zijn nog stoelen geboekt voor deze vlucht." : "");
+                    warning += "Weet u zeker dat u deze vlucht wilt verwijderen?\nDeze actie kan niet ongedaan worden gemaakt.";
+                    warning += "\n\n" + flight.ToString();
+                    if (ConsoleUtils.Confirm(warning))
+                    {
+                        FlightManager.DeleteFlight(flight.Id);
+                        ConsoleUtils.Success("Vlucht verwijderd.");
+                    }
+                    else
+                    {
+                        ConsoleUtils.Warn("Vlucht niet verwijderd.");
+                    }
+                    FlightListController.Instance.ShowFilters();
+                    break;
+                case 3:
                     MainMenuController.Instance.ShowMainMenu();
                     break;
                 default:

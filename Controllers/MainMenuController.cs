@@ -82,6 +82,7 @@ public sealed class MainMenuController {
                 case 0: // Add flight
                     break;
                 case 1: // Change flight
+                    FlightListController.Instance.ShowFilters();
                     break;
                 case 2:
                     // Log out

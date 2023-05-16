@@ -7,6 +7,7 @@ public static class FlightManager
     /// <param name="id">The ID of the flight to get.</param>
     public static Flight GetFlight(int id)
     {
+        // Get the flight from the database
         DataRow dr = DatabaseManager.QueryResult($"SELECT * FROM flights WHERE id = {id}").Rows[0];
         int departureId = (int)(long)dr["departure_id"];
         int destinationId = (int)(long)dr["destination_id"];
@@ -25,6 +26,8 @@ public static class FlightManager
         {
             throw new Exception("Airplane is null");
         }
+
+        // Create a Flight object from the database results
         Flight flight = new Flight(
             (int)(long)dr["id"],
             departure,
@@ -36,22 +39,36 @@ public static class FlightManager
         return flight;
     }
 
+    /// <summary>
+    /// Retrieves flights from the database and creates Flight objects from them.
+    /// </summary>
+    /// <param name="departureTime">The departure time of the flight.</param>
+    /// <param name="departure_id">The ID of the departure airport.</param>
+    /// <param name="destination_id">The ID of the destination airport.</param>
     public static List<Flight> GetFlights(DateTime? departureTime, int departure_id, int destination_id) {
+        // Build the query based on the parameters
         string query = "SELECT * FROM flights WHERE ";
         if (departure_id != 0) {
-            query += $"departure_id = {departure_id} ";
+            query += $"departure_id = {departure_id} AND ";
         }
         if (destination_id != 0) {
-            query += $"destination_id = {destination_id} ";
+            query += $"destination_id = {destination_id} AND ";
         }
-        if (departureTime == null || departureTime.Value == DateTime.MinValue) {
-            query += $"date(departure_time) = date('{departureTime.Value.ToString("yyyy-MM-dd")}') ";
+        if (departureTime != null && departureTime.Value != DateTime.MinValue) {
+            // query += $"date(departure_time) = date('{departureTime.Value.ToString("yyyy-MM-dd")}') AND ";
+            string formattedDate = departureTime.Value.ToString("dd-MM-yyyy");
+            query += $"departure_time LIKE '{formattedDate}%' AND ";
         }
 
         if (departure_id == 0 && destination_id == 0 && (departureTime == null || departureTime.Value == DateTime.MinValue)) {
             query = "SELECT * FROM flights";
         }
+        else {
+            // Remove the trailing "AND" keyword and any whitespace characters before it
+            query = query.Remove(query.Length - 4).TrimEnd();
+        }
 
+        // Execute the query and create Flight objects from the results
         DataTable dt = DatabaseManager.QueryResult(query);
         List<Flight> flights = new List<Flight>();
         foreach (DataRow dr in dt.Rows) {
@@ -92,4 +109,15 @@ public static class FlightManager
         DatabaseManager.QueryNonResult($"UPDATE flights SET departure_id = {flight.Departure.Id}, destination_id = {flight.Destination.Id}, departure_time = '{flight.DepartureTime.ToString("dd-MM-yyyy HH:mm")}', arrival_time = '{flight.ArrivalTime.ToString("dd-MM-yyyy HH:mm")}', airplane_id = {flight.Airplane.Id} WHERE id = {flight.Id}");
         // TODO: Rebook passengers if airplane capacity is smaller than before.
     }
+
+    /// <summary>
+    /// Deletes the flight in the database
+    /// </summary>
+    /// <param name="id">The id of the flight to delete.</param>
+    public static void DeleteFlight(int id)
+    {
+        DatabaseManager.QueryNonResult($"DELETE FROM flights WHERE id = {id}");
+    }
+
+
 }
