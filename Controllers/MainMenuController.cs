@@ -55,7 +55,7 @@ public sealed class MainMenuController {
                 LoginController.Instance.ShowLoginMenu();
                 break;
             case 2:
-                FlightListController.Instance.ShowFilters();
+                FlightListController.Instance.ShowFlightSearchMenu();
                 break;
             case 3:
                 break;
@@ -82,7 +82,7 @@ public sealed class MainMenuController {
                 case 0: // Add flight
                     break;
                 case 1: // Change flight
-                    FlightListController.Instance.ShowFilters();
+                    FlightListController.Instance.ShowFlightSearchMenu();
                     break;
                 case 2:
                     // Log out

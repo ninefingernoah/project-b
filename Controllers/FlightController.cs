@@ -89,7 +89,7 @@ public class FlightController
                     {
                         ConsoleUtils.Warn("Vlucht niet verwijderd.");
                     }
-                    FlightListController.Instance.ShowFilters();
+                    FlightListController.Instance.ShowFlightSearchMenu();
                     break;
                 case 3:
                     MainMenuController.Instance.ShowMainMenu();

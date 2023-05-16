@@ -5,9 +5,14 @@ public static class FlightManager
     /// Gets a specific flight from the database and creates a Flight object from it.
     /// </summary>
     /// <param name="id">The ID of the flight to get.</param>
-    public static Flight GetFlight(int id)
+    public static Flight? GetFlight(int id)
     {
         // Get the flight from the database
+        DataRowCollection drc = DatabaseManager.QueryResult($"SELECT * FROM flights WHERE id = {id}").Rows;
+        if (drc.Count == 0 || drc == null)
+        {
+            return null;
+        }
         DataRow dr = DatabaseManager.QueryResult($"SELECT * FROM flights WHERE id = {id}").Rows[0];
         int departureId = (int)(long)dr["departure_id"];
         int destinationId = (int)(long)dr["destination_id"];

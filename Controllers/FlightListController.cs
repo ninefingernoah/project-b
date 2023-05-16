@@ -44,11 +44,34 @@ public class FlightListController {
         }
     }
 
+    public void ShowFlightSearchMenu() {
+        FlightSearchView.Instance.Display();
+        try {
+            string selection = FlightSearchView.Instance.ViewBag["FlightSearchSelection"];
+            int selectionInt = int.Parse(selection);
+            switch (selectionInt) {
+                case 0:
+                    ShowFilterSearch();
+                    break;
+                case 1:
+                    ShowFlightNumberSearch();
+                    break;
+                default:
+                    MainMenuController.Instance.ShowMainMenu();
+                    break;
+            }
+        }
+        catch (Exception) {
+            Console.WriteLine("Er is iets fout gegaan.");
+            // return to main menu
+        }
+    }
+
     // TODO: Break this up
     /// <summary>
     /// Shows the menu for filtering flights
     /// </summary>
-    public void ShowFilters() {
+    public void ShowFilterSearch() {
         FlightFilterView.Instance.Display();
         try {
             string selection = FlightFilterView.Instance.ViewBag["FlightFilterSelection"];
@@ -68,26 +91,26 @@ public class FlightListController {
                     else {
                         FlightFilterView.Instance.ViewBag["departureDate"] = result.ToShortDateString();
                     }
-                    ShowFilters();
+                    ShowFilterSearch();
                     break;
 
                 // Lets user input a departure airport
                 case 1:
                     var temp = FlightController.Instance.GetAirport();
                     FlightFilterView.Instance.ViewBag["departureid"] = temp.Id.ToString();
-                    ShowFilters();
+                    ShowFilterSearch();
                     break;
 
                 // Lets user input a destination airport
                 case 2:
                     temp = FlightController.Instance.GetAirport();
                     FlightFilterView.Instance.ViewBag["destinationid"] = temp.Id.ToString();
-                    ShowFilters();
+                    ShowFilterSearch();
                     break;
 
                 case 4:
                     FlightFilterView.Instance.ResetViewBag();
-                    ShowFilters();
+                    ShowFilterSearch();
                     break;
 
                 // Shows the filtered flights
@@ -108,6 +131,31 @@ public class FlightListController {
         catch (Exception) {
             Console.WriteLine("Er is iets fout gegaan.");
             // return to main menu
+        }
+    }
+
+    /// <summary>
+    /// Shows the menu for searching flights based on a flight number
+    /// </summary>
+    public void ShowFlightNumberSearch() {
+        StringInputMenu flightNumberMenu = new StringInputMenu("Voer een vluchtnummer in: ");
+        string input = flightNumberMenu.Run();
+        if (Int32.TryParse(input, out int result)) {
+            Flight flight = FlightManager.GetFlight(result);
+            if (flight == null) {
+                ConsoleUtils.Error("Vlucht niet gevonden.");
+                ShowFlightSearchMenu();
+            }
+            else {
+                FlightController.Instance.ShowFlight(flight);
+            }
+        }
+        else if (input == null) {
+            MainMenuController.Instance.ShowMainMenu();
+        }
+        else {
+            ConsoleUtils.Error("Ongeldig vluchtnummer.");
+            ShowFlightNumberSearch();
         }
     }
 }
