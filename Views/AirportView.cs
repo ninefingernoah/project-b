@@ -1,4 +1,4 @@
-public class AirportView
+public class AirportView : IView
 {
     Menu menu = new Menu("Airport Menu", new string[] {
         "Naam van het vliegveld",
@@ -10,22 +10,15 @@ public class AirportView
         "Cancel"
     });
 
-    public virtual void Display()
+    public void Display()
     {
         int choice = menu.Run();
-        string? airportName = null;
-        List<string> airportLocation = new List<string>();
-        Dictionary<string, float> flightPrices = new Dictionary<string, float>();
-
         switch (choice)
         {
             case 0: // Naam van het vliegveld
-                StringInputMenu nameMenu = new StringInputMenu("Airport Name?", "Naam van het vliegveld");
-                airportName = nameMenu.Run();
+                AirportLocationView.Display();
                 break;
             case 1: // Locatie van het vliegveld
-                AirportLocationView ALV = new AirportLocationView();
-                ALV.Display();
                 break;
             case 2: // Prijzen van vluchten
                 break;
@@ -38,5 +31,11 @@ public class AirportView
             default: // Should never happen.
                 break;
         }
+    }
+
+    public void AirportNameMenu()
+    {
+        StringInputMenu menu = new("De naam van het vliegveld: ");
+        string? Vliegveldnaam = menu.Run();
     }
 }
