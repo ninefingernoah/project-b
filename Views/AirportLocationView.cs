@@ -1,4 +1,4 @@
-public class AirportNameView : AirportView
+public class AirportLocationView : AirportView
 {
     Menu menu = new Menu("Airport Name Menu", new string[] {
         "Naam van het vliegveld",
@@ -16,7 +16,7 @@ public class AirportNameView : AirportView
         switch (choice)
         {
             case 0: // Naam van het vliegveld
-                AirportNameView.Display();
+                AirportLocationView.Display();
                 break;
             case 1: // Locatie van het vliegveld
                 break;

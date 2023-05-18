@@ -13,13 +13,19 @@ public class AirportView
     public virtual void Display()
     {
         int choice = menu.Run();
+        string? airportName = null;
+        List<string> airportLocation = new List<string>();
+        Dictionary<string, float> flightPrices = new Dictionary<string, float>();
+
         switch (choice)
         {
             case 0: // Naam van het vliegveld
-                AirportNameView airportnameview = new AirportNameView();
-                airportnameview.Display();
+                StringInputMenu nameMenu = new StringInputMenu("Airport Name?", "Naam van het vliegveld");
+                airportName = nameMenu.Run();
                 break;
             case 1: // Locatie van het vliegveld
+                AirportLocationView ALV = new AirportLocationView();
+                ALV.Display();
                 break;
             case 2: // Prijzen van vluchten
                 break;
