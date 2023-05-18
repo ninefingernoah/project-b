@@ -8,6 +8,7 @@
         DatabaseManager.CreateDatabase();
         var mainMenuController = MainMenuController.Instance;
         mainMenuController.ShowMainMenu();
+        // FlightController.Instance.ShowFlightEditor(FlightManager.GetFlight(1));
     }
 
 }
