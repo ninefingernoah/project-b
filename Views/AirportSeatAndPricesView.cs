@@ -15,12 +15,11 @@ public class AirportSeatAndPricesView : IView
 
         List<string> optionsList = new List<string>()
         {
-            $"Boeing 737:\nBlue:{ViewBag["Boeing737Blue"]}\nYellow: {ViewBag["Boeing737Yellow"]}",
-            $"Airbus 330:\nWhite:{ViewBag["Airbus330White"]}\nDarkblue: {ViewBag["Airbus330Darkblue"]}\nPurple: {ViewBag["Airbus330Purple"]}\nPink: {ViewBag["Airbus330Pink"]}\nGrey(Business Class): {ViewBag["Airbus330Grey"]}",
-            $"Boeing 787:\nWhite:{ViewBag["Boeing787White"]}\nBlue: {ViewBag["Boeing787Blue"]}\nOrange(Business Class): {ViewBag["Boeing787Orange"]}",
+            $"Boeing 737:\n   Blue:{ViewBag["Boeing737Blue"]}\n   Yellow: {ViewBag["Boeing737Yellow"]}",
+            $"Airbus 330:\n   White:{ViewBag["Airbus330White"]}\n   Darkblue: {ViewBag["Airbus330Darkblue"]}\n   Purple: {ViewBag["Airbus330Purple"]}\n   Pink: {ViewBag["Airbus330Pink"]}\n   Grey(Business Class): {ViewBag["Airbus330Grey"]}",
+            $"Boeing 787:\n   White:{ViewBag["Boeing787White"]}\n   Blue: {ViewBag["Boeing787Blue"]}\n   Orange(Business Class): {ViewBag["Boeing787Orange"]}",
             "-",
             "terug"
-
         };
 
         string[] options = optionsList.ToArray();

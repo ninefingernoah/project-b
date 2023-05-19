@@ -23,18 +23,22 @@ public class AirportController
         switch(choice)
         {
             case 0: // Country
-                showAirportCountryInputMenu();
+                showAirportInputMenu("Vul het land in waar het vliegveld zich bevindt:", "AirportCountry");
                 break;
             case 1: // City
-                showAirportCityInputMenu();
+                showAirportInputMenu("Vul de stad in waar het vliegveld zich bevindt:", "AirportCity");
                 break;
             case 2: // Name
-                showAirportNameInputMenu();
+                showAirportInputMenu("Vul de naam van het vliegveld in:", "AirportName");
                 break;
-            case 3: // Flights and prices
+            case 3: // Code
+                showAirportInputMenu("Vul de code van het vliegveld in:", "AirportCode");
+                break;
+            case 4: // Flights and prices
                 showFlightsAndPricesMenu();
                 break;
             case 5: // Confirm (adds to the JSON and DB.)
+                // TODO: Add to JSON and DB. (Miss iets met Airport class?)
                 break;
             case 6: // Cancel (Cancels the creation of the airport.)
                 AirportView.Instance.ClearViewBag();
@@ -44,45 +48,17 @@ public class AirportController
         }
     }
 
-    private void showAirportCountryInputMenu()
+    private void showAirportInputMenu(string vraag, string ViewBagNaam)
     {
-        StringInputMenu menu = new StringInputMenu("Vul het land in waar het vliegveld zich bevindt:");
-        string? country = menu.Run();
-        if (country == null)
+        StringInputMenu menu = new StringInputMenu(vraag);
+        string? input = menu.Run();
+        if (input == null)
         {
             showAirportCreationMenu();
             return;
         }
 
-        AirportView.Instance.ViewBag["AirportCountry"] = country!;
-        showAirportCreationMenu();
-    }
-
-    private void showAirportCityInputMenu()
-    {
-        StringInputMenu menu = new StringInputMenu("Vul de stad in waar het vliegveld zich bevindt:");
-        string? city = menu.Run();
-        if (city == null)
-        {
-            showAirportCreationMenu();
-            return;
-        }
-
-        AirportView.Instance.ViewBag["AirportCity"] = city!;
-        showAirportCreationMenu();
-    }
-
-    private void showAirportNameInputMenu()
-    {
-        StringInputMenu menu = new StringInputMenu("Vul de naam van het vliegveld in:");
-        string? name = menu.Run();
-        if (name == null)
-        {
-            showAirportCreationMenu();
-            return;
-        }
-
-        AirportView.Instance.ViewBag["AirportName"] = name!;
+        AirportView.Instance.ViewBag[ViewBagNaam] = input!;
         showAirportCreationMenu();
     }
 

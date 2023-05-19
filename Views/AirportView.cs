@@ -18,6 +18,7 @@ public class AirportView : IView
             $"Land waar het vliegveld zich bevindt: {ViewBag["AirportCountry"]}",
             $"Stad waar het vliegveld zich bevindt: {ViewBag["AirportCity"]}",
             $"Naam van het vliegveld: {ViewBag["AirportName"]}",
+            $"Code van het vliegveld: {ViewBag["AirportCode"]}",
             "Vluchten en prijzen",
             "-",
             "Confirm",
@@ -37,6 +38,8 @@ public class AirportView : IView
             ViewBag["AirportCity"] = "<Vul In>";
         if(!ViewBag.ContainsKey("AirportName"))
             ViewBag["AirportName"] = "<Vul In>";
+        if(!ViewBag.ContainsKey("AirportCode"))
+            ViewBag["AirportCode"] = "<Vul In>";
     }
 
     public void ClearViewBag()
