@@ -2,6 +2,14 @@ public class AirportController
 {
     private static readonly AirportController instance = new AirportController();
 
+    private AirportController()
+    {
+    }
+
+    static AirportController()
+    {
+    }
+
     public static AirportController Instance
     {
         get { return instance; }
@@ -74,6 +82,5 @@ public class AirportController
 
     private void showFlightsAndPricesMenu()
     {
-        FlightListController.Instance.ShowFlights();
     }
 }
