@@ -13,7 +13,7 @@ public class AirportView : IView
     {
         populateViewBag();
 
-        list<string> optionsList = new List<string>()
+        List<string> optionsList = new List<string>()
         {
             $"Land waar het vliegveld zich bevindt: {ViewBag["AirportCountry"]}",
             $"Stad waar het vliegveld zich bevindt: {ViewBag["AirportCity"]}",

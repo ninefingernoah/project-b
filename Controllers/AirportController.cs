@@ -22,19 +22,25 @@ public class AirportController
 
         switch(choice)
         {
-            case 0:
+            case 0: // Country
                 showAirportCountryInputMenu();
                 break;
-            case 1:
+            case 1: // City
                 showAirportCityInputMenu();
                 break;
-            case 2:
+            case 2: // Name
                 showAirportNameInputMenu();
                 break;
-            case 3:
+            case 3: // Flights and prices
                 showFlightsAndPricesMenu();
                 break;
-            case 4:
+            case 5: // Confirm (adds to the JSON and DB.)
+                break;
+            case 6: // Cancel (Cancels the creation of the airport.)
+                AirportView.Instance.ClearViewBag();
+                AirportSeatAndPricesView.Instance.ClearViewBag();
+                MainMenuController.Instance.ShowMainMenu();
+                break;
         }
     }
 
@@ -82,5 +88,60 @@ public class AirportController
 
     private void showFlightsAndPricesMenu()
     {
+        AirportSeatAndPricesView.Instance.Display();
+        int choice = int.Parse(AirportSeatAndPricesView.Instance.ViewBag["AirportSeatAndPricesMenuSelection"]);
+
+        switch (choice)
+        {
+            case 1:
+                ShowPlaneClassInputMenu("blauwe", "Boeing 737", "Boeing737Blue");
+                break;
+            case 2:
+                ShowPlaneClassInputMenu("gele", "Boeing 737", "Boeing737Yellow");
+                break;
+            case 4:
+                ShowPlaneClassInputMenu("witte", "Airbus 330", "Airbus330White");
+                break;
+            case 5:
+                ShowPlaneClassInputMenu("donkerblauwe", "Airbus 330", "Airbus330Darkblue");
+                break;
+            case 6:
+                ShowPlaneClassInputMenu("paarse", "Airbus 330", "Airbus330Purple");
+                break;
+            case 7:
+                ShowPlaneClassInputMenu("roze", "Airbus 330", "Airbus330Pink");
+                break;
+            case 8:
+                ShowPlaneClassInputMenu("grijze", "Airbus 330", "Airbus330Grey");
+                break;
+            case 10:
+                ShowPlaneClassInputMenu("witte", "Boeing 787", "Boeing787White");
+                break;
+            case 11:
+                ShowPlaneClassInputMenu("blauwe", "Boeing 787", "Boeing787Blue");
+                break;
+            case 12:
+                ShowPlaneClassInputMenu("oranje", "Boeing 787", "Boeing787Orange");
+                break;
+            case 14:
+                showAirportCreationMenu();
+                break;
+        }
+
+
+    }
+
+    private void ShowPlaneClassInputMenu(string? kleur, string? vliegtuig, string? ViewBagNaam)
+    {
+        StringInputMenu menu = new StringInputMenu($"Vul de prijs in voor de {kleur} klasse in de {vliegtuig}:");
+        string? price = menu.Run();
+        if (price == null)
+        {
+            showFlightsAndPricesMenu();
+            return;
+        }
+
+        AirportSeatAndPricesView.Instance.ViewBag[ViewBagNaam] = price!;
+        showFlightsAndPricesMenu();
     }
 }
