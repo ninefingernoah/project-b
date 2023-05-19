@@ -17,6 +17,16 @@ public static class DatabaseManager
                     password TEXT NOT NULL
                 );
             ");
+        QueryNonResult(@"
+                CREATE TABLE IF NOT EXISTS reservations (
+                    id INTEGER NOT NULL PRIMARY KEY,
+                    flight INTEGER NOT NULL,
+                    first_name TEXT NOT NULL,
+                    last_name TEXT NOT NULL,
+                    email TEXT NOT NULL,
+                    password TEXT NOT NULL
+                );
+            ");
     }
 
     /// <summary>
