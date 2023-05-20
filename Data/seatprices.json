@@ -1,110 +1,128 @@
 {
-   "Londen":{
-      "Boeing_737":{
-         "blue":220,
-         "yellow":250
-      },
-      "Airbus_330":{
-         "white":220,
-         "dark_blue":250,
-         "purple":280,
-         "pink":310,
-         "grey_(business_class)":380
-      },
-      "Boeing_787":{
-         "white":220,
-         "blue":280,
-         "orange_(business_class)":380
-      }
-   },
-   "Madrid":{
-      "Boeing_737":{
-         "blue":150,
-         "yellow":180
-      },
-      "Airbus_330":{
-         "white":150,
-         "dark_blue":180,
-         "purple":210,
-         "pink":240,
-         "grey_(business_class)":310
-      },
-      "Boeing_787":{
-         "white":150,
-         "blue":210,
-         "orange_(business_class)":310
-      }
-   },
-   "Stockholm":{
-      "Boeing_737":{
-         "blue":150,
-         "yellow":180
-      },
-      "Airbus_330":{
-         "white":150,
-         "dark_blue":180,
-         "purple":210,
-         "pink":240,
-         "grey_(business_class)":310
-      },
-      "Boeing_787":{
-         "white":150,
-         "blue":210,
-         "orange_(business_class)":310
-      }
-   },
-   "Berlijn":{
-      "Boeing_737":{
-         "blue":150,
-         "yellow":180
-      },
-      "Airbus_330":{
-         "white":150,
-         "dark_blue":180,
-         "purple":210,
-         "pink":240,
-         "grey_(business_class)":310
-      },
-      "Boeing_787":{
-         "white":150,
-         "blue":210,
-         "orange_(business_class)":310
-      }
-   },
-   "Praag":{
-      "Boeing_737":{
-         "blue":180,
-         "yellow":210
-      },
-      "Airbus_330":{
-         "white":180,
-         "dark_blue":210,
-         "purple":240,
-         "pink":270,
-         "grey_(business_class)":340
-      },
-      "Boeing_787":{
-         "white":180,
-         "blue":240,
-         "orange_(business_class)":340
-      }
-   },
-   "Rome":{
-      "Boeing_737":{
-         "blue":200,
-         "yellow":230
-      },
-      "Airbus_330":{
-         "white":200,
-         "dark_blue":230,
-         "purple":270,
-         "pink":300,
-         "grey_(business_class)":370
-      },
-      "Boeing_787":{
-         "white":200,
-         "blue":270,
-         "orange_(business_class)":370
-      }
-   }
+  "Londen": {
+    "Boeing_737": {
+      "blue": 220,
+      "yellow": 250
+    },
+    "Airbus_330": {
+      "white": 220,
+      "dark_blue": 250,
+      "purple": 280,
+      "pink": 310,
+      "grey_(business_class)": 380
+    },
+    "Boeing_787": {
+      "white": 220,
+      "blue": 280,
+      "orange_(business_class)": 380
+    }
+  },
+  "Madrid": {
+    "Boeing_737": {
+      "blue": 150,
+      "yellow": 180
+    },
+    "Airbus_330": {
+      "white": 150,
+      "dark_blue": 180,
+      "purple": 210,
+      "pink": 240,
+      "grey_(business_class)": 310
+    },
+    "Boeing_787": {
+      "white": 150,
+      "blue": 210,
+      "orange_(business_class)": 310
+    }
+  },
+  "Stockholm": {
+    "Boeing_737": {
+      "blue": 150,
+      "yellow": 180
+    },
+    "Airbus_330": {
+      "white": 150,
+      "dark_blue": 180,
+      "purple": 210,
+      "pink": 240,
+      "grey_(business_class)": 310
+    },
+    "Boeing_787": {
+      "white": 150,
+      "blue": 210,
+      "orange_(business_class)": 310
+    }
+  },
+  "Berlijn": {
+    "Boeing_737": {
+      "blue": 150,
+      "yellow": 180
+    },
+    "Airbus_330": {
+      "white": 150,
+      "dark_blue": 180,
+      "purple": 210,
+      "pink": 240,
+      "grey_(business_class)": 310
+    },
+    "Boeing_787": {
+      "white": 150,
+      "blue": 210,
+      "orange_(business_class)": 310
+    }
+  },
+  "Praag": {
+    "Boeing_737": {
+      "blue": 180,
+      "yellow": 210
+    },
+    "Airbus_330": {
+      "white": 180,
+      "dark_blue": 210,
+      "purple": 240,
+      "pink": 270,
+      "grey_(business_class)": 340
+    },
+    "Boeing_787": {
+      "white": 180,
+      "blue": 240,
+      "orange_(business_class)": 340
+    }
+  },
+  "Rome": {
+    "Boeing_737": {
+      "blue": 200,
+      "yellow": 230
+    },
+    "Airbus_330": {
+      "white": 200,
+      "dark_blue": 230,
+      "purple": 270,
+      "pink": 300,
+      "grey_(business_class)": 370
+    },
+    "Boeing_787": {
+      "white": 200,
+      "blue": 270,
+      "orange_(business_class)": 370
+    }
+  },
+  "Munchen": {
+    "Boeing_737": {
+      "blue": 123,
+      "yellow": 123
+    },
+    "Airbus_330": {
+      "white": 123,
+      "dark_blue": 123,
+      "purple": 123,
+      "pink": 123,
+      "grey_(business_class)": 123
+    },
+    "Boeing_787": {
+      "white": 123,
+      "blue": 123,
+      "orange_(business_class)": 123
+    }
+  }
 }

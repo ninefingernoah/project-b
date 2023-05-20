@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "OrzQZrkLipBIx+ZccM0coFLbE/9mxPp+3rv99BH+2nKd/Zcf7+9DgErNPP5LruqHr4DVJjv1tmah91s0cG5siQ==",
+  "dgSpecHash": "jW64Uya5ayZtyz1qL+DSVbraclwQ/O8ivHx6gq2b6JZ2VHxtlSdCtURw4FA3rqXiRRF2/3Lh2MG3zBcwcchjhQ==",
   "success": true,
-  "projectFilePath": "C:\\Users\\stein\\Documents\\GitHub\\project-b\\project-b.csproj",
+  "projectFilePath": "C:\\Users\\stein\\Desktop\\GitHub\\project-b\\project-b.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\stein\\.nuget\\packages\\bcrypt.net-next\\4.0.3\\bcrypt.net-next.4.0.3.nupkg.sha512",
     "C:\\Users\\stein\\.nuget\\packages\\entityframework\\6.4.4\\entityframework.6.4.4.nupkg.sha512",

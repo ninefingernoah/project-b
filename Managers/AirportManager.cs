@@ -42,6 +42,11 @@ public static class AirportManager
         );
     }
 
+    public static void AddAirport(Airport airport)
+    {
+        DatabaseManager.QueryNonResult($"INSERT INTO airports (name, city, country, code) VALUES ('{airport.Name}', '{airport.City}', '{airport.Country}', '{airport.Code}')");
+    }
+
     /// <summary>
     /// Gets a specific airport from the database.
     /// </summary>

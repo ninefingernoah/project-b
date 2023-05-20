@@ -84,7 +84,10 @@ public sealed class MainMenuController {
                 case 1: // Change flight
                     FlightListController.Instance.ShowFlightSearchMenu();
                     break;
-                case 2:
+                case 2: // Add airport
+                    AirportController.Instance.showAirportCreationMenu();
+                    break;
+                case 3:
                     // Log out
                     UserManager.LogOut();
                     ConsoleUtils.Success("U bent uitgelogd.");
