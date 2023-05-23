@@ -11,18 +11,16 @@ public class Menu
     /// <summary>The prompt that will be displayed to the user</summary>
     protected string _prompt;
 
-    public Menu(string prompt, string[] options)
+    protected string? _topString;
+    protected string? _botString;
+
+    public Menu(string prompt, string[] options, string? TopString = null, string? BotString = null)
     {
         _prompt = prompt;
         _options = options;
         _selectedIndex = 0;
-    }
-
-    public Menu(string prompt, string[] options, int selectedindex)
-    {
-        _prompt = prompt;
-        _options = options;
-        _selectedIndex = selectedindex;
+        _topString = TopString;
+        _botString = BotString;
     }
 
     /// <summary>
@@ -33,14 +31,18 @@ public class Menu
         ForegroundColor = ConsoleColor.White;
         BackgroundColor = ConsoleColor.Black;
         if (_prompt != "") WriteLine(_prompt); Write("\n");
-        for(int i = 0; i < _options.Length; i++)
+        if (_topString != null)
         {
-            if(_options[i] == "-")
+            WriteLine(_topString + "\n");
+        }
+        for (int i = 0; i < _options.Length; i++)
+        {
+            if (_options[i] == "-")
             {
                 WriteLine();
                 continue;
             }
-            if(i == _selectedIndex)
+            if (i == _selectedIndex)
             {
                 ForegroundColor = ConsoleColor.Black;
                 BackgroundColor = ConsoleColor.White;
@@ -51,6 +53,13 @@ public class Menu
                 BackgroundColor = ConsoleColor.Black;
             }
             WriteLine(_options[i]);
+        }
+
+        if (_botString != null)
+        {
+            ForegroundColor = ConsoleColor.White;
+            BackgroundColor = ConsoleColor.Black;
+            WriteLine("\n" + _botString);
         }
         // Reset the color
         ForegroundColor = ConsoleColor.White;
@@ -70,31 +79,31 @@ public class Menu
         {
             Clear();
             DisplayOptions();
-            
+
             ConsoleKeyInfo keyInfo = ReadKey(true);
             keyPressed = keyInfo.Key;
 
             // Move the selection up or down
-            if(keyPressed == ConsoleKey.DownArrow || keyPressed == ConsoleKey.S)
+            if (keyPressed == ConsoleKey.DownArrow || keyPressed == ConsoleKey.S)
             {
                 _selectedIndex++;
-                if(_selectedIndex >= _options.Length)
+                if (_selectedIndex >= _options.Length)
                 {
                     _selectedIndex = 0;
                 }
-                if(_options[_selectedIndex] == "-")
+                if (_options[_selectedIndex] == "-")
                 {
                     _selectedIndex++;
                 }
             }
-            else if(keyPressed == ConsoleKey.UpArrow || keyPressed == ConsoleKey.W)
+            else if (keyPressed == ConsoleKey.UpArrow || keyPressed == ConsoleKey.W)
             {
                 _selectedIndex--;
-                if(_selectedIndex < 0)
+                if (_selectedIndex < 0)
                 {
                     _selectedIndex = _options.Length - 1;
                 }
-                if(_options[_selectedIndex] == "-")
+                if (_options[_selectedIndex] == "-")
                 {
                     _selectedIndex--;
                 }
@@ -105,6 +114,6 @@ public class Menu
         return _selectedIndex;
     }
 
-    
-    
+
+
 }

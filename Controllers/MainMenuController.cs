@@ -27,13 +27,7 @@ public sealed class MainMenuController {
     /// </summary>
     public void ShowMainMenu() {
         if(UserManager.IsLoggedIn()) {
-            if(UserManager.GetCurrentUser()!.IsAdmin())
-            {
-                ShowAdminMainMenu();
-            } else
-            {
-                ShowAuthenticatedMainMenu();
-            }
+            ShowAuthenticatedMainMenu();
         } else {
             ShowUnauthenticatedMainMenu();
         }
@@ -55,7 +49,7 @@ public sealed class MainMenuController {
                 LoginController.Instance.ShowLoginMenu();
                 break;
             case 2:
-                FlightListController.Instance.ShowFlightSearchMenu();
+                ReservationController.Instance.Start();
                 break;
             case 3:
                 break;
@@ -68,33 +62,6 @@ public sealed class MainMenuController {
             ConsoleUtils.Error("Er is iets fout gegaan.");
             ShowMainMenu();
             // return to main menu
-        }
-    }
-
-    private void ShowAdminMainMenu()
-    {
-        AdminMainMenuView.Instance.Display();
-        try
-        {
-            int selection = int.Parse(AdminMainMenuView.Instance.ViewBag["MainMenuSelection"]);
-            switch (selection)
-            {
-                case 0: // Add flight
-                    break;
-                case 1: // Change flight
-                    FlightListController.Instance.ShowFlightSearchMenu();
-                    break;
-                case 2:
-                    // Log out
-                    UserManager.LogOut();
-                    ConsoleUtils.Success("U bent uitgelogd.");
-                    ShowMainMenu();
-                    break;
-            }
-        } catch (Exception)
-        {
-            ConsoleUtils.Error("Er is iets fout gegaan.");
-            ShowMainMenu();
         }
     }
 

@@ -13,7 +13,7 @@ public static class UserManager
     {
         if (CurrentID == 0)
             return null;
-        
+
         DataRow dr = DatabaseManager.QueryResult($"SELECT * FROM users WHERE id = {CurrentID}").Rows[0];
         return GetUser(dr);
     }
@@ -30,8 +30,7 @@ public static class UserManager
         string email = (string)dr["email"];
         string firstName = (string)dr["first_name"];
         string lastName = (string)dr["last_name"];
-        string role = (string)dr["role"];
-        User user = new User(id, email, firstName, lastName, role);
+        User user = new User(id, email, firstName, lastName);
         return user;
     }
 
@@ -40,7 +39,7 @@ public static class UserManager
     /// </summary>
     public static bool Login(string email, string password)
     {
-        if (IsLoggedIn())
+        if (CurrentID != 0)
             return false;
         DataTable dt = DatabaseManager.QueryResult($"SELECT * FROM users WHERE email = '{email}';");
         if (dt.Rows.Count == 0)
