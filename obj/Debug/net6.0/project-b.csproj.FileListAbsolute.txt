@@ -130,3 +130,11 @@ C:\Users\stein\Desktop\GitHub\project-b\obj\Debug\net6.0\refint\project-b.dll
 C:\Users\stein\Desktop\GitHub\project-b\obj\Debug\net6.0\project-b.pdb
 C:\Users\stein\Desktop\GitHub\project-b\obj\Debug\net6.0\project-b.genruntimeconfig.cache
 C:\Users\stein\Desktop\GitHub\project-b\obj\Debug\net6.0\ref\project-b.dll
+C:\Users\stein\OneDrive\Documenten\GitHub\project-b\obj\Debug\net6.0\project-b.csproj.AssemblyReference.cache
+C:\Users\stein\OneDrive\Documenten\GitHub\project-b\obj\Debug\net6.0\project-b.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\stein\OneDrive\Documenten\GitHub\project-b\obj\Debug\net6.0\project-b.AssemblyInfoInputs.cache
+C:\Users\stein\OneDrive\Documenten\GitHub\project-b\obj\Debug\net6.0\project-b.AssemblyInfo.cs
+C:\Users\stein\OneDrive\Documenten\GitHub\project-b\obj\Debug\net6.0\project-b.csproj.CoreCompileInputs.cache
+C:\Users\stein\OneDrive\Documenten\GitHub\project-b\obj\Debug\net6.0\project-b.dll
+C:\Users\stein\OneDrive\Documenten\GitHub\project-b\obj\Debug\net6.0\refint\project-b.dll
+C:\Users\stein\OneDrive\Documenten\GitHub\project-b\obj\Debug\net6.0\project-b.pdb

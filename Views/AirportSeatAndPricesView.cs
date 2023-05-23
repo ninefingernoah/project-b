@@ -13,7 +13,8 @@ public class AirportSeatAndPricesView : IView
     {
         populateViewBag();
 
-        List<string> optionsList = new List<string>()
+        List<string> optionsList = new List<string>() // TODO: maak dit een function die niet gehardcode is en dus date meekrijgt die die toepast. Probeer ook R6 oplossing te maken voor non selectable optie in menu.
+        
         {
             $"Boeing 737:",
             $"   Blue:{ViewBag["Boeing737Blue"]}",
