@@ -80,6 +80,7 @@ public static class DatabaseManager
                     number TEXT NOT NULL PRIMARY KEY,
                     flight_id INTEGER NOT NULL,
                     user_id INTEGER NOT NULL,
+                    email TEXT NOT NULL,
                     price REAL NOT NULL,
                     made_on TEXT NOT NULL,
                     is_paid INTEGER NOT NULL,

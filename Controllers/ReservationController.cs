@@ -43,18 +43,28 @@ public sealed class ReservationController
         }
         StringInputMenu emailMenu = new StringInputMenu("Vul uw emailadres in: ");
         string email = emailMenu.Run()!;
-        if (reservation.User.Email != email)
+        if (reservation.User.Email != email && reservation.Email != email)
         {
             ConsoleUtils.Error("Het ingevoerde emailadres is ongeldig.");
             MainMenuController.Instance.ShowMainMenu();
             return;
         }
-        ShowReservation(reservation);
+        ShowReservationToReservationOwner(reservation);
     }
 
-    public void ShowReservation(Reservation reservation)
+    public void ShowReservationToReservationOwner(Reservation reservation)
     {
-        // TODO: Show reservation
+        if(reservation.User == null)
+        {
+            ShowNonUserReservation(reservation);
+        }
+        
+    }
+
+    private void ShowNonUserReservation(Reservation reservation)
+    {
+        ReservationOverviewView.Instance.ViewBag["Reservation"] = reservation;
+        
     }
 
 }

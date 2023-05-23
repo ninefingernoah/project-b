@@ -58,7 +58,7 @@ public sealed class MainMenuController {
                 FlightListController.Instance.ShowFlightSearchMenu();
                 break;
             case 3: // View booking
-                
+                ReservationController.Instance.AskReservation();
                 break;
             case 4: // Exit
                 break;
