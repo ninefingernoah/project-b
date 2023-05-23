@@ -20,10 +20,13 @@ public sealed class ReservationController
         }
     }
 
-    // TODO: Get Seat selection and prices, Push to database.
+    // TODO: Get Seat selection and prices
     public void Start()
     {
+        // get flight
         var flight = FlightController.Instance.GetFlightType();
+
+        // get passengers
         List<Passenger> passengers = GetPassengerAmountInfo();
 
         // see TODO
@@ -34,7 +37,18 @@ public sealed class ReservationController
 
         DisplayData(flight, passengers, seats);
 
-        Reservation res = new Reservation("1234", flight, UserManager.GetCurrentUser(), seats, passengers, Price, DateTime.Now);
+        // check if logged in
+        User? user;
+        if (UserManager.GetCurrentUser() != null)
+        {
+            user = UserManager.GetCurrentUser();
+        }
+        else
+        {
+            user = null;
+        }
+
+        Reservation res = new Reservation("1234", flight, user, seats, passengers, Price, DateTime.Now);
         ReservationManager.MakeReservation(res);
     }
 
@@ -69,6 +83,14 @@ public sealed class ReservationController
         foreach (var seat in seats)
         {
             Console.WriteLine(seat.ToString());
+        }
+    }
+
+    public void UserCancelReservation(Reservation ress)
+    {
+        if (ConsoleUtils.Confirm("Weet u zeker dat u de reservering wilt annuleren?"))
+        {
+            ReservationManager.DeleteReservation(ress);
         }
     }
 }

@@ -7,4 +7,9 @@ public static class ReservationManager
         string made_on = res.ReservationDate.ToString();
         DatabaseManager.QueryNonResult($"INSERT INTO reservations (number,flight_id,user_id,price,made_on,is_paid) VALUES ('{res.ReservationNumber}','{res.Flight.Id}','{res.User.Id}','{res.Price}','{made_on}','{res.IsPaid}')");
     }
+
+    public static void DeleteReservation(Reservation reservation)
+    {
+        DatabaseManager.QueryNonResult($"DELETE FROM reservations WHERE number = {reservation.ReservationNumber}");
+    }
 }

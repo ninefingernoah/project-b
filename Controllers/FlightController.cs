@@ -34,7 +34,7 @@ public class FlightController
             "Ga terug"
         };
         MenuView.Instance.ClearViewBag();
-        MenuView.Instance.Display("Wat voor type vlucht wil je", list, "top", "bot");
+        MenuView.Instance.Display("Wat voor type vlucht wil je", list);
         int choice = MenuView.Instance.LastChoice;
         if (choice != list.Count - 1)
         {

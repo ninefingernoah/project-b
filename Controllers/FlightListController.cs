@@ -36,7 +36,7 @@ public class FlightListController
     {
         var Flights = Allflights(filter);
 
-        List<string> options = Flights.Select(f => f.Destination.ToString()).ToList<string>();
+        List<string> options = Flights.Select(f => f.ToString()).ToList<string>();
 
         MenuView.Instance.Display("Welke vlucht mot je", options);
         int choice = MenuView.Instance.LastChoice;
