@@ -17,6 +17,91 @@ public static class DatabaseManager
                     password TEXT NOT NULL
                 );
             ");
+        QueryNonResult(@"
+                CREATE TABLE IF NOT EXISTS passengers (
+                    id INTEGER NOT NULL PRIMARY KEY,
+                    email TEXT NOT NULL,
+                    first_name TEXT NOT NULL,
+                    last_name TEXT NOT NULL,
+                    document_number TEXT NOT NULL
+                );
+            ");
+        QueryNonResult(@"
+                CREATE TABLE IF NOT EXISTS airplanes (
+	                id INTEGER NOT NULL PRIMARY KEY,
+	                name TEXT NOT NULL,
+	                total_capacity INTEGER NOT NULL
+                );
+            ");
+        QueryNonResult(@"
+                CREATE TABLE IF NOT EXISTS airports (
+                    id INTEGER NOT NULL PRIMARY KEY,
+                    name TEXT NOT NULL,
+                    city TEXT NOT NULL,
+                    country TEXT NOT NULL,
+                    code TEXT NOT NULL
+                );
+            ");
+        QueryNonResult(@"
+                CREATE TABLE IF NOT EXISTS seats (
+                    seat_number TEXT NOT NULL,
+                    airplane_id INTEGER NOT NULL,
+                    color TEXT NOT NULL,
+                    price INTEGER NOT NULL,
+                    FOREIGN KEY(airplane_id) REFERENCES airplanes(id),
+                    PRIMARY KEY(seat_number, airplane_id)
+                );
+            ");
+        QueryNonResult(@"
+                CREATE TABLE IF NOT EXISTS flights (
+                    id INTEGER NOT NULL PRIMARY KEY,
+                    departure_id INTEGER NOT NULL,
+                    destination_id INTEGER NOT NULL,
+                    departure_time TEXT NOT NULL,
+                    arrival_time TEXT NOT NULL,
+                    airplane_id INTEGER NOT NULL,
+                    FOREIGN KEY(departure_id) REFERENCES airports(id),
+                    FOREIGN KEY(destination_id) REFERENCES airports(id),
+                    FOREIGN KEY(airplane_id) REFERENCES airplanes(id)
+                );
+            ");
+        QueryNonResult(@"
+                CREATE TABLE IF NOT EXISTS flight_takenseats (
+                    flight_id INTEGER NOT NULL,
+                    seat_number TEXT NOT NULL,
+                    airplane_id INTEGER NOT NULL,
+                    FOREIGN KEY(flight_id) REFERENCES flights(id),
+                    FOREIGN KEY(seat_number, airplane_id) REFERENCES seats(seat_number,airplane_id),
+                    PRIMARY KEY(flight_id, seat_number, airplane_id)
+                );
+            ");
+        QueryNonResult(@"
+                CREATE TABLE IF NOT EXISTS reservations (
+                    number TEXT NOT NULL PRIMARY KEY,
+                    flight_id INTEGER NOT NULL,
+                    user_id INTEGER NOT NULL,
+                    price REAL NOT NULL,
+                    made_on TEXT NOT NULL,
+                    is_paid INTEGER NOT NULL,
+                    FOREIGN KEY(flight_id) REFERENCES flights(id),
+                    FOREIGN KEY(user_id) REFERENCES users(id)
+                );
+                CREATE TABLE IF NOT EXISTS reservation_passengers (
+                    reservation_number TEXT NOT NULL,
+                    passenger_id INTEGER NOT NULL,
+                    FOREIGN KEY(reservation_number) REFERENCES reservations(number),
+                    FOREIGN KEY(passenger_id) REFERENCES passengers(id),
+                    PRIMARY KEY(reservation_number, passenger_id)
+                );
+                CREATE TABLE IF NOT EXISTS reservations_seats (
+                    reservation_number TEXT NOT NULL,
+                    seat_number TEXT NOT NULL,
+                    airplane_id INTEGER NOT NULL,
+                    FOREIGN KEY(reservation_number) REFERENCES reservations(number),
+                    FOREIGN KEY(seat_number, airplane_id) REFERENCES seats(seat_number,airplane_id),
+                    PRIMARY KEY(reservation_number, seat_number, airplane_id)
+                );
+            ");
     }
 
     /// <summary>
@@ -50,7 +135,7 @@ public static class DatabaseManager
             {
                 command.ExecuteNonQuery();
             }
-            catch (SQLiteException ex)
+            catch (SQLiteException)
             {
                 result = false;
             }
