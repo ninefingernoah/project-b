@@ -28,10 +28,7 @@ public class FlightListController
     {
         // TODO: get data from Database
         var flights = new List<Flight>();
-        Airplane airplane = new Airplane(1, 100, "Boeing je moeder");
-        flights.Add(new Flight(1, "Amsterdam", "New York", new DateTime(2019, 1, 1), new DateTime(2019, 1, 2), airplane));
-        flights.Add(new Flight(2, "Amsterdam", "New York", new DateTime(2019, 1, 3), new DateTime(2019, 1, 4), airplane));
-        flights.Add(new Flight(3, "Amsterdam", "New York", new DateTime(2019, 1, 5), new DateTime(2019, 1, 6), airplane));
+        flights = FlightManager.GetAllFlights();
 
         return flights;
     }
