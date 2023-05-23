@@ -48,6 +48,11 @@ public class FlightController
 
     public void NewFlight()
     {
+        int Id = FlightManager.GetNewestId();
         
+
+
+
+       // new Flight(Id,)
     }
 }

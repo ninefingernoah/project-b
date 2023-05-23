@@ -39,6 +39,11 @@ public static class FlightManager
         }
 
         return Flights;
+    }
 
+    public static int GetNewestId()
+    {
+        DataRow dr = DatabaseManager.QueryResult($"SELECT id FROM flights ORDER BY id ASC").Rows[0];
+        return (int)dr["id"] + 1;
     }
 }
