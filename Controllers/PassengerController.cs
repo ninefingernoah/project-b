@@ -21,8 +21,10 @@ public class PassengerController
     }
 
 
-    public Passenger NewPassenger(int Id)
+    public Passenger NewPassenger()
     {
+        int Id = PassengerManager.GetNewestId();
+        
         StringInputMenu menu = new StringInputMenu("Wat is de email van de reiziger?");
         string? email = menu.Run();
 

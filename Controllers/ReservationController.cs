@@ -62,7 +62,7 @@ public sealed class ReservationController
         {
             for (int i = 0; i < amount; i++)
             {
-                passengers.Add(PassengerController.Instance.NewPassenger(i));
+                passengers.Add(PassengerController.Instance.NewPassenger());
             }
         }
 

@@ -45,4 +45,9 @@ public class FlightController
             return null;
         }
     }
+
+    public void NewFlight()
+    {
+        
+    }
 }
