@@ -35,7 +35,7 @@ public sealed class ReservationController
         DisplayData(flight, passengers, seats);
 
         Reservation res = new Reservation("1234", flight, UserManager.GetCurrentUser(), seats, passengers, Price, DateTime.Now);
-
+        ReservationManager.MakeReservation(res);
     }
 
     public List<Passenger> GetPassengerAmountInfo()

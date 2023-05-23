@@ -13,7 +13,7 @@ public static class UserManager
     {
         if (CurrentID == 0)
             return null;
-        
+
         DataRow dr = DatabaseManager.QueryResult($"SELECT * FROM users WHERE id = {CurrentID}").Rows[0];
         return GetUser(dr);
     }
