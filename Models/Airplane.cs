@@ -19,6 +19,7 @@ public class Airplane
         _seats = new List<Seat>();
         _name = name;
         _prices = null;
+        InitializeSeats();
     }
 
     public void AddSeat(Seat seat)
@@ -55,6 +56,21 @@ public class Airplane
             }
         }
     }
+    public override string ToString()
+    {
+        return $"{Name} ({TotalCapacity} stoelen)";
+    }
+
     // public abstract void InitializeSeats();
+    public void InitializeSeats() {
+        // get seats from database w seatmanager
+        // add seats to _seats
+        // test code
+        /* for (int i = 0; i < _totalCapacity/4; i++) {
+            _seats.Add(new Seat(i.ToString(), "white"));
+            _seats.Add(new Seat(i.ToString(), "dark_blue"));
+            _seats.Add(new Seat(i.ToString(), "purple"));
+        } */
+    }
 
 }

@@ -71,4 +71,52 @@ public sealed class ReservationController
             Console.WriteLine(seat.ToString());
         }
     }
+    
+    public void AskReservation()
+    {
+        StringInputMenu menu = new StringInputMenu("Vul uw reserveringscode in: ");
+        int reservationCode;
+        try
+        {
+            reservationCode = int.Parse(menu.Run()!);
+        }
+        catch (Exception)
+        {
+            ConsoleUtils.Error("De ingevoerde reserveringscode is ongeldig.");
+            MainMenuController.Instance.ShowMainMenu();
+            return;
+        }
+        Reservation reservation = ReservationManager.GetReservation(reservationCode);
+        if (reservation == null)
+        {
+            ConsoleUtils.Error("De ingevoerde reserveringscode is ongeldig.");
+            MainMenuController.Instance.ShowMainMenu();
+            return;
+        }
+        StringInputMenu emailMenu = new StringInputMenu("Vul uw emailadres in: ");
+        string email = emailMenu.Run()!;
+        if (reservation.User.Email != email && reservation.Email != email)
+        {
+            ConsoleUtils.Error("Het ingevoerde emailadres is ongeldig.");
+            MainMenuController.Instance.ShowMainMenu();
+            return;
+        }
+        ShowReservationToReservationOwner(reservation);
+    }
+
+    public void ShowReservationToReservationOwner(Reservation reservation)
+    {
+        if(reservation.User == null)
+        {
+            ShowNonUserReservation(reservation);
+        }
+        
+    }
+
+    private void ShowNonUserReservation(Reservation reservation)
+    {
+        ReservationOverviewView.Instance.ViewBag["Reservation"] = reservation;
+        
+    }
+
 }
