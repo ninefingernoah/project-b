@@ -1,7 +1,3 @@
-using System;
-using System.IO;
-using Newtonsoft.Json.Linq;
-
 public class AirportController
 {
     private static readonly AirportController instance = new AirportController();
@@ -42,10 +38,9 @@ public class AirportController
                 showFlightsAndPricesMenu();
                 break;
             case 6: // Confirm (adds to the JSON and DB.)
-                // TODO: Add to JSON and DB. (Miss iets met Airport class?)
                 Airport NewAirport = new Airport(0, AirportView.Instance.ViewBag["AirportName"], AirportView.Instance.ViewBag["AirportCity"], AirportView.Instance.ViewBag["AirportCountry"], AirportView.Instance.ViewBag["AirportCode"]);
                 JSONManager.AddAirportToJson(NewAirport);
-                AirportManager.AddAirport(NewAirport); // TODO: Implement error handling.
+                AirportManager.AddAirport(NewAirport);
                 break;
             case 7: // Cancel (Cancels the creation of the airport.)
                 AirportView.Instance.ClearViewBag();
