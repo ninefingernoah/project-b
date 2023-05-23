@@ -22,6 +22,9 @@ public class FlightView {
     /// <param name="flight">The flight to display.</param>
     public void Display(Flight flight) {
         string[] options = { "Reserveer stoelen", "Terug" };
+        if (UserManager.IsLoggedIn() && UserManager.GetCurrentUser().IsAdmin()) {
+            options = new string[] { "Reserveer stoelen", "Bewerk vlucht [ADMIN]", "Verwijder vlucht [ADMIN]",  "Terug" };
+        }
         Menu menu = new Menu(flight.ToString(), options);
         int selection = menu.Run();
         ViewBag["FlightViewSelection"] = selection.ToString();
