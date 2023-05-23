@@ -91,6 +91,7 @@ public sealed class ReservationController
         if (ConsoleUtils.Confirm("Weet u zeker dat u de reservering wilt annuleren?"))
         {
             ReservationManager.DeleteReservation(ress);
+            ConsoleUtils.Success("U reservering is geannuleerd");
         }
     }
 }
