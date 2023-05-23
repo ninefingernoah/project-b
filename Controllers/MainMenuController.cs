@@ -27,13 +27,7 @@ public sealed class MainMenuController {
     /// </summary>
     public void ShowMainMenu() {
         if(UserManager.IsLoggedIn()) {
-            if(UserManager.GetCurrentUser()!.IsAdmin())
-            {
-                ShowAdminMainMenu();
-            } else
-            {
-                ShowAuthenticatedMainMenu();
-            }
+            ShowAuthenticatedMainMenu();
         } else {
             ShowUnauthenticatedMainMenu();
         }
@@ -57,10 +51,7 @@ public sealed class MainMenuController {
             case 2:
                 ReservationController.Instance.Start();
                 break;
-            case 3: // View booking
-                ReservationController.Instance.AskReservation();
-                break;
-            case 4: // Exit
+            case 3:
                 break;
             default:
                 Console.WriteLine("Ongeldige keuze.");
@@ -71,33 +62,6 @@ public sealed class MainMenuController {
             ConsoleUtils.Error("Er is iets fout gegaan.");
             ShowMainMenu();
             // return to main menu
-        }
-    }
-
-    private void ShowAdminMainMenu()
-    {
-        AdminMainMenuView.Instance.Display();
-        try
-        {
-            int selection = int.Parse(AdminMainMenuView.Instance.ViewBag["MainMenuSelection"]);
-            switch (selection)
-            {
-                case 0: // Add flight
-                    break;
-                case 1: // Change flight
-                    FlightListController.Instance.ShowFlightSearchMenu();
-                    break;
-                case 2:
-                    // Log out
-                    UserManager.LogOut();
-                    ConsoleUtils.Success("U bent uitgelogd.");
-                    ShowMainMenu();
-                    break;
-            }
-        } catch (Exception)
-        {
-            ConsoleUtils.Error("Er is iets fout gegaan.");
-            ShowMainMenu();
         }
     }
 
@@ -113,7 +77,7 @@ public sealed class MainMenuController {
             switch (selection)
             {
                 case 0:
-                    UserController.Instance.ShowReservations(); // TODO: Create
+                    // FlightListController.Instance.ShowFlights();
                     break;
                 case 1:
                     // View account info

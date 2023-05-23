@@ -1,7 +1,6 @@
 {
   "format": 1,
   "restore": {
-<<<<<<< HEAD
     "D:\\project-b\\project-b.csproj": {}
   },
   "projects": {
@@ -16,22 +15,6 @@
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\Max\\AppData\\Roaming\\NuGet\\NuGet.Config"
-=======
-    "C:\\Users\\Rens\\Documents\\School\\2022-2023\\Projecten\\project-b-air\\project-b.csproj": {}
-  },
-  "projects": {
-    "C:\\Users\\Rens\\Documents\\School\\2022-2023\\Projecten\\project-b-air\\project-b.csproj": {
-      "version": "1.0.0",
-      "restore": {
-        "projectUniqueName": "C:\\Users\\Rens\\Documents\\School\\2022-2023\\Projecten\\project-b-air\\project-b.csproj",
-        "projectName": "project-b",
-        "projectPath": "C:\\Users\\Rens\\Documents\\School\\2022-2023\\Projecten\\project-b-air\\project-b.csproj",
-        "packagesPath": "C:\\Users\\Rens\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Rens\\Documents\\School\\2022-2023\\Projecten\\project-b-air\\obj\\",
-        "projectStyle": "PackageReference",
-        "configFilePaths": [
-          "C:\\Users\\Rens\\AppData\\Roaming\\NuGet\\NuGet.Config"
->>>>>>> rens
         ],
         "originalTargetFrameworks": [
           "net6.0"
@@ -59,10 +42,6 @@
               "target": "Package",
               "version": "[4.0.3, )"
             },
-            "Newtonsoft.Json": {
-              "target": "Package",
-              "version": "[13.0.3, )"
-            },
             "System.Data.SQLITE": {
               "target": "Package",
               "version": "[1.0.117, )"
@@ -84,7 +63,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.102\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.405\\RuntimeIdentifierGraph.json"
         }
       }
     }

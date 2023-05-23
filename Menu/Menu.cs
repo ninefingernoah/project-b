@@ -23,13 +23,6 @@ public class Menu
         _botString = BotString;
     }
 
-    public Menu(string prompt, string[] options, int selectedindex)
-    {
-        _prompt = prompt;
-        _options = options;
-        _selectedIndex = selectedindex;
-    }
-
     /// <summary>
     /// Displays the menu
     /// </summary>
