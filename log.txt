@@ -21,6 +21,7 @@ User noah@gmail.com logged out
 User jira@live.nl registered
 User jira@live.nl logged in
 User jira@live.nl logged out
+<<<<<<< Updated upstream
 User admin logged in
 User peter@mail.com registered
 User peter@mail.com logged in
@@ -44,3 +45,6 @@ User admin logged in
 User admin logged in
 User admin logged in
 User admin logged in
+=======
+User admin tried to log in but does not exist
+>>>>>>> Stashed changes
