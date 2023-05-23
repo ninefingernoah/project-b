@@ -1309,11 +1309,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\stein\\OneDrive\\Documenten\\GitHub\\project-b\\project-b.csproj",
+      "projectUniqueName": "C:\\Users\\stein\\Desktop\\GitHub\\project-b\\project-b.csproj",
       "projectName": "project-b",
-      "projectPath": "C:\\Users\\stein\\OneDrive\\Documenten\\GitHub\\project-b\\project-b.csproj",
+      "projectPath": "C:\\Users\\stein\\Desktop\\GitHub\\project-b\\project-b.csproj",
       "packagesPath": "C:\\Users\\stein\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\stein\\OneDrive\\Documenten\\GitHub\\project-b\\obj\\",
+      "outputPath": "C:\\Users\\stein\\Desktop\\GitHub\\project-b\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\stein\\AppData\\Roaming\\NuGet\\NuGet.Config"
@@ -1369,7 +1369,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.405\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.407\\RuntimeIdentifierGraph.json"
       }
     }
   }
