@@ -28,7 +28,8 @@ public class ReservationOverviewView : IView {
             $"Vertrek van: {reservation.Flight.Departure}",
             $"Vertrek naar: {reservation.Flight.Destination}",
             $"Vertrek op: {reservation.Flight.DepartureTime}",
-            $"Aantal personen: {reservation.Passengers.Count}",
+            $"Aankomst op: {reservation.Flight.ArrivalTime}",
+            $"Passagiers: {reservation.Passengers.Count} personen",
             "-",
             "Ga terug"
         };
