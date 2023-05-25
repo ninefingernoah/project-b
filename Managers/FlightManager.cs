@@ -43,7 +43,17 @@ public static class FlightManager
 
     public static int GetNewestId()
     {
-        DataRow dr = DatabaseManager.QueryResult($"SELECT id FROM flights ORDER BY id ASC").Rows[0];
-        return (int)dr["id"] + 1;
+        DataTable dt = DatabaseManager.QueryResult($"SELECT id FROM flights ORDER BY id ASC");
+        try
+        {
+            DataRow dr = dt.Rows[0];
+            return (int)dr["id"] + 1;
+        }
+        catch (System.Exception)
+        {
+            return 1;
+        }
+
+        
     }
 }

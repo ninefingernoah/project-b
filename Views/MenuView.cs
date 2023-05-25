@@ -13,13 +13,38 @@ public class MenuView
     /// <summary>
     /// Displays the menu.
     /// </summary>
-    public void Display(string prompt, List<string> optionsList, string? TopString = null, string? BotString = null)
+    public void Display(string prompt, List<string> optionsList, string? TopString = null, string? BotString = null, bool ViewBagBool = false)
     {
-        string[] options = optionsList.ToArray();
+        if (ViewBagBool)
+        {
+            PopulateViewBag(optionsList);
+            List<string> newList = new List<string>();
+            foreach (string option in optionsList)
+            {
+                if (option != "-")
+                {
+                    newList.Add($"{option}: {ViewBag[option]}");
+                }
+            }
+            optionsList = newList;
+        }
+        var options = optionsList.ToArray();
+
         Menu Menu = new Menu(prompt, options, TopString, BotString);
         int choice = Menu.Run();
         LastChoice = choice;
         ViewBag["Selection"] = choice.ToString();
+    }
+
+    private void PopulateViewBag(List<string> options)
+    {
+        foreach (string option in options)
+        {
+            if (!ViewBag.ContainsKey(option))
+            {
+                ViewBag[option] = "<vul in>";
+            }
+        }
     }
 
     public void ClearViewBag()

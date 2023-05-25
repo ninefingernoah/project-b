@@ -24,7 +24,7 @@ public class Menu
     }
 
     /// <summary>
-    /// Displays the menu
+    /// Displays the menu   
     /// </summary>
     public virtual void DisplayOptions()
     {

@@ -48,11 +48,79 @@ public class FlightController
 
     public void NewFlight()
     {
+        MenuView.Instance.ClearViewBag();
         int Id = FlightManager.GetNewestId();
-        
+        string Departure;
+        string Destination;
+        Airplane? airplane;
 
+        DateTime DepTime = new DateTime();
+        DateTime ArrivalTime = new DateTime();
 
+        do
+        {
+            List<string> options = new List<string>()
+        {
+            "Vertrek locatie",
+            "Vertrek tijd",
+            "Aankomst locatie",
+            "Aankomst tijd",
+            "Vliegtuig",
+            "-",
+            "Terug"
 
-       // new Flight(Id,)
+        };
+            MenuView.Instance.Display("Nieuwe vlucht", options, ViewBagBool: true);
+
+            switch (MenuView.Instance.LastChoice)
+            {
+                case 0:
+                    // Get departure location
+                    Airport airportDep = GetAirport("Van welk vliegveld moet deze vlucht vertrekken?");
+                    Departure = airportDep.City;
+                    MenuView.Instance.ViewBag["Vertrek Locatie"] = Departure;
+                    break;
+                case 1:
+                    // Get Departure Time
+                    DepTime = GetTime("Welke tijd moet de vlucht vertrekken?");
+                    break;
+                case 2:
+                    // Get  destination
+                    Airport airportDest = GetAirport("Bij welk vliegveld moet deze vlucht aankomen?");
+                    Destination = airportDest.City;
+                    break;
+                case 3:
+                    // Get Arrival Time
+                    ArrivalTime = GetTime("Welke tijd zou het vliegtuig moeten aankomen?");
+                    break;
+                case 4:
+                    // Get Airplane
+                    airplane = new Airplane(0, 0, "1");
+                    break;
+                default:
+                    break;
+            }
+        } while (true);
+        // push to database
+        Flight flight = new Flight(Id, Departure, Destination, DepTime, ArrivalTime, airplane);
+    }
+
+    private Airport GetAirport(string Question)
+    {
+        var airports = AirportManager.GetAllAirports();
+        List<string> AirportMenu = new List<string>();
+        foreach (Airport airport in airports)
+        {
+            AirportMenu.Add($"Land: {airport.Country}, Stad: {airport.City}");
+        }
+        MenuView.Instance.Display(Question, AirportMenu);
+        int choice = MenuView.Instance.LastChoice;
+
+        return airports[choice];
+    }
+
+    private DateTime GetTime(string Question)
+    {
+        return DateTime.Now;
     }
 }

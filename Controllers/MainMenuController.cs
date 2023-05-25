@@ -1,23 +1,28 @@
 /// <summary>
 /// The controller for the main menu.
 /// </summary>
-public sealed class MainMenuController {
+public sealed class MainMenuController
+{
 
     /// <summary>
     /// The singleton instance of the main menu controller. Used for accessing the controller. Thread safe.
     /// </summary>
     private static readonly MainMenuController instance = new MainMenuController();
 
-    static MainMenuController() {
+    static MainMenuController()
+    {
     }
-    private MainMenuController() {
+    private MainMenuController()
+    {
     }
 
     /// <summary>
     /// The singleton instance of the main menu controller. Used for accessing the controller. Thread safe.
     /// </summary>
-    public static MainMenuController Instance {
-        get {
+    public static MainMenuController Instance
+    {
+        get
+        {
             return instance;
         }
     }
@@ -25,10 +30,14 @@ public sealed class MainMenuController {
     /// <summary>
     /// Shows the main menu and handles the user input.
     /// </summary>
-    public void ShowMainMenu() {
-        if(UserManager.IsLoggedIn()) {
+    public void ShowMainMenu()
+    {
+        if (UserManager.IsLoggedIn())
+        {
             ShowAuthenticatedMainMenu();
-        } else {
+        }
+        else
+        {
             ShowUnauthenticatedMainMenu();
         }
     }
@@ -39,26 +48,30 @@ public sealed class MainMenuController {
     private void ShowUnauthenticatedMainMenu()
     {
         MainMenuView.Instance.Display();
-        try {
+        try
+        {
             int selectionInt = int.Parse(MainMenuView.Instance.ViewBag["MainMenuSelection"]);
-            switch (selectionInt) {
-            case 0:
-                RegisterController.Instance.ShowRegisterMenu();
-                break;
-            case 1:
-                LoginController.Instance.ShowLoginMenu();
-                break;
-            case 2:
-                ReservationController.Instance.Start();
-                break;
-            case 3:
-                break;
-            default:
-                Console.WriteLine("Ongeldige keuze.");
-                break;
+            switch (selectionInt)
+            {
+                case 0:
+                    RegisterController.Instance.ShowRegisterMenu();
+                    break;
+                case 1:
+                    LoginController.Instance.ShowLoginMenu();
+                    break;
+                case 2:
+                    FlightController.Instance.NewFlight();
+                    //ReservationController.Instance.Start();
+                    break;
+                case 3:
+                    break;
+                default:
+                    Console.WriteLine("Ongeldige keuze.");
+                    break;
+            }
         }
-        }
-        catch (Exception) {
+        catch (Exception)
+        {
             ConsoleUtils.Error("Er is iets fout gegaan.");
             ShowMainMenu();
             // return to main menu
@@ -96,5 +109,5 @@ public sealed class MainMenuController {
             ShowMainMenu();
         }
     }
-    
+
 }

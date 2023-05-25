@@ -12,7 +12,28 @@ public static class AirportManager
         string city = (string)dr["city"];
 
         Dictionary<int, Dictionary<int, int>> prices = new Dictionary<int, Dictionary<int, int>>();
-        
+
         return new Airport(Id, country, city, prices);
+    }
+
+
+    public static List<Airport> GetAllAirports()
+    {
+        DataTable dt = DatabaseManager.QueryResult($"SELECT * FROM airports");
+        List<Airport> airports = new List<Airport>();
+
+        foreach (DataRow dr in dt.Rows)
+        {
+            // TODO: fix data;
+            var Id = (int)(long)dr["id"];
+            string country = (string)dr["country"];
+            string city = (string)dr["city"];
+
+            Dictionary<int, Dictionary<int, int>> prices = new Dictionary<int, Dictionary<int, int>>();
+
+            airports.Add(new Airport(Id, country, city, prices));
+        }
+
+        return airports;
     }
 }
