@@ -1,4 +1,3 @@
-using System.Text.RegularExpressions;
 /// <summary>
 /// The controller for the user menus.
 /// </summary>
@@ -23,14 +22,35 @@ public sealed class UserController {
         }
     }
 
+    public void ShowReservations()
+    {
+        ReservationsOverviewView.Instance.Display();
+        int choice = int.Parse((string)ReservationsOverviewView.Instance.ViewBag["MainMenuSelection"]);
+        int numberOfReservations = UserManager.GetCurrentUser().GetReservationCount();
+        if(choice == numberOfReservations + 1)
+        {
+            MainMenuController.Instance.ShowMainMenu();
+        } else
+        {
+            Reservation? reservation = ReservationsOverviewView.Instance.ViewBag["reservation"] as Reservation;
+            if (reservation != null)
+            {
+                ReservationController.Instance.ShowReservationToReservationOwner(reservation);
+            } else {
+                ConsoleUtils.Error("Er is iets fout gegaan.");
+                ShowReservations();
+            }
+        }
+    }
+
     /*
     *   LOGIN SECTION
     */
 
-    
+
 
     /*
     *   REGISTER SECTION
     */
-    
+
 }

@@ -29,4 +29,9 @@ public class Reservation {
         _email = email;
         _madeOn = madeOn;
     }
+
+    public override string ToString()
+    {
+        return $"#{ReservationNumber} - {Flight.Departure.Code} -> {Flight.Destination.Code} ({Flight.DepartureTime.ToString("dd/MM/yyyy HH:mm")})";
+    }
 }

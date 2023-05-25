@@ -113,7 +113,7 @@ public sealed class MainMenuController {
             switch (selection)
             {
                 case 0:
-                    UserController.Instance.ShowReservations(); // TODO: Create
+                    UserController.Instance.ShowReservations();
                     break;
                 case 1:
                     // View account info
