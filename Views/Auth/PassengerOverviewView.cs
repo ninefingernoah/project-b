@@ -33,7 +33,9 @@ public class PassengerOverviewView : IView
             "-",
             "Terug"
         };
-        
+        Menu menu = new Menu("Passagier bewerken", optionsList.ToArray());
+        int choice = menu.Run();
+        ViewBag["MainMenuSelection"] = choice.ToString();
     }
 
     public void PopulateViewBag(Passenger passenger)

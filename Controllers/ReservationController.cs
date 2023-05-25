@@ -69,7 +69,7 @@ public sealed class ReservationController
     {
         ReservationOverviewView.Instance.ViewBag["passengers"] = reservation.Passengers;
         ReservationOverviewView.Instance.DisplayPassengers();
-        int choice = int.Parse((string)ReservationOverviewView.Instance.ViewBag["MainMenuSelection"]);
+        int choice = int.Parse((string)ReservationOverviewView.Instance.ViewBag["PassengerSelection"]);
         if(choice > reservation.Passengers.Count)
         {
             ShowReservationToReservationOwner(reservation);
@@ -86,6 +86,50 @@ public sealed class ReservationController
         int choice = int.Parse((string)PassengerOverviewView.Instance.ViewBag["MainMenuSelection"]);
         switch(choice)
         {
+            case 0: // Voornaam
+                StringInputMenu firstNameMenu = new StringInputMenu("Vul de voornaam in: ");
+                string firstName = firstNameMenu.Run()!;
+                if (firstName.ToLower() == "terug")
+                {
+                    ShowPassengerEditor(passenger);
+                    return;
+                }
+                passenger.FirstName = firstName;
+                ShowPassengerEditor(passenger);
+                break;
+            case 1: // Achternaam
+                StringInputMenu lastNameMenu = new StringInputMenu("Vul de achternaam in: ");
+                string lastName = lastNameMenu.Run()!;
+                if (lastName.ToLower() == "terug")
+                {
+                    ShowPassengerEditor(passenger);
+                    return;
+                }
+                passenger.LastName = lastName;
+                ShowPassengerEditor(passenger);
+                break;
+            case 2: // Email
+                StringInputMenu emailMenu = new StringInputMenu("Vul het emailadres in: ");
+                string email = emailMenu.Run()!;
+                if (email.ToLower() == "terug")
+                {
+                    ShowPassengerEditor(passenger);
+                    return;
+                }
+                passenger.Email = email;
+                ShowPassengerEditor(passenger);
+                break;
+            case 3: // Documentnummer
+                StringInputMenu documentNumberMenu = new StringInputMenu("Vul het documentnummer in: ");
+                string documentNumber = documentNumberMenu.Run()!;
+                if (documentNumber.ToLower() == "terug")
+                {
+                    ShowPassengerEditor(passenger);
+                    return;
+                }
+                passenger.DocumentNumber = documentNumber;
+                ShowPassengerEditor(passenger);
+                break;
             case 5:
                 Reservation reservation = ReservationOverviewView.Instance.ViewBag["reservation"] as Reservation;
                 Passenger originalPassenger = reservation.Passengers.Find(p => p.Id == passenger.Id);
