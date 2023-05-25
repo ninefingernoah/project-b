@@ -55,6 +55,22 @@ public static class ConsoleUtils
     }
 
     /// <summary>
+    /// Clears the console and displays the given message.
+    /// </summary>
+    /// <param name="message">The message to display.</param>
+    public static void Warn(string msg)
+    {
+        Console.Clear();
+        Console.ForegroundColor = ConsoleColor.Yellow;
+        Console.WriteLine(msg);
+        Console.ResetColor();
+        Console.WriteLine();
+        Console.WriteLine("Druk op een toets om door te gaan...");
+        Console.ReadKey();
+        Console.Clear();
+    }
+
+    /// <summary>
     /// Clears the console, displays the given message and returns a bool based on the user's input (y/n).
     /// </summary>
     /// <param name="message">The message to display.</param>
