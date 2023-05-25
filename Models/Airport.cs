@@ -1,21 +1,22 @@
-public class Airport {
+public class Airport
+{
     private int _id;
-    private string _name;
-    private string _city;
     private string _country;
-    private string _code;
+    private string _city;
+
+    /// Dict<plane_id, Dict<color_rank, price>>
+    public Dictionary<int, Dictionary<int, int>> _prices;
 
     public int Id { get => _id; set => _id = value; }
-    public string Name { get => _name; set => _name = value; }
-    public string City { get => _city; set => _city = value; }
     public string Country { get => _country; set => _country = value; }
-    public string Code { get => _code; set => _code = value; }
+    public string City { get => _city; set => _city = value; }
+    public Dictionary<int, Dictionary<int, int>> Prices { get => _prices; set => _prices = value; }
 
-    public Airport(int id, string name, string city, string country, string code) {
+    public Airport(int id, string country, string city, Dictionary<int, Dictionary<int, int>> prices)
+    {
         _id = id;
-        _name = name;
-        _city = city;
         _country = country;
-        _code = code;
+        _city = city;
+        _prices = prices;
     }
 }
