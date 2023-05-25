@@ -15,7 +15,6 @@ public class MainMenuView : IView {
             "Registreren",
             "Inloggen",
             "Zoek vlucht",
-            "Boeking bekijken",
             "Afsluiten"
         };
         string[] options = optionsList.ToArray();
