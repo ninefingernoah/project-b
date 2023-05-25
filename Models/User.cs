@@ -30,6 +30,7 @@ public class User {
 
     public int GetReservationCount()
     {
-        return (int)(long)DatabaseManager.QueryResult($"SELECT COUNT(*) as c FROM reservations WHERE user_id = {Id}").Rows[0]['c'];
+        var res = DatabaseManager.QueryResult($"SELECT COUNT(*) FROM reservations WHERE user_id = {Id}").Rows[0];
+        return (int)(long)res["Count(*)"];
     }
 }

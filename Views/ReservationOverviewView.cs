@@ -53,4 +53,20 @@ public class ReservationOverviewView : IView {
     public void ClearViewBag() {
         ViewBag.Clear();
     }
+
+    public void DisplayPassengers()
+    {
+        List<Passenger> passengers = (List<Passenger>)ViewBag["passengers"];
+        List<string> optionsList = new List<string>();
+        foreach (Passenger passenger in passengers)
+        {
+            optionsList.Add(passenger.ToString());
+        }
+        optionsList.Add("-");
+        optionsList.Add("Ga terug");
+        string[] options = optionsList.ToArray();
+        Menu overviewmenu = new Menu("Passagiers", options);
+        int choice = overviewmenu.Run();
+        ViewBag["PassengerSelection"] = choice.ToString();
+    }
 }

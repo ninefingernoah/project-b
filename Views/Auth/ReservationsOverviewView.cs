@@ -40,9 +40,9 @@ public class ReservationsOverviewView : IView
         Menu overviewmenu = new Menu("Reserveringen", options.ToArray());
         int choice = overviewmenu.Run();
         ViewBag["MainMenuSelection"] = choice.ToString();
-        if(choice < reservations.Count + 1)
+        if(choice < reservations.Count + 2)
         {
-            ViewBag["reservation"] = reservations[choice - 1];
+            ViewBag["reservation"] = reservations[choice];
         }
     }
 

@@ -16,10 +16,15 @@ public static class ReservationManager
         // Update a reservation in the database
         return true;
     }
-    public static Reservation GetReservation(int id)
+    public static Reservation GetReservation(string code)
     {
-        // Get a reservation from the database
-        return null;
+        DataTable dt = DatabaseManager.QueryResult($"SELECT * FROM reservations WHERE number = '{code}'");
+        if(dt == null || dt.Rows.Count == 0)
+        {
+            return null;
+        }
+        
+        return GetReservation(dt.Rows[0]);
     }
 
     public static Reservation GetReservation(DataRow dr)
@@ -41,7 +46,7 @@ public static class ReservationManager
             string color = (string)seat["color"];
             r.Seats.Add(new Seat((string)seat["seat_number"], color));
         }
-        var passengers = DatabaseManager.QueryResult($"SELECT * FROM passengers INNER JOIN reservation_passengers ON passengers.id = reservation_passengers.passenger_id WHERE reservation_number = '{r.ReservationNumber}'");
+        var passengers = DatabaseManager.QueryResult($"SELECT passengers.id, passengers.email, passengers.first_name, passengers.last_name, passengers.document_number FROM passengers INNER JOIN reservation_passengers ON passengers.id = reservation_passengers.passenger_id WHERE reservation_number = '{r.ReservationNumber}'");
         foreach (DataRow dr2 in passengers.Rows)
         {
             Passenger passenger = new Passenger(
@@ -51,6 +56,7 @@ public static class ReservationManager
                 (string)dr2["last_name"],
                 (string)dr2["document_number"]
             );
+            r.Passengers.Add(passenger);
         }
         return r;
     }

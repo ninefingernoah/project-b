@@ -23,14 +23,9 @@ public sealed class ReservationController
     public void AskReservation()
     {
         StringInputMenu menu = new StringInputMenu("Vul uw reserveringscode in: ");
-        int reservationCode;
-        try
+        string reservationCode = menu.Run()!;
+        if (reservationCode.ToLower() == "terug")
         {
-            reservationCode = int.Parse(menu.Run()!);
-        }
-        catch (Exception)
-        {
-            ConsoleUtils.Error("De ingevoerde reserveringscode is ongeldig.");
             MainMenuController.Instance.ShowMainMenu();
             return;
         }
@@ -43,6 +38,11 @@ public sealed class ReservationController
         }
         StringInputMenu emailMenu = new StringInputMenu("Vul uw emailadres in: ");
         string email = emailMenu.Run()!;
+        if (email.ToLower() == "terug")
+        {
+            MainMenuController.Instance.ShowMainMenu();
+            return;
+        }
         if (reservation.User.Email != email && reservation.Email != email)
         {
             ConsoleUtils.Error("Het ingevoerde emailadres is ongeldig.");
@@ -54,17 +54,56 @@ public sealed class ReservationController
 
     public void ShowReservationToReservationOwner(Reservation reservation)
     {
-        if(reservation.User == null)
+        ReservationOverviewView.Instance.ViewBag["reservation"] = reservation;
+        ReservationOverviewView.Instance.Display();
+        int choice = int.Parse((string)ReservationOverviewView.Instance.ViewBag["MainMenuSelection"]);
+        switch(choice)
         {
-            ShowNonUserReservation(reservation);
+            case 5: // Show passengers
+                ShowPassengers(reservation);
+                break;
         }
-        
     }
 
-    private void ShowNonUserReservation(Reservation reservation)
+    private void ShowPassengers(Reservation reservation)
     {
-        ReservationOverviewView.Instance.ViewBag["Reservation"] = reservation;
-        
+        ReservationOverviewView.Instance.ViewBag["passengers"] = reservation.Passengers;
+        ReservationOverviewView.Instance.DisplayPassengers();
+        int choice = int.Parse((string)ReservationOverviewView.Instance.ViewBag["MainMenuSelection"]);
+        if(choice > reservation.Passengers.Count)
+        {
+            ShowReservationToReservationOwner(reservation);
+            return;
+        }
+        Passenger passenger = reservation.Passengers[choice];
+        ShowPassengerEditor(passenger); // TODO: Show passenger
     }
+
+    public void ShowPassengerEditor(Passenger passenger)
+    {
+        PassengerOverviewView.Instance.PopulateViewBag(passenger);
+        PassengerOverviewView.Instance.Display();
+        int choice = int.Parse((string)PassengerOverviewView.Instance.ViewBag["MainMenuSelection"]);
+        switch(choice)
+        {
+            case 5:
+                Reservation reservation = ReservationOverviewView.Instance.ViewBag["reservation"] as Reservation;
+                Passenger originalPassenger = reservation.Passengers.Find(p => p.Id == passenger.Id);
+                if(!originalPassenger.Equals(passenger))
+                {
+                    int index = reservation.Passengers.IndexOf(originalPassenger);
+                    reservation.Passengers[index] = passenger;
+                }
+                ShowPassengers(reservation);
+                break;
+        }
+    }
+
+    // Dit is niet nodig
+    // private void ShowNonUserReservation(Reservation reservation)
+    // {
+    //     ReservationOverviewView.Instance.ViewBag["Reservation"] = reservation;
+        
+    // }
 
 }

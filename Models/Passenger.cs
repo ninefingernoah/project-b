@@ -18,4 +18,8 @@ public class Passenger {
         _lastName = lastName;
         _documentNumber = documentNumber;
     }
+
+    public override string ToString() {
+        return $"{_firstName} {_lastName} ({_documentNumber})";
+    }
 }
