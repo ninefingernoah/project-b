@@ -16,7 +16,7 @@ public static class ReservationManager
         // Update a reservation in the database
         return true;
     }
-    public static Reservation GetReservation(string code)
+    public static Reservation? GetReservation(string code)
     {
         DataTable dt = DatabaseManager.QueryResult($"SELECT * FROM reservations WHERE number = '{code}'");
         if(dt == null || dt.Rows.Count == 0)
@@ -49,14 +49,7 @@ public static class ReservationManager
         var passengers = DatabaseManager.QueryResult($"SELECT passengers.id, passengers.email, passengers.first_name, passengers.last_name, passengers.document_number FROM passengers INNER JOIN reservation_passengers ON passengers.id = reservation_passengers.passenger_id WHERE reservation_number = '{r.ReservationNumber}'");
         foreach (DataRow dr2 in passengers.Rows)
         {
-            Passenger passenger = new Passenger(
-                (int)(long)dr2["id"],
-                (string)dr2["email"],
-                (string)dr2["first_name"],
-                (string)dr2["last_name"],
-                (string)dr2["document_number"]
-            );
-            r.Passengers.Add(passenger);
+            r.Passengers.Add(PassengerManager.GetPassenger((int)(long)dr2["id"]));
         }
         return r;
     }

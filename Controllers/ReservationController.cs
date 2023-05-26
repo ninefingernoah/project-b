@@ -57,7 +57,7 @@ public sealed class ReservationController
         ReservationOverviewView.Instance.ViewBag["reservation"] = reservation;
         ReservationOverviewView.Instance.Display();
         int choice = int.Parse((string)ReservationOverviewView.Instance.ViewBag["MainMenuSelection"]);
-        switch(choice)
+        switch (choice)
         {
             case 5: // Show passengers
                 ShowPassengers(reservation);
@@ -70,7 +70,7 @@ public sealed class ReservationController
         ReservationOverviewView.Instance.ViewBag["passengers"] = reservation.Passengers;
         ReservationOverviewView.Instance.DisplayPassengers();
         int choice = int.Parse((string)ReservationOverviewView.Instance.ViewBag["PassengerSelection"]);
-        if(choice > reservation.Passengers.Count)
+        if (choice > reservation.Passengers.Count)
         {
             ShowReservationToReservationOwner(reservation);
             return;
@@ -84,29 +84,13 @@ public sealed class ReservationController
         PassengerOverviewView.Instance.PopulateViewBag(passenger);
         PassengerOverviewView.Instance.Display();
         int choice = int.Parse((string)PassengerOverviewView.Instance.ViewBag["MainMenuSelection"]);
-        switch(choice)
+        switch (choice)
         {
             case 0: // Voornaam
-                StringInputMenu firstNameMenu = new StringInputMenu("Vul de voornaam in: ");
-                string firstName = firstNameMenu.Run()!;
-                if (firstName.ToLower() == "terug")
-                {
-                    ShowPassengerEditor(passenger);
-                    return;
-                }
-                passenger.FirstName = firstName;
-                ShowPassengerEditor(passenger);
+                ChangeFirstName(passenger);
                 break;
             case 1: // Achternaam
-                StringInputMenu lastNameMenu = new StringInputMenu("Vul de achternaam in: ");
-                string lastName = lastNameMenu.Run()!;
-                if (lastName.ToLower() == "terug")
-                {
-                    ShowPassengerEditor(passenger);
-                    return;
-                }
-                passenger.LastName = lastName;
-                ShowPassengerEditor(passenger);
+                ChangeLastName(passenger);
                 break;
             case 2: // Email
                 StringInputMenu emailMenu = new StringInputMenu("Vul het emailadres in: ");
@@ -130,10 +114,41 @@ public sealed class ReservationController
                 passenger.DocumentNumber = documentNumber;
                 ShowPassengerEditor(passenger);
                 break;
-            case 5:
-                Reservation reservation = ReservationOverviewView.Instance.ViewBag["reservation"] as Reservation;
+            case 4: // Geboortedatum
+                StringInputMenu birthDateMenu = new StringInputMenu("Vul de geboortedatum in: ");
+                string birthDate = birthDateMenu.Run()!;
+                DateTime birthDateDateTime;
+                if (birthDate.ToLower() == "terug")
+                {
+                    ShowPassengerEditor(passenger);
+                    return;
+                }
+                try
+                {
+                    birthDateDateTime = DateTime.Parse(birthDate);
+                }
+                catch (Exception)
+                {
+                    ConsoleUtils.Error("De ingevoerde geboortedatum is ongeldig.");
+                    ShowPassengerEditor(passenger);
+                    return;
+                }
+                if (birthDateDateTime > (DateTime.Now - TimeSpan.FromDays(60)))
+                {
+                    ConsoleUtils.Error("De ingevoerde geboortedatum is ongeldig.");
+                    ShowPassengerEditor(passenger);
+                    return;
+                }
+                passenger.BirthDate = birthDateDateTime;
+                ShowPassengerEditor(passenger);
+                break;
+            case 5: // Address
+                AddressController.Instance.ShowAddressEditingMenu(passenger);
+                break;
+            case 7:
+                Reservation? reservation = ReservationOverviewView.Instance.ViewBag["reservation"] as Reservation;
                 Passenger originalPassenger = reservation.Passengers.Find(p => p.Id == passenger.Id);
-                if(!originalPassenger.Equals(passenger))
+                if (!originalPassenger.Equals(passenger))
                 {
                     int index = reservation.Passengers.IndexOf(originalPassenger);
                     reservation.Passengers[index] = passenger;
@@ -143,11 +158,64 @@ public sealed class ReservationController
         }
     }
 
+    private void ChangeFirstName(Passenger passenger)
+    {
+        if(!passenger.CanChangeName())
+        {
+            ConsoleUtils.Error("Deze passagier kan zijn/haar naam niet meer veranderen. Neem contact op met de klantenservice.");
+            ShowPassengerEditor(passenger);
+            return;
+        }
+        StringInputMenu firstNameMenu = new StringInputMenu("Vul de voornaam in: ");
+        string firstName = firstNameMenu.Run()!;
+        if (firstName.ToLower() == "terug")
+        {
+            ShowPassengerEditor(passenger);
+            return;
+        }
+        if(CalcUtils.DeltaString(firstName, passenger.FirstName) > 2)
+        {
+            ConsoleUtils.Error("De ingevoerde voornaam wijkt te veel af van de huidige voornaam.");
+            ShowPassengerEditor(passenger);
+            return;
+        }
+        passenger.FirstName = firstName;
+        // Het locken pas doen bij het opslaan van de naam.
+        // passenger.LockName();
+        ShowPassengerEditor(passenger);
+    }
+
+    private void ChangeLastName(Passenger passenger)
+    {
+        if(!passenger.CanChangeName())
+        {
+            ConsoleUtils.Error("Deze passagier kan zijn/haar naam niet meer veranderen. Neem contact op met de klantenservice.");
+            ShowPassengerEditor(passenger);
+            return;
+        }
+        StringInputMenu lastNameMenu = new StringInputMenu("Vul de achternaam in: ");
+        string lastName = lastNameMenu.Run()!;
+        if (lastName.ToLower() == "terug")
+        {
+            ShowPassengerEditor(passenger);
+            return;
+        }
+        if(CalcUtils.DeltaString(lastName, passenger.LastName) > 2)
+        {
+            ConsoleUtils.Error("De ingevoerde achternaam wijkt te veel af van de huidige achternaam.");
+            ShowPassengerEditor(passenger);
+            return;
+        }
+        passenger.LastName = lastName;
+        // passenger.LockName();
+        ShowPassengerEditor(passenger);
+    }
+
     // Dit is niet nodig
     // private void ShowNonUserReservation(Reservation reservation)
     // {
     //     ReservationOverviewView.Instance.ViewBag["Reservation"] = reservation;
-        
+
     // }
 
 }

@@ -7,10 +7,6 @@ public class PassengerOverviewView : IView
     {
     }
 
-    private PassengerOverviewView()
-    {
-    }
-
     public static PassengerOverviewView Instance
     {
         get
@@ -21,15 +17,21 @@ public class PassengerOverviewView : IView
 
     public Dictionary<string, object> ViewBag = new Dictionary<string, object>();
 
-    Passenger ThePassenger;
+    public Passenger? ThePassenger;
 
     public void Display()
     {
+        if (ThePassenger == null)
+        {
+            throw new Exception("Passenger is null");
+        }
         List<string> optionsList = new List<string>() {
             $"Voornaam: {ThePassenger.FirstName}",
             $"Achternaam: {ThePassenger.LastName}",
             $"Email: {ThePassenger.Email}",
             $"Document nummer: {ThePassenger.DocumentNumber}",
+            $"Geboortedatum: {((DateTime) ThePassenger.BirthDate!).ToString("dd-MM-yyyy")}",
+            $"Adres: {ThePassenger.Address.Street} {ThePassenger.Address.StreetNumber}, {ThePassenger.Address.City}, {ThePassenger.Address.Country}",
             "-",
             "Terug"
         };
@@ -45,6 +47,6 @@ public class PassengerOverviewView : IView
 
     public void ClearViewBag()
     {
-
+        ViewBag.Clear();
     }
 }
