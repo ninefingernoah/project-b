@@ -108,6 +108,7 @@ public class FlightListController {
                     ShowFilterSearch();
                     break;
 
+                // Resets the filters
                 case 4:
                     FlightFilterView.Instance.ResetViewBag();
                     ShowFilterSearch();
