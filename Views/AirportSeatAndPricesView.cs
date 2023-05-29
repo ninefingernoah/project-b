@@ -13,7 +13,7 @@ public class AirportSeatAndPricesView : IView
     {
         populateViewBag();
 
-        List<string> optionsList = new List<string>()
+        List<string> optionsList = new List<string>() // TODO: Maak dit niet gehardcode. Haal de data uit een nog niet gekozen bron en maak het een modulaire manier dat er een nieuw soortvliegtuig makkelijk aan toegevoegd kan worden.
         {
             $"Boeing 737:",
             $"   Blue:{ViewBag["Boeing737Blue"]}",

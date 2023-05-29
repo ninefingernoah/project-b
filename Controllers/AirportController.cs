@@ -1,7 +1,3 @@
-using System;
-using System.IO;
-using Newtonsoft.Json.Linq;
-
 public class AirportController
 {
     private static readonly AirportController instance = new AirportController();
@@ -42,10 +38,9 @@ public class AirportController
                 showFlightsAndPricesMenu();
                 break;
             case 6: // Confirm (adds to the JSON and DB.)
-                // TODO: Add to JSON and DB. (Miss iets met Airport class?)
                 Airport NewAirport = new Airport(0, AirportView.Instance.ViewBag["AirportName"], AirportView.Instance.ViewBag["AirportCity"], AirportView.Instance.ViewBag["AirportCountry"], AirportView.Instance.ViewBag["AirportCode"]);
-                AddAirportToJson(NewAirport);
-                AirportManager.AddAirport(NewAirport); // TODO: Implement error handling.
+                JSONManager.AddAirportToJson(NewAirport);
+                AirportManager.AddAirport(NewAirport);
                 break;
             case 7: // Cancel (Cancels the creation of the airport.)
                 AirportView.Instance.ClearViewBag();
@@ -67,42 +62,6 @@ public class AirportController
 
         AirportView.Instance.ViewBag[ViewBagNaam] = input!;
         showAirportCreationMenu();
-    }
-
-    private void AddAirportToJson(Airport NewAirport)
-    {
-        JObject JSONClassPriceData = JSONManager.GetJSON("seatprices.json");
-        if (JSONClassPriceData == null)
-        {
-            ConsoleUtils.Error("Er is iets fout gegaan bij het ophalen van de prijzen. Probeer het opnieuw.", showAirportCreationMenu);
-            return;
-        }
-
-       JObject newCity = new JObject
-        {
-                ["Boeing_737"] = new JObject
-                {
-                    ["blue"] = Int32.Parse(AirportSeatAndPricesView.Instance.ViewBag["Boeing737Blue"]),
-                    ["yellow"] = Int32.Parse(AirportSeatAndPricesView.Instance.ViewBag["Boeing737Yellow"])
-                },
-                ["Airbus_330"] = new JObject
-                {
-                    ["white"] = Int32.Parse(AirportSeatAndPricesView.Instance.ViewBag["Airbus330White"]),
-                    ["dark_blue"] = Int32.Parse(AirportSeatAndPricesView.Instance.ViewBag["Airbus330Darkblue"]),
-                    ["purple"] = Int32.Parse(AirportSeatAndPricesView.Instance.ViewBag["Airbus330Purple"]),
-                    ["pink"] = Int32.Parse(AirportSeatAndPricesView.Instance.ViewBag["Airbus330Pink"]),
-                    ["grey_(business_class)"] = Int32.Parse(AirportSeatAndPricesView.Instance.ViewBag["Airbus330Grey"])
-                },
-                ["Boeing_787"] = new JObject
-                {
-                    ["white"] = Int32.Parse(AirportSeatAndPricesView.Instance.ViewBag["Boeing787White"]),
-                    ["blue"] = Int32.Parse(AirportSeatAndPricesView.Instance.ViewBag["Boeing787Blue"]),
-                    ["orange_(business_class)"] = Int32.Parse(AirportSeatAndPricesView.Instance.ViewBag["Boeing787Orange"])
-                }
-        };
-
-        JSONManager.AddCityToJSON("seatprices.json", newCity, NewAirport.City);
-
     }
 
     private void showFlightsAndPricesMenu()
