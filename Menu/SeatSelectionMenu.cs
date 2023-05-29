@@ -47,15 +47,16 @@ public class SeatSelectionMenu {
                     MoveCursorRight(allSeats, maxRow);
                     break;
                 case ConsoleKey.UpArrow:
-                    MoveCursorUp(allSeats);
+                    MoveCursorUp(allSeats, maxColumn);
                     break;
                 case ConsoleKey.DownArrow:
-                    MoveCursorDown(allSeats, maxColumn);
+                    MoveCursorDown(allSeats);
                     break;
                 case ConsoleKey.Enter:
                     ToggleSeatSelection(Cursor);
                     break;
                 case ConsoleKey.Escape:
+
                 case ConsoleKey.S:
                     // TODO: return user to booking menu, add selected seats to booking in database
                     return;
@@ -68,8 +69,9 @@ public class SeatSelectionMenu {
     }
 
     static void PrintSeatLayout(List<Seat> seats, int maxRow, int maxColumn){
-        for (int column = 1; column <= maxColumn; column++)
+        for (int column = maxColumn; column > 0; column--)
         {
+            Console.Write($"{GetColumnLetter(column)} ");
             for (int row = 1; row <= maxRow; row++)
             {
                 Seat seat = GetSeatAtPosition(seats, row, column);
@@ -91,8 +93,14 @@ public class SeatSelectionMenu {
                     PrintSeatBox(seat.Color);
                 }
             }
-            if (column % 3 == 0) { Console.WriteLine();} // print a new line after every 3 columns
+            if (column % 3 == 1) { Console.WriteLine();} // print a new line after every 3 columns
             Console.WriteLine(); // Move to the next row
+        }
+        // print the selected seats
+        Console.WriteLine("\nGeselecteerde stoelen:");
+        foreach (var seat in SelectedSeats)
+        {
+            Console.WriteLine($"Stoel {seat.Number}");
         }
     }
 
@@ -109,7 +117,7 @@ public class SeatSelectionMenu {
         return null;
     }
 
-    static void MoveCursorUp(List<Seat> seats)
+    static void MoveCursorDown(List<Seat> seats)
     {
         int columnIndex = GetColumnIndex(Cursor.Column);
 
@@ -125,7 +133,7 @@ public class SeatSelectionMenu {
         }
     }
 
-    static void MoveCursorDown(List<Seat> seats, int maxColumn)
+    static void MoveCursorUp(List<Seat> seats, int maxColumn)
     {
         int columnIndex = GetColumnIndex(Cursor.Column);
 
