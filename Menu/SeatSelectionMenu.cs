@@ -68,7 +68,7 @@ public class SeatSelectionMenu {
         }
     }
 
-    static void PrintSeatLayout(List<Seat> seats, int maxRow, int maxColumn){
+    void PrintSeatLayout(List<Seat> seats, int maxRow, int maxColumn){
         for (int column = maxColumn; column > 0; column--)
         {
             Console.Write($"{GetColumnLetter(column)} ");
@@ -79,6 +79,10 @@ public class SeatSelectionMenu {
                 if (seat == null)
                 {
                     PrintEmptyBox();
+                }
+                else if (_flight.TakenSeats.Contains(seat))
+                {
+                    PrintTakenSeatBox(seat.Color);
                 }
                 else if (seat == Cursor)
                 {
@@ -171,8 +175,12 @@ public class SeatSelectionMenu {
         }
     }
 
-    static void ToggleSeatSelection(Seat seat)
+    void ToggleSeatSelection(Seat seat)
     {
+        if (_flight.TakenSeats.Contains(seat))
+        {
+            return;
+        }
         if (SelectedSeats.Contains(seat))
         {
             SelectedSeats.Remove(seat);
@@ -216,6 +224,14 @@ public class SeatSelectionMenu {
     static void PrintSelectedSeatBox()
     {
         Console.BackgroundColor = ConsoleColor.Magenta;
+        Console.Write("■"); // Box icon
+        Console.ResetColor();
+    }
+
+    static void PrintTakenSeatBox(string color)
+    {
+        Console.BackgroundColor = ConsoleColor.Red;
+        Console.ForegroundColor = GetConsoleColor(color);
         Console.Write("■"); // Box icon
         Console.ResetColor();
     }

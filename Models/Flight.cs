@@ -51,7 +51,13 @@ public class Flight {
     }
 
     public void SetTakenSeats() {
-        _takenSeats = SeatManager.GetTakenSeats(this);
+        List<Seat>? takenSeats = SeatManager.GetTakenSeats(this);
+        if (takenSeats != null) {
+            _takenSeats = takenSeats;
+        }
+        else {
+            _takenSeats = new List<Seat>();
+        }
     }
 
     public Flight(Flight flight)

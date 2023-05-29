@@ -61,6 +61,9 @@ public sealed class MainMenuController {
                 // stoel selectie testje
                 Flight flight = FlightManager.GetFlight(1);
                 SeatSelectionMenu seatSelectionMenu = new SeatSelectionMenu(flight);
+                flight.TakenSeats.Add(flight.Airplane.Seats[0]);
+                flight.TakenSeats.Add(flight.Airplane.Seats[1]);
+                flight.TakenSeats.Add(flight.Airplane.Seats[6]);
                 seatSelectionMenu.Run();
                 break;
             case 4:
