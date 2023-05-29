@@ -100,6 +100,8 @@ public class SeatSelectionMenu {
             if (column % 3 == 1) { Console.WriteLine();} // print a new line after every 3 columns
             Console.WriteLine(); // Move to the next row
         }
+        // print the cursor position
+        Console.WriteLine($"{Cursor.Number}");
         // print the selected seats
         Console.WriteLine("\nGeselecteerde stoelen:");
         foreach (var seat in SelectedSeats)
