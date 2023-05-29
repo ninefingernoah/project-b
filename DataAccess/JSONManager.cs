@@ -13,5 +13,9 @@ public static class JSONManager {
         }
         return null;
     }
+
+    public static string GetJSONString(string path) {
+        return File.ReadAllText("Data\\" + path);
+    }
     
 }

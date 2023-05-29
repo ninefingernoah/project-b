@@ -1,6 +1,7 @@
 public class Reservation {
     private string _reservationNumber;
     private Flight _flight;
+    private string _email;
     private User _user;
     private List<Seat> _seats;
     private double _price;
@@ -10,6 +11,7 @@ public class Reservation {
 
     public string ReservationNumber { get => _reservationNumber; set => _reservationNumber = value; }
     public Flight Flight { get => _flight; set => _flight = value; }
+    public string Email { get => _email; set => _email = value; }
     public User User { get => _user; set => _user = value; }
     public List<Seat> Seats { get => _seats; }
     public double Price { get => _price; set => _price = value; }
@@ -17,10 +19,10 @@ public class Reservation {
     public DateTime MadeOn { get => _madeOn; set => _madeOn = value; }
     public bool IsPaid { get => _isPaid; set => _isPaid = value; }
 
-    public Reservation(string reservationNumber, Flight flight, User user, double price, DateTime madeOn) {
+    public Reservation(string reservationNumber, Flight flight, string email, double price, DateTime madeOn) {
         _reservationNumber = reservationNumber;
         _flight = flight;
-        _user = user;
+        _email = email;
         _seats = new List<Seat>();
         _price = price;
         _passengers = new List<Passenger>();

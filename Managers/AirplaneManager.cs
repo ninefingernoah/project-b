@@ -1,4 +1,5 @@
 using System.Data;
+using Newtonsoft.Json;
 public static class AirplaneManager {
     public static bool AddAirplane(Airplane airplane) {
         // Add an airplane to the database
@@ -47,5 +48,16 @@ public static class AirplaneManager {
             airplanes.Add(airplane);
         }
         return airplanes;
+    }
+
+    /// <summary>
+    /// Gets the airplane layout from the json.
+    /// </summary>
+    /// <param name="airplane">The airplane to get the layout from.</param>
+    public static AirplaneLayout GetAirplaneLayout(string airplane) {
+        // Get the airplane layout from the json
+        string json = JSONManager.GetJSONString("seatlayouts.json");
+        AirplaneLayout airplaneLayout = JsonConvert.DeserializeObject<AirplaneLayout>(json);
+        return airplaneLayout;
     }
 }

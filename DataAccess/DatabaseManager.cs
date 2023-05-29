@@ -79,12 +79,11 @@ public static class DatabaseManager
                 CREATE TABLE IF NOT EXISTS reservations (
                     number TEXT NOT NULL PRIMARY KEY,
                     flight_id INTEGER NOT NULL,
-                    user_id INTEGER NOT NULL,
+                    email TEXT NOT NULL,
                     price REAL NOT NULL,
                     made_on TEXT NOT NULL,
                     is_paid INTEGER NOT NULL,
-                    FOREIGN KEY(flight_id) REFERENCES flights(id),
-                    FOREIGN KEY(user_id) REFERENCES users(id)
+                    FOREIGN KEY(flight_id) REFERENCES flights(id)
                 );
                 CREATE TABLE IF NOT EXISTS reservation_passengers (
                     reservation_number TEXT NOT NULL,

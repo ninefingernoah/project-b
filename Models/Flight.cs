@@ -22,8 +22,8 @@ public class Flight {
         _departureTime = departureTime;
         _arrivalTime = arrivalTime;
         _airplane = airplane;
-        _takenSeats = new List<Seat>();
         SetSeatPrices();
+        SetTakenSeats();
     }
 
     public void AddTakenSeat(Seat seat) {
@@ -48,6 +48,10 @@ public class Flight {
         foreach (Seat seat in _airplane.Seats) {
             seat.Price = prices[seat.Color];
         }
+    }
+
+    public void SetTakenSeats() {
+        _takenSeats = SeatManager.GetTakenSeats(this);
     }
 
     public Flight(Flight flight)

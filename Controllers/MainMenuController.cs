@@ -58,6 +58,12 @@ public sealed class MainMenuController {
                 FlightListController.Instance.ShowFlightSearchMenu();
                 break;
             case 3:
+                // stoel selectie testje
+                Flight flight = FlightManager.GetFlight(1);
+                SeatSelectionMenu seatSelectionMenu = new SeatSelectionMenu(flight);
+                seatSelectionMenu.Run();
+                break;
+            case 4:
                 break;
             default:
                 Console.WriteLine("Ongeldige keuze.");
