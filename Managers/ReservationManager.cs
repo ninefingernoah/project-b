@@ -13,7 +13,18 @@ public static class ReservationManager
     }
     public static bool UpdateReservation(Reservation reservation)
     {
-        // Update a reservation in the database
+        DatabaseManager.QueryNonResult($"UPDATE reservations SET flight_id = {reservation.Flight.Id}, user_id = {reservation.User.Id}, email = '{reservation.Email}', price = {reservation.Price}, made_on = '{reservation.MadeOn.ToString("dd-MM-yyyy")}' WHERE number = '{reservation.ReservationNumber}'");
+        foreach(Passenger p in reservation.Passengers)
+        {
+            var oldFirstName = DatabaseManager.QueryResult($"SELECT * FROM passengers WHERE id = {p.Id}").Rows[0]["first_name"];
+            var oldLastName = DatabaseManager.QueryResult($"SELECT * FROM passengers WHERE id = {p.Id}").Rows[0]["last_name"];
+            var oldName = $"{oldFirstName} {oldLastName}";
+            if (oldName != (p.FirstName + " " + p.LastName))
+                DatabaseManager.QueryNonResult($"UPDATE passengers SET letters_changed = 1 WHERE id = {p.Id}");
+            int address_id = (int)(long)DatabaseManager.QueryResult($"SELECT * FROM passengers WHERE id = {p.Id}").Rows[0]["address_id"];
+            DatabaseManager.QueryNonResult($"UPDATE passengers SET email = '{p.Email}', first_name = '{p.FirstName}', last_name = '{p.LastName}', document_number = '{p.DocumentNumber}', date_of_birth = '{((DateTime) p.BirthDate).ToString("dd-MM-yyyy")}' WHERE id = {p.Id}");
+            DatabaseManager.QueryNonResult($"UPDATE addresses SET street = '{p.Address.Street}', street_number = '{p.Address.StreetNumber}', city = '{p.Address.City}' WHERE id = {address_id}");
+        }
         return true;
     }
     public static Reservation? GetReservation(string code)

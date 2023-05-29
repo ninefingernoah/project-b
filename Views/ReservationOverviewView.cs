@@ -31,6 +31,7 @@ public class ReservationOverviewView : IView {
             $"Aankomst op: {reservation.Flight.ArrivalTime}",
             $"Passagiers: {reservation.Passengers.Count} personen",
             "-",
+            "Wijzigingen Opslaan",
             "Ga terug"
         };
         string[] options = optionsList.ToArray();

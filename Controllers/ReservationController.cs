@@ -57,10 +57,22 @@ public sealed class ReservationController
         ReservationOverviewView.Instance.ViewBag["reservation"] = reservation;
         ReservationOverviewView.Instance.Display();
         int choice = int.Parse((string)ReservationOverviewView.Instance.ViewBag["MainMenuSelection"]);
+        if (choice >= 0 && choice <= 4)
+        {
+            ShowReservationToReservationOwner(reservation);
+            return;
+        }
         switch (choice)
         {
             case 5: // Show passengers
                 ShowPassengers(reservation);
+                break;
+            case 7:
+                ReservationManager.UpdateReservation(reservation);
+                MainMenuController.Instance.ShowMainMenu();
+                break;
+            case 8:
+                MainMenuController.Instance.ShowMainMenu();
                 break;
         }
     }
