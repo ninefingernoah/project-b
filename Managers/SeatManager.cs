@@ -26,11 +26,6 @@ public static class SeatManager {
         // Get seat prices from json
         JObject jsonObj = JSONManager.GetJSON("seatprices.json");
         string location = flight.Departure.City == "Amsterdam" ? flight.Destination.City : flight.Departure.City;
-        /* JToken priceToken = jsonObj.SelectToken($"$.{flight.Airplane.Name}.destinations.{location}");
-        if (priceToken != null) {
-            return JsonConvert.DeserializeObject<Dictionary<string, double>>(priceToken.ToString())!;
-        }
-        return null; */
         var prices = jsonObj[location][flight.Airplane.Name]
         .Children<JProperty>()
         .ToDictionary(prop => prop.Name, prop => prop.Value.Value<double>());
