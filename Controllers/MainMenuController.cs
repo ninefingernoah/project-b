@@ -67,6 +67,9 @@ public sealed class MainMenuController {
                 seatSelectionMenu.Run();
                 break;
             case 4:
+                AirportController.Instance.ShowAirportList();
+                break;
+            case 5:
                 break;
             default:
                 Console.WriteLine("Ongeldige keuze.");
@@ -124,7 +127,10 @@ public sealed class MainMenuController {
                 case 1:
                     // View account info
                     break;
-                case 3:
+                case 2:
+                    AirportController.Instance.ShowAirportList();
+                    break;
+                case 4:
                     // Log out
                     UserManager.LogOut();
                     ConsoleUtils.Success("U bent uitgelogd.");

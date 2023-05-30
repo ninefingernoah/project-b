@@ -14,6 +14,7 @@ public class AuthenticatedMainMenuView : IView {
         List<string> optionsList = new List<string>() {
             "Bekijk reserveringen",
             "Bekijk accountgegegvens",
+            "Vliegveldinformatie",
             "-",
             "Uitloggen"
         };

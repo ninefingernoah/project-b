@@ -16,6 +16,7 @@ public class MainMenuView : IView {
             "Inloggen",
             "Zoek vlucht",
             "Stoel selectie test",
+            "Vliegveldinformatie",
             "Afsluiten"
         };
         string[] options = optionsList.ToArray();

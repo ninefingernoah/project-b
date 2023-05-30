@@ -16,5 +16,6 @@ public class SeatSelectionView {
     public void Display(Flight flight) {
         // show seat grid
         SeatSelectionMenu menu = new SeatSelectionMenu(flight);
+        menu.Run();
     }
 }
