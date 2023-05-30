@@ -24,6 +24,10 @@ public static class ReservationManager
             int address_id = (int)(long)DatabaseManager.QueryResult($"SELECT * FROM passengers WHERE id = {p.Id}").Rows[0]["address_id"];
             DatabaseManager.QueryNonResult($"UPDATE passengers SET email = '{p.Email}', first_name = '{p.FirstName}', last_name = '{p.LastName}', document_number = '{p.DocumentNumber}', date_of_birth = '{((DateTime) p.BirthDate).ToString("dd-MM-yyyy")}' WHERE id = {p.Id}");
             DatabaseManager.QueryNonResult($"UPDATE addresses SET street = '{p.Address.Street}', street_number = '{p.Address.StreetNumber}', city = '{p.Address.City}' WHERE id = {address_id}");
+            if (reservation.User != null)
+            {
+                DatabaseManager.QueryNonResult($"UPDATE users SET email = '{reservation.User.Email}' WHERE id = {reservation.User.Id}");
+            }
         }
         return true;
     }

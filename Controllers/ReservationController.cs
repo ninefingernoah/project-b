@@ -57,14 +57,14 @@ public sealed class ReservationController
         ReservationOverviewView.Instance.ViewBag["reservation"] = reservation;
         ReservationOverviewView.Instance.Display();
         int choice = int.Parse((string)ReservationOverviewView.Instance.ViewBag["MainMenuSelection"]);
-        if (choice >= 0 && choice < 2 && choice > 2 && choice <= 4)
+        if (choice == 0 || (choice > 1 && choice <= 5))
         {
             ShowReservationToReservationOwner(reservation);
             return;
         }
         switch (choice)
         {
-            case 2:
+            case 1:
                 StringInputMenu emailMenu = new StringInputMenu("Vul uw emailadres in: ");
                 string email = emailMenu.Run()!;
                 if (email.ToLower() == "terug")
