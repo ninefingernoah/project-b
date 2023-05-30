@@ -31,8 +31,8 @@ public sealed class ReservationController
 
         // see TODO
         List<Seat> seats = new List<Seat>();
-        seats.Add(new Seat("1", 1));
-        seats.Add(new Seat("2", 1));
+        seats.Add(new Seat("1", "1"));
+        seats.Add(new Seat("2", "1"));
         double Price = 100;
 
         DisplayData(flight, passengers, seats);
