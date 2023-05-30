@@ -23,8 +23,10 @@ public class ReservationOverviewView : IView {
     public void Display() {
         // TODO: Is deze manier een beetje oke?
         Reservation reservation = (Reservation)ViewBag["reservation"];
+        string email = reservation.Email != null ? reservation.Email : reservation.User.Email;
         List<string> optionsList = new List<string>() {
             $"Boekingsnummer: {reservation.ReservationNumber}",
+            $"Email: {email}", 
             $"Vertrek van: {reservation.Flight.Departure}",
             $"Vertrek naar: {reservation.Flight.Destination}",
             $"Vertrek op: {reservation.Flight.DepartureTime}",

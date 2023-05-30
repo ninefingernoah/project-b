@@ -57,21 +57,43 @@ public sealed class ReservationController
         ReservationOverviewView.Instance.ViewBag["reservation"] = reservation;
         ReservationOverviewView.Instance.Display();
         int choice = int.Parse((string)ReservationOverviewView.Instance.ViewBag["MainMenuSelection"]);
-        if (choice >= 0 && choice <= 4)
+        if (choice >= 0 && choice < 2 && choice > 2 && choice <= 4)
         {
             ShowReservationToReservationOwner(reservation);
             return;
         }
         switch (choice)
         {
-            case 5: // Show passengers
+            case 2:
+                StringInputMenu emailMenu = new StringInputMenu("Vul uw emailadres in: ");
+                string email = emailMenu.Run()!;
+                if (email.ToLower() == "terug")
+                {
+                    ShowReservationToReservationOwner(reservation);
+                    return;
+                }
+                if(!StringUtils.CheckValidEmail(email))
+                {
+                    ConsoleUtils.Error("Het ingevoerde emailadres is ongeldig.");
+                    ShowReservationToReservationOwner(reservation);
+                    return;
+                }
+                if(reservation.Email != null)
+                    reservation.Email = email;
+                if (reservation.User != null)
+                {
+                    reservation.User.Email = email;
+                }
+                ShowReservationToReservationOwner(reservation);
+                break;
+            case 6: // Show passengers
                 ShowPassengers(reservation);
                 break;
-            case 7:
+            case 8:
                 ReservationManager.UpdateReservation(reservation);
                 MainMenuController.Instance.ShowMainMenu();
                 break;
-            case 8:
+            case 9:
                 MainMenuController.Instance.ShowMainMenu();
                 break;
         }

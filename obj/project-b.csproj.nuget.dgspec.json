@@ -1,25 +1,27 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Rens\\Documents\\School\\2022-2023\\Projecten\\project-b-air\\project-b.csproj": {}
+    "C:\\Users\\Rens\\School\\2022-2023\\Projects\\Project-b-airline\\project-b\\project-b.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Rens\\Documents\\School\\2022-2023\\Projecten\\project-b-air\\project-b.csproj": {
+    "C:\\Users\\Rens\\School\\2022-2023\\Projects\\Project-b-airline\\project-b\\project-b.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Rens\\Documents\\School\\2022-2023\\Projecten\\project-b-air\\project-b.csproj",
+        "projectUniqueName": "C:\\Users\\Rens\\School\\2022-2023\\Projects\\Project-b-airline\\project-b\\project-b.csproj",
         "projectName": "project-b",
-        "projectPath": "C:\\Users\\Rens\\Documents\\School\\2022-2023\\Projecten\\project-b-air\\project-b.csproj",
+        "projectPath": "C:\\Users\\Rens\\School\\2022-2023\\Projects\\Project-b-airline\\project-b\\project-b.csproj",
         "packagesPath": "C:\\Users\\Rens\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Rens\\Documents\\School\\2022-2023\\Projecten\\project-b-air\\obj\\",
+        "outputPath": "C:\\Users\\Rens\\School\\2022-2023\\Projects\\Project-b-airline\\project-b\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\Rens\\AppData\\Roaming\\NuGet\\NuGet.Config"
+          "C:\\Users\\Rens\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
           "net6.0"
         ],
         "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -67,7 +69,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.102\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.405\\RuntimeIdentifierGraph.json"
         }
       }
     }
