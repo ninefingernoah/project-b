@@ -18,4 +18,8 @@ public class Airport {
         _country = country;
         _code = code;
     }
+
+    public override string ToString() {
+        return $"{_name} ({_code})";
+    }
 }
