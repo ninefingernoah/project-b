@@ -11,23 +11,30 @@ public static class ReservationManager
         // Remove a reservation from the database
         return true;
     }
+
+    /// <summary>
+    /// Updates the reservation in the database
+    /// </summary>
+    /// <param name="reservation">The reservation to update</param>
     public static bool UpdateReservation(Reservation reservation)
     {
         DatabaseManager.QueryNonResult($"UPDATE reservations SET flight_id = {reservation.Flight.Id}, user_id = {reservation.User.Id}, email = '{reservation.Email}', price = {reservation.Price}, made_on = '{reservation.MadeOn.ToString("dd-MM-yyyy")}' WHERE number = '{reservation.ReservationNumber}'");
         foreach(Passenger p in reservation.Passengers)
         {
+            // Check if the name has changed
             var oldFirstName = DatabaseManager.QueryResult($"SELECT * FROM passengers WHERE id = {p.Id}").Rows[0]["first_name"];
             var oldLastName = DatabaseManager.QueryResult($"SELECT * FROM passengers WHERE id = {p.Id}").Rows[0]["last_name"];
             var oldName = $"{oldFirstName} {oldLastName}";
             if (oldName != (p.FirstName + " " + p.LastName))
-                DatabaseManager.QueryNonResult($"UPDATE passengers SET letters_changed = 1 WHERE id = {p.Id}");
+                DatabaseManager.QueryNonResult($"UPDATE passengers SET letters_changed = 1 WHERE id = {p.Id}"); // Places a lock on the passengername.
             int address_id = (int)(long)DatabaseManager.QueryResult($"SELECT * FROM passengers WHERE id = {p.Id}").Rows[0]["address_id"];
+            // Changes the passenger and their address
             DatabaseManager.QueryNonResult($"UPDATE passengers SET email = '{p.Email}', first_name = '{p.FirstName}', last_name = '{p.LastName}', document_number = '{p.DocumentNumber}', date_of_birth = '{((DateTime) p.BirthDate).ToString("dd-MM-yyyy")}' WHERE id = {p.Id}");
             DatabaseManager.QueryNonResult($"UPDATE addresses SET street = '{p.Address.Street}', street_number = '{p.Address.StreetNumber}', city = '{p.Address.City}' WHERE id = {address_id}");
-            if (reservation.User != null)
-            {
-                DatabaseManager.QueryNonResult($"UPDATE users SET email = '{reservation.User.Email}' WHERE id = {reservation.User.Id}");
-            }
+        }
+        if (reservation.User != null)
+        {
+            DatabaseManager.QueryNonResult($"UPDATE users SET email = '{reservation.User.Email}' WHERE id = {reservation.User.Id}");
         }
         return true;
     }
