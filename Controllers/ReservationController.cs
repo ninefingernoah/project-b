@@ -91,6 +91,7 @@ public sealed class ReservationController
                 break;
             case 8:
                 ReservationManager.UpdateReservation(reservation);
+                ConsoleUtils.Success("Uw reservering is succesvol gewijzigd.");
                 MainMenuController.Instance.ShowMainMenu();
                 break;
             case 9:
