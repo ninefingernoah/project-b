@@ -30,7 +30,7 @@ public class MenuView
         }
         var options = optionsList.ToArray();
 
-        Menu Menu = new Menu(prompt, options, TopString, BotString);
+        Menu Menu = new Menu(prompt, options, TopString: TopString, BotString: BotString);
         int choice = Menu.Run();
         LastChoice = choice;
         ViewBag["Selection"] = choice.ToString();
