@@ -48,7 +48,7 @@ public sealed class ReservationController
             user = null;
         }
 
-        Reservation res = new Reservation("1234", flight, user, seats, passengers, Price, DateTime.Now);
+        Reservation res = new Reservation("1234", flight, user, null, seats, passengers, Price, DateTime.Now);
         ReservationManager.MakeReservation(res);
     }
 

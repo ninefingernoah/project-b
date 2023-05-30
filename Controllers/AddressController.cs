@@ -23,6 +23,89 @@ public sealed class AddressController
         }
     }
 
+    public Address NewAddress()
+    {
+        return EditAddress(new Address(null, null, null, null));
+    }
+
+    private Address EditAddress(Address addr)
+    {
+        Menu menu = new Menu("Wat wilt u aanpassen?", new string[] { "Straatnaam", "Huisnummer", "Plaats", "Land", "-", "Sla op" });
+        menu.DisplayOptions();
+        int choice = menu.Run();
+        switch(choice)
+        {
+            case 0:
+                StringInputMenu streetMenu = new StringInputMenu("Vul de straatnaam in: ");
+                string street = streetMenu.Run()!;
+                if (street.ToLower() == "terug")
+                {
+                    return EditAddress(addr);
+                }
+                if (street.Length < 3)
+                {
+                    ConsoleUtils.Error("De ingevoerde straatnaam is te kort.");
+                    MainMenuController.Instance.ShowMainMenu();
+                    return EditAddress(addr);
+                }
+                addr.Street = street;
+                return EditAddress(addr);
+            case 1:
+                StringInputMenu streetNumberMenu = new StringInputMenu("Vul het huisnummer in: ");
+                string streetNumber = streetNumberMenu.Run()!;
+                if (streetNumber.ToLower() == "terug")
+                {
+                    return EditAddress(addr);
+                }
+                if (streetNumber.Length < 1)
+                {
+                    ConsoleUtils.Error("Het ingevoerde huisnummer is te kort.");
+                    MainMenuController.Instance.ShowMainMenu();
+                    return EditAddress(addr);
+                }
+                addr.StreetNumber = streetNumber;
+                return EditAddress(addr);
+            case 2:
+                StringInputMenu cityMenu = new StringInputMenu("Vul de plaats in: ");
+                string city = cityMenu.Run()!;
+                if (city.ToLower() == "terug")
+                {
+                    return EditAddress(addr);
+                }
+                if (city.Length < 3)
+                {
+                    ConsoleUtils.Error("De ingevoerde plaatsnaam is te kort.");
+                    MainMenuController.Instance.ShowMainMenu();
+                    return EditAddress(addr);
+                }
+                addr.City = city;
+                return EditAddress(addr);
+            case 3:
+                StringInputMenu countryMenu = new StringInputMenu("Vul het land in: ");
+                string country = countryMenu.Run()!;
+                if (country.ToLower() == "terug")
+                {
+                    return EditAddress(addr);
+                }
+                if (country.Length < 3)
+                {
+                    ConsoleUtils.Error("Het ingevoerde land is te kort.");
+                    MainMenuController.Instance.ShowMainMenu();
+                    return EditAddress(addr);
+                }
+                addr.Country = country;
+                return EditAddress(addr);
+            case 5:
+                if (addr.Street == null || addr.StreetNumber == null || addr.City == null || addr.Country == null)
+                {
+                    ConsoleUtils.Error("U heeft niet alle velden ingevuld.");
+                    return EditAddress(addr);
+                }
+                return addr;
+        }
+        return addr;
+    }
+
     // NOTE! This method is only used for while editing a passenger's address.
     public void ShowAddressEditingMenu(Passenger passenger)
     {

@@ -23,8 +23,7 @@ public class PassengerController
 
     public Passenger NewPassenger()
     {
-        int Id = PassengerManager.GetNewestId();
-        
+        int id = PassengerManager.GetNextId();
         StringInputMenu menu = new StringInputMenu("Wat is de email van de reiziger?");
         string? email = menu.Run();
 
@@ -40,6 +39,7 @@ public class PassengerController
         DateTimeInputMenu DTmenu = new DateTimeInputMenu("Wat is de geboorte datum van de reiziger?");
         DateTime? date = DTmenu.Run();
 
-        return new Passenger(Id, email, FirstName, LastName, DocNumber);
+        Address addr = AddressController.Instance.NewAddress();
+        return new Passenger(id, email, FirstName, LastName, DocNumber, date, addr);
     }
 }
