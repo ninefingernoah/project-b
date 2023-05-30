@@ -35,6 +35,12 @@ public static class UserManager
         return user;
     }
 
+    public static User GetUser(int id)
+    {
+        DataRow dr = DatabaseManager.QueryResult($"SELECT * FROM users WHERE id = {id}").Rows[0];
+        return GetUser(dr)!;
+    }
+
     /// <summary>
     /// Logs the user in. Returns true if the login was successful, false if not.
     /// </summary>

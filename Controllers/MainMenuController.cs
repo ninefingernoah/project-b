@@ -57,7 +57,10 @@ public sealed class MainMenuController {
             case 2:
                 FlightListController.Instance.ShowFlightSearchMenu();
                 break;
-            case 3:
+            case 3: // View booking
+                ReservationController.Instance.AskReservation();
+                break;
+            case 4: // Exit
                 break;
             default:
                 Console.WriteLine("Ongeldige keuze.");
@@ -84,7 +87,10 @@ public sealed class MainMenuController {
                 case 1: // Change flight
                     FlightListController.Instance.ShowFlightSearchMenu();
                     break;
-                case 2:
+                case 2: // Add airport
+                    AirportController.Instance.showAirportCreationMenu();
+                    break;
+                case 3:
                     // Log out
                     UserManager.LogOut();
                     ConsoleUtils.Success("U bent uitgelogd.");
@@ -110,7 +116,7 @@ public sealed class MainMenuController {
             switch (selection)
             {
                 case 0:
-                    // FlightListController.Instance.ShowFlights();
+                    UserController.Instance.ShowReservations();
                     break;
                 case 1:
                     // View account info

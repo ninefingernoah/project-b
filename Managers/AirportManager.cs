@@ -42,6 +42,18 @@ public static class AirportManager
         );
     }
 
+    public static void AddAirport(Airport airport)
+    {
+        try
+        {
+            DatabaseManager.QueryNonResult($"INSERT INTO airports (name, city, country, code) VALUES ('{airport.Name}', '{airport.City}', '{airport.Country}', '{airport.Code}')");
+        }
+        catch (Exception e)
+        {
+            ConsoleUtils.Error("Er is iets fout gegaan bij het toevoegen van het vliegveld aan de database.");
+        }       
+    }
+
     /// <summary>
     /// Gets a specific airport from the database.
     /// </summary>
