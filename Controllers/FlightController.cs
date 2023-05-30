@@ -60,6 +60,28 @@ public class FlightController
             // return to main menu
         }
     }
+    public Flight? GetFlightType()
+    {
+        // ask for menu here
+        List<string> list = new List<string>()
+        {
+            "Retour",
+            "Enkele",
+            "Last minute",
+            "Ga terug"
+        };
+        MenuView.Instance.ClearViewBag();
+        MenuView.Instance.Display("Wat voor type vlucht wil je", list);
+        int choice = MenuView.Instance.LastChoice;
+        if (choice != list.Count - 1)
+        {
+            return FlightListController.Instance.SelectFlight(MenuView.Instance.ViewBag["Selection"]);
+        }
+        else
+        {
+            return null;
+        }
+    }
 
     public void ShowFlightAdmin(Flight flight)
     {
@@ -185,7 +207,8 @@ public class FlightController
                 try
                 {
                     FlightManager.UpdateFlight(FlightEditorView.Instance.CurrentFlight);
-                } catch(Exception e)
+                }
+                catch (Exception e)
                 {
                     ConsoleUtils.Error(e.Message);
                     FlightEditorView.Instance.ClearViewBag();
@@ -228,7 +251,7 @@ public class FlightController
         DateTime now = DateTime.Now;
 
         // Check if date is not in the past
-        if(date < now && date.Day != now.Day)
+        if (date < now && date.Day != now.Day)
         {
             ConsoleUtils.Error("Deze datum ligt in het verleden.");
             return null;
