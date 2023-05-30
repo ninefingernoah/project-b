@@ -40,6 +40,6 @@ public class PassengerController
         DateTimeInputMenu DTmenu = new DateTimeInputMenu("Wat is de geboorte datum van de reiziger?");
         DateTime? date = DTmenu.Run();
 
-        return new Passenger(Id, email, FirstName, LastName, DocNumber, date);
+        return new Passenger(Id, email, FirstName, LastName, DocNumber);
     }
 }

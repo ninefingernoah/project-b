@@ -71,7 +71,7 @@ public sealed class ReservationController
 
     public void DisplayData(Flight flight, List<Passenger> passengers, List<Seat> seats)
     {
-        //Console.Clear();
+        Console.Clear();
         Console.WriteLine("Vlucht informatie:");
         Console.WriteLine(flight.ToString());
         Console.WriteLine("Reizigers:");
