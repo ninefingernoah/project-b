@@ -27,10 +27,10 @@ public class Flight {
 
     public override string ToString()
     {
-        string flightString = $"Flight {Id} from {Departure} to {Destination}\n";
-        flightString += $"Departure: {DepartureTime.ToShortDateString()} at {DepartureTime.ToShortTimeString()}\n";
-        flightString += $"Arrival: {ArrivalTime.ToShortDateString()} at {ArrivalTime.ToShortTimeString()}\n";
-        flightString += $"Airplane: {Airplane.Name}\n";
+        string flightString = $"Vlucht {Id} van {Departure.Name} naar {Destination.Name}\n";
+        flightString += $"Vertrek op: {DepartureTime.ToShortDateString()} om {DepartureTime.ToShortTimeString()}\n";
+        flightString += $"Aankomst: {ArrivalTime.ToShortDateString()} om {ArrivalTime.ToShortTimeString()}\n";
+        flightString += $"Vliegtuig: {Airplane.Name}\n";
         return flightString;
     }
 }
