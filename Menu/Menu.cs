@@ -35,7 +35,7 @@ public class Menu
         if (_prompt != "") WriteLine(_prompt); Write("\n");
         for(int i = 0; i < _options.Length; i++)
         {
-            if(_options[i] == "-")
+            if(_options[i] == "-") //TODO: Maak een manier om opties in het menu te printen maar ze niet selecteerbaar te maken. Bijvoorbeeld door een string zo te schrijven "^^dit is een optie". Dan herken je de ^^ en negeer je m dus in de selectie.
             {
                 WriteLine();
                 continue;

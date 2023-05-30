@@ -14,6 +14,7 @@ public class AdminMainMenuView : IView {
         List<string> optionsList = new List<string>() {
             "Vlucht toevoegen",
             "Vlucht wijzigen/verwijderen",
+            "Vliegveld toevoegen",
             "Uitloggen"
         };
         string[] options = optionsList.ToArray();
