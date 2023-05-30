@@ -1,6 +1,7 @@
 {
   "format": 1,
   "restore": {
+<<<<<<< HEAD
     "C:\\Users\\stein\\Desktop\\GitHub\\project-b\\project-b.csproj": {}
   },
   "projects": {
@@ -15,6 +16,23 @@
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\stein\\AppData\\Roaming\\NuGet\\NuGet.Config"
+=======
+    "C:\\Users\\Rens\\School\\2022-2023\\Projects\\Project-b-airline\\project-b\\project-b.csproj": {}
+  },
+  "projects": {
+    "C:\\Users\\Rens\\School\\2022-2023\\Projects\\Project-b-airline\\project-b\\project-b.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Users\\Rens\\School\\2022-2023\\Projects\\Project-b-airline\\project-b\\project-b.csproj",
+        "projectName": "project-b",
+        "projectPath": "C:\\Users\\Rens\\School\\2022-2023\\Projects\\Project-b-airline\\project-b\\project-b.csproj",
+        "packagesPath": "C:\\Users\\Rens\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Rens\\School\\2022-2023\\Projects\\Project-b-airline\\project-b\\obj\\",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "C:\\Users\\Rens\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+>>>>>>> 761c0be5700ec554e81a98704f692cec98fd1b28
         ],
         "originalTargetFrameworks": [
           "net6.0"
