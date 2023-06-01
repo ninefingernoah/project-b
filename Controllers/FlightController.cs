@@ -5,6 +5,8 @@ public class FlightController
     /// </summary>
     private static readonly FlightController instance = new FlightController();
 
+    Flight chosenFlight;
+
     static FlightController()
     {
     }
@@ -21,6 +23,11 @@ public class FlightController
         {
             return instance;
         }
+    }
+
+    public Flight GetChosenFlight()
+    {
+        return chosenFlight;
     }
 
     /// <summary>
@@ -43,7 +50,7 @@ public class FlightController
             switch (selection)
             {
                 case 0:
-                    //_seatController.Run(flight);
+                    chosenFlight = flight;
                     break;
                 case 1:
                     FlightListController.Instance.ShowFlights();
@@ -60,28 +67,26 @@ public class FlightController
             // return to main menu
         }
     }
-    public Flight? GetFlightType()
-    {
-        // ask for menu here
-        List<string> list = new List<string>()
-        {
-            "Retour",
-            "Enkele",
-            "Last minute",
-            "Ga terug"
-        };
-        MenuView.Instance.ClearViewBag();
-        MenuView.Instance.Display("Wat voor type vlucht wil je", list);
-        int choice = MenuView.Instance.LastChoice;
-        if (choice != list.Count - 1)
-        {
-            return FlightListController.Instance.SelectFlight(MenuView.Instance.ViewBag["Selection"]);
-        }
-        else
-        {
-            return null;
-        }
-    }
+    // public Flight? GetFlightType()
+    // {
+    //     // ask for menu here
+    //     List<string> list = new List<string>()
+    //     {
+    //         "Retour",
+    //         "Enkele",
+    //         "Last minute",
+    //         "Terug"
+    //     };
+    //     MenuView.Instance.ClearViewBag();
+    //     MenuView.Instance.Display("Wat voor type vlucht wil je", list);
+    //     int choice = MenuView.Instance.LastChoice;
+    //     // if (choice != list.Count - 1)
+    //     // {
+    //     //     return FlightListController.Instance.SelectFlight(MenuView.Instance.ViewBag["Selection"]);
+    //     // }
+        
+    //     return null;
+    // }
 
     public void ShowFlightAdmin(Flight flight)
     {

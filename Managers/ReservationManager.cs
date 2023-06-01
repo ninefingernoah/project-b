@@ -132,4 +132,14 @@ public static class ReservationManager
         }
         return reservations;
     }
+
+    public static int GetReservationCode()
+    {
+        DataTable dt = DatabaseManager.QueryResult("SELECT MAX(number) FROM reservations");
+        if (dt.Rows[0][0] == DBNull.Value)
+        {
+            return 1;
+        }
+        return (int)(long)dt.Rows[0][0] + 1;
+    }
 }

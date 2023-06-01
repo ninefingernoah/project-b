@@ -91,7 +91,8 @@ public static class DatabaseManager
         QueryNonResult(@"
                 CREATE TABLE IF NOT EXISTS reservations (
                     number TEXT NOT NULL PRIMARY KEY,
-                    flight_id INTEGER NOT NULL,
+                    outward_flight_id INTEGER NOT NULL,
+                    inward_flight_id INTEGER,
                     user_id INTEGER NOT NULL,
                     email TEXT NOT NULL,
                     price REAL NOT NULL,

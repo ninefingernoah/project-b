@@ -44,6 +44,19 @@ public static class FlightManager
         return flight;
     }
 
+    public static List<Flight> GetFlights(Airport departure, Airport arrival)
+    {
+        int depID = departure.Id;
+        int arrID = arrival.Id;
+        DataTable dt = DatabaseManager.QueryResult($"SELECT * FROM flights WHERE departure_id = {depID} AND destination_id = {arrID}");
+        List<Flight> flights = new List<Flight>();
+        foreach(DataRow dr in dt.Rows)
+        {
+            flights.Add(GetFlight((int)(long)dr["id"]));
+        }
+        return flights;
+    }
+
     /// <summary>
     /// Retrieves flights from the database and creates Flight objects from them.
     /// </summary>
@@ -134,43 +147,35 @@ public static class FlightManager
     }
 
 
-    public static List<Flight> GetAllFlights(string? filter = null)
+    public static List<Flight> GetAllFlights(Func<Flight, bool> filter = null)
     {
         DataTable dt;
         List<Flight> Flights = new List<Flight>();
-        if (filter == null)
-        {
-            dt = DatabaseManager.QueryResult("SELECT * FROM flights");
-        }
-        else
-        {
-            // TODO: add filter
-            dt = DatabaseManager.QueryResult("SELECT * FROM flights");
-        }
+        dt = DatabaseManager.QueryResult("SELECT * FROM flights");
 
         foreach (DataRow dr in dt.Rows)
         {
-            int id = (int)dr["id"];
-            var departure = AirportManager.GetAirport((int)dr["departure_id"]);
-            var destionation = AirportManager.GetAirport((int)dr["destination_id"]); ;
-            DateTime departureTime;
-            if (DateTime.TryParse((string)dr["departure_time"], out departureTime)) { }
-            else
-            {
-                ConsoleUtils.Error("departure tijd error");
-            }
-            DateTime arrivalTime;
-            if (DateTime.TryParse((string)dr["arrival_time"], out arrivalTime)) { }
-            else
-            {
-                ConsoleUtils.Error("arrival tijd error");
-            }
-            Airplane airplane = AirplaneManager.GetAirplane((int)dr["id"]);
+            int id = (int)(long)dr["id"];
+            // var departure = AirportManager.GetAirport((int)(long)dr["departure_id"]);
+            // var destionation = AirportManager.GetAirport((int)(long)dr["destination_id"]); ;
+            // DateTime departureTime;
+            // if (DateTime.TryParse((string)dr["departure_time"], out departureTime)) { }
+            // else
+            // {
+            //     ConsoleUtils.Error("departure tijd error");
+            // }
+            // DateTime arrivalTime;
+            // if (DateTime.TryParse((string)dr["arrival_time"], out arrivalTime)) { }
+            // else
+            // {
+            //     ConsoleUtils.Error("arrival tijd error");
+            // }
+            // Airplane airplane = AirplaneManager.GetAirplane((int)(long)dr["id"]);
 
-            Flights.Add(new Flight(id, departure, destionation, departureTime, arrivalTime, airplane));
+            Flights.Add(GetFlight(id));
         }
-
-        return Flights;
+        
+        return Flights.Where(filter ?? (f => true)).ToList();
     }
 
     public static int GetNewestId()
@@ -179,7 +184,7 @@ public static class FlightManager
         try
         {
             DataRow dr = dt.Rows[0];
-            return (int)dr["id"] + 1;
+            return (int)(long)dr["id"] + 1;
         }
         catch (System.Exception)
         {

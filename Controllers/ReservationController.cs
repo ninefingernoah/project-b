@@ -21,14 +21,25 @@ public sealed class ReservationController
     }
 
     // TODO: Get Seat selection and prices
-    public void Start()
+    public void ShowBookingMenu()
     {
-        // get flight
-        var flight = FlightController.Instance.GetFlightType();
+        // get type of booking
+        string type = GetBookingType();
+
+        List<Flight> flights = GetFlights(type);
+        if(flights == null)
+        {
+            MainMenuController.Instance.ShowMainMenu();
+            return;
+        } // TODO: Ga hier verder
 
         // get passengers
         List<Passenger> passengers = GetPassengerAmountInfo();
-
+        if (passengers == null)
+        {
+            MainMenuController.Instance.ShowMainMenu();
+            return;
+        }
         // see TODO
         List<Seat> seats = new List<Seat>();
         seats.Add(new Seat("1", "1"));
@@ -47,16 +58,85 @@ public sealed class ReservationController
         {
             user = null;
         }
-
-        Reservation res = new Reservation("1234", flight, user, null, seats, passengers, Price, DateTime.Now);
+        int reservationCode = ReservationManager.GetReservationCode();
+        Reservation res = new Reservation(reservationCode.ToString(), flight, user, null, seats, passengers, Price, DateTime.Now);
         ReservationManager.MakeReservation(res);
+    }
+
+    private List<Flight> GetFlights(string type)
+    {
+        if(type == "Enkel")
+        {
+            FlightListController.Instance.ShowFlightSearchMenu();
+            Flight flight = FlightController.Instance.GetChosenFlight();
+            List<Flight> flights = new List<Flight>();
+            flights.Add(flight);
+            return flights;
+        }
+        if(type == "Retour")
+        {
+            FlightListController.Instance.ShowFlightSearchMenu();
+            Flight outwardflight = FlightController.Instance.GetChosenFlight();
+            Airport retarr = outwardflight.Departure;
+            Airport retdep = outwardflight.Destination;
+            FlightListController.Instance.ShowFlights(retarr, retdep);
+            Flight returnflight = FlightController.Instance.GetChosenFlight();
+            List<Flight> flights = new List<Flight>();
+            flights.Add(outwardflight);
+            flights.Add(returnflight);
+        }
+        return null;
+    }
+
+    private Airport GetAirport(string prompt)
+    {
+        List<Airport> airports = AirportManager.GetAirports();
+        List<string> options = new List<string>();
+        foreach (var airport in airports)
+        {
+            options.Add(airport.ToString());
+        }
+        options.Add("-");
+        options.Add("Annuleer");
+        Menu menu = new Menu(prompt, options.ToArray());
+        int choice = menu.Run();
+        if (choice == airports.Count + 1)
+        {
+            return null;
+        }
+        return airports[choice];
+    }
+
+    private string GetBookingType()
+    {
+        List<string> options = new List<string>();
+        options.Add("Enkele reis");
+        options.Add("Retour");
+        options.Add("Terug");
+        MenuView.Instance.Display("Selecteer het type reis", options);
+        int choice = MenuView.Instance.LastChoice;
+        switch (choice)
+        {
+            case 0:
+                return "Enkel";
+            case 1:
+                return "Retour";
+            case 2:
+                MainMenuController.Instance.ShowMainMenu();
+                return "";
+            default:
+                return "";
+        }
     }
 
     public List<Passenger> GetPassengerAmountInfo()
     {
         IntInputMenu menu = new IntInputMenu("Met hoeveel reizgers bent u?");
         int? amount = menu.Run();
-        Console.WriteLine(amount);
+        if(amount == null)
+        {
+            return null;
+        }
         List<Passenger> passengers = new List<Passenger>();
         if (amount != null && amount > 0)
         {

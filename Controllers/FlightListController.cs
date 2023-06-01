@@ -20,25 +20,6 @@ public class FlightListController
         }
     }
 
-    public List<Flight> Allflights(string? filter = null)
-    {
-        // TODO: get data from Database
-        var flights = new List<Flight>();
-        flights = FlightManager.GetAllFlights();
-
-        return flights;
-    }
-    public Flight SelectFlight(string? filter = null)
-    {
-        var Flights = Allflights(filter);
-
-        List<string> options = Flights.Select(f => f.ToString()).ToList<string>();
-
-        MenuView.Instance.Display("Welke vlucht mot je", options);
-        int choice = MenuView.Instance.LastChoice;
-
-        return Flights[choice];
-    }
     /// <summary>
     /// Shows all the flights in the list as a menu
     /// </summary>
@@ -51,6 +32,32 @@ public class FlightListController
                         result,
                         Int32.Parse(FlightFilterView.Instance.ViewBag["departureid"]),
                         Int32.Parse(FlightFilterView.Instance.ViewBag["destinationid"]));
+        flightListView.Display(flights);
+        try
+        {
+            string selection = flightListView.ViewBag["FlightListSelection"];
+            int selectionInt = int.Parse(selection);
+            // Could we use a switch statement here? These tend to be more readable and faster.
+            if (selectionInt == flights.Count)
+            {
+                MainMenuController.Instance.ShowMainMenu();
+            }
+            else
+            {
+                FlightController.Instance.ShowFlight(flights[selectionInt]);
+            }
+        }
+        catch (Exception)
+        {
+            Console.WriteLine("Er is iets fout gegaan.");
+            // return to main menu
+        }
+    }
+
+    public void ShowFlights(Airport departure, Airport arrival)
+    {
+        FlightListView flightListView = FlightListView.Instance;
+        List<Flight> flights = FlightManager.GetFlights(departure, arrival);
         flightListView.Display(flights);
         try
         {

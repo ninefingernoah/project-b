@@ -55,12 +55,15 @@ public sealed class MainMenuController {
                 LoginController.Instance.ShowLoginMenu();
                 break;
             case 2:
+                ReservationController.Instance.ShowBookingMenu();
+                break;
+            case 3:
                 FlightListController.Instance.ShowFlightSearchMenu();
                 break;
-            case 3: // View booking
+            case 4: // View booking
                 ReservationController.Instance.AskReservation();
                 break;
-            case 4: // Exit
+            case 5: // Exit
                 break;
             default:
                 Console.WriteLine("Ongeldige keuze.");

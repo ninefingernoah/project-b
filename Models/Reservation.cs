@@ -1,7 +1,8 @@
 public class Reservation
 {
     private string _reservationNumber;
-    private Flight _flight;
+    private Flight _outwardflight;
+    private Flight _inwardflight;
     private User _user;
     private String _email;
     private List<Seat> _seats;
@@ -12,7 +13,8 @@ public class Reservation
 
 
     public string ReservationNumber { get => _reservationNumber; set => _reservationNumber = value; }
-    public Flight Flight { get => _flight; set => _flight = value; }
+    public Flight OutwardFlight { get => _outwardflight; set => _outwardflight = value; }
+    public Flight InwardFlight { get => _inwardflight; set => _inwardflight = value; }
     public User User { get => _user; set => _user = value; }
     public string Email { get => _email; set => _email = value; }
     public List<Seat> Seats { get => _seats; }
@@ -21,10 +23,11 @@ public class Reservation
     public DateTime ReservationDate { get => _reservationDate; set => _reservationDate = value; }
     public bool IsPaid { get => _isPaid; set => _isPaid = value; }
 
-    public Reservation(string reservationNumber, Flight flight, User user, string email, List<Seat> seats, List<Passenger> passengers, double price, DateTime reservationDate)
+    public Reservation(string reservationNumber, Flight outwardFlight, Flight inwardFlight, User user, string email, List<Seat> seats, List<Passenger> passengers, double price, DateTime reservationDate)
     {
         _reservationNumber = reservationNumber;
-        _flight = flight;
+        _outwardflight = outwardFlight;
+        _inwardflight = inwardFlight;
         _user = user;
         _seats = seats;
         _price = price;
@@ -35,6 +38,9 @@ public class Reservation
 
     public override string ToString()
     {
-        return $"#{ReservationNumber} - {Flight.Departure.Code} -> {Flight.Destination.Code} ({Flight.DepartureTime.ToString("dd/MM/yyyy HH:mm")})";
+        if (InwardFlight == null)
+            return $"#{ReservationNumber} - {OutwardFlight.Departure.Code} -> {OutwardFlight.Destination.Code} ({OutwardFlight.DepartureTime.ToString("dd/MM/yyyy HH:mm")})";
+        return $"#{ReservationNumber} - {OutwardFlight.Departure.Code} -> {OutwardFlight.Destination.Code} RETOUR ({OutwardFlight.DepartureTime.ToString("dd/MM/yyyy HH:mm")} - {InwardFlight.DepartureTime.ToString("dd/MM/yyyy HH:mm")})";
+
     }
 }
