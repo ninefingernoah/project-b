@@ -40,16 +40,18 @@ public class PassengerView
             $"Plaats: {views[7]}",
             $"Land: {views[8]}",
             "-",
+            "Sla op",
             "Ga terug"
         };
         string[] options = optionsList.ToArray();
-        Menu loginMenu = new Menu("Inloggen", options);
+        Menu loginMenu = new Menu("Nieuwe reiziger", options);
         int choice = loginMenu.Run();
         ViewBag["MainMenuSelection"] = choice.ToString();
     }
 
-    public Passenger Run()
+    public Passenger? Run()
     {
+        bool loop = true;
         string? voornaam = "";
         string? achternaam = "";
         string email = "";
@@ -106,8 +108,17 @@ public class PassengerView
                     country = new StringInputMenu("Vul uw land in:").Run();
                     views[8] = country;
                     break;
+                case 10:
+                    if (!views.Contains("<vul in>"))
+                    {
+                        loop = false;
+                    }
+                    break;
+                case 11:
+                    return null;
+
             }
-        } while (views.Contains("<vul in>"));
+        } while (loop);
 
         Address address = new Address(city, country, street, huisnummer.ToString());
         return new Passenger(PassengerManager.GetNextId(), email, voornaam, achternaam, docnummer, date, address);
