@@ -56,7 +56,6 @@ public class SeatSelectionMenu {
                     ToggleSeatSelection(Cursor);
                     break;
                 case ConsoleKey.Escape:
-
                 case ConsoleKey.S:
                     // TODO: return user to booking menu, add selected seats to booking in database
                     return;
@@ -122,6 +121,8 @@ public class SeatSelectionMenu {
 
         return null;
     }
+
+    //TODO: if GetSeatAtPosition returns null, check if theres seats further down the row/column
 
     static void MoveCursorDown(List<Seat> seats)
     {
@@ -279,6 +280,8 @@ public class SeatSelectionMenu {
                 return ConsoleColor.Blue;
             case "yellow":
                 return ConsoleColor.Yellow;
+            case "orange_(business_class)":
+                return ConsoleColor.DarkYellow;
             default:
                 return ConsoleColor.White;
         }

@@ -57,7 +57,7 @@ public static class AirplaneManager {
     public static AirplaneLayout GetAirplaneLayout(string airplane) {
         // Get the airplane layout from the json
         string json = JSONManager.GetJSONString("seatlayouts.json");
-        AirplaneLayout airplaneLayout = JsonConvert.DeserializeObject<AirplaneLayout>(json);
-        return airplaneLayout;
+        List<AirplaneLayout> airplaneLayout = JsonConvert.DeserializeObject<List<AirplaneLayout>>(json);
+        return airplaneLayout.Where(a => a.Name == airplane).FirstOrDefault();
     }
 }
