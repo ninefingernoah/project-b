@@ -31,7 +31,7 @@ public class Reservation
         _user = user;
         _seats = seats;
         _price = price;
-        _passengers = new List<Passenger>();
+        _passengers = passengers;
         _email = email;
         _reservationDate = reservationDate;
     }
