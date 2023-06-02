@@ -127,41 +127,28 @@ public class SeatSelectionMenu {
     static void MoveCursorDown(List<Seat> seats)
     {
         int columnIndex = GetColumnIndex(Cursor.Column);
-
-        if (columnIndex > 1)
+        string newColumn = GetPreviousColumn(seats, Cursor.Column, Cursor.Row);
+        if (GetSeatAtPosition(seats, Cursor.Row, GetColumnIndex(newColumn)) != null)
         {
-            int newRow = Cursor.Row;
-            string newColumn = GetColumnLetter(columnIndex - 1);
-
-            if (GetSeatAtPosition(seats, newRow, GetColumnIndex(newColumn)) != null)
-            {
-                Cursor = GetSeatAtPosition(seats, newRow, GetColumnIndex(newColumn));
-            }
+            Cursor = GetSeatAtPosition(seats, Cursor.Row, GetColumnIndex(newColumn));
         }
     }
 
     static void MoveCursorUp(List<Seat> seats, int maxColumn)
     {
         int columnIndex = GetColumnIndex(Cursor.Column);
-
-        if (columnIndex < maxColumn)
+        string newColumn = GetNextColumn(seats, Cursor.Column, Cursor.Row);
+        if (GetSeatAtPosition(seats, Cursor.Row, GetColumnIndex(newColumn)) != null)
         {
-            int newRow = Cursor.Row;
-            string newColumn = GetColumnLetter(columnIndex + 1);
-
-            if (GetSeatAtPosition(seats, newRow, GetColumnIndex(newColumn)) != null)
-            {
-                Cursor = GetSeatAtPosition(seats, newRow, GetColumnIndex(newColumn));
-            }
+            Cursor = GetSeatAtPosition(seats, Cursor.Row, GetColumnIndex(newColumn));
         }
     }
 
     static void MoveCursorLeft(List<Seat> seats, int maxRow)
     {
-        int newRow = Cursor.Row - 1;
+        int newRow = GetPreviousRow(seats, Cursor.Row, Cursor.Column);
         string newColumn = Cursor.Column;
-
-        if (newRow >= 1 && GetSeatAtPosition(seats, newRow, GetColumnIndex(newColumn)) != null)
+        if (GetSeatAtPosition(seats, newRow, GetColumnIndex(newColumn)) != null)
         {
             Cursor = GetSeatAtPosition(seats, newRow, GetColumnIndex(newColumn));
         }
@@ -169,10 +156,9 @@ public class SeatSelectionMenu {
 
     static void MoveCursorRight(List<Seat> seats, int maxRow)
     {
-        int newRow = Cursor.Row + 1;
+        int newRow = GetNextRow(seats, Cursor.Row, Cursor.Column);
         string newColumn = Cursor.Column;
-
-        if (newRow <= maxRow && GetSeatAtPosition(seats, newRow, GetColumnIndex(newColumn)) != null)
+        if (GetSeatAtPosition(seats, newRow, GetColumnIndex(newColumn)) != null)
         {
             Cursor = GetSeatAtPosition(seats, newRow, GetColumnIndex(newColumn));
         }
@@ -265,6 +251,84 @@ public class SeatSelectionMenu {
         }
 
         return maxColumn;
+    }
+
+    /// <summary>
+    /// Returns the next row number or 1 if there is no next row
+    /// </summary>
+    /// <param name="seats">The list of seats in the airplane</param>
+    /// <param name="row">The current row from which we are trying to move to the next</param>
+    static int GetNextRow(List<Seat> seats, int row, string column)
+    {
+        int maxRow = GetMaxRow(seats);
+        int columnIndex = GetColumnIndex(column);
+        if (row < maxRow) {
+            List<Seat> seatsToTheRight = seats.Where(s => s.Row > row && GetColumnIndex(s.Column) == columnIndex).ToList();
+            if (seatsToTheRight.Count > 0)
+            {
+                return seatsToTheRight.Min(s => s.Row);
+            }
+        }
+        return seats.Where(s => GetColumnIndex(s.Column) == columnIndex).Min(s => s.Row);
+    }
+
+    /// <summary>
+    /// Returns the previous row number or GetMaxRow() if there is no previous row
+    /// </summary>
+    /// <param name="seats">The list of seats in the airplane</param>
+    /// <param name="row">The current row from which we are trying to move to the previous</param>
+    static int GetPreviousRow(List<Seat> seats, int row, string column)
+    {
+        int minRow = 1;
+        int columnIndex = GetColumnIndex(column);
+        if (row > minRow)
+        {
+            List<Seat> seatsToTheLeft = seats.Where(s => s.Row < row && GetColumnIndex(s.Column) == columnIndex).ToList();
+            if (seatsToTheLeft.Count > 0)
+            {
+                return seatsToTheLeft.Max(s => s.Row);
+            }
+        }
+        return seats.Where(s => GetColumnIndex(s.Column) == columnIndex).Max(s => s.Row);
+    }
+
+    /// <summary>
+    /// Returns the next column letter or the first column letter if there is no next column
+    /// </summary>
+    /// <param name="seats">The list of seats in the airplane</param>
+    /// <param name="column">The current column from which we are trying to move to the next</param>
+    static string GetNextColumn(List<Seat> seats, string column, int row)
+    {
+        int maxColumn = GetMaxColumn(seats);
+        int columnIndex = GetColumnIndex(column);
+        if (columnIndex < maxColumn)
+        {
+            List<Seat> seatsUp = seats.Where(s => GetColumnIndex(s.Column) > columnIndex && s.Row == row).ToList();
+            if (seatsUp.Count > 0)
+            {
+                return GetColumnLetter(seatsUp.Min(s => GetColumnIndex(s.Column)));
+            }
+        }
+        return GetColumnLetter(seats.Where(s => s.Row == row).Min(s => GetColumnIndex(s.Column)));
+    }
+
+    /// <summary>
+    /// Returns the previous column letter or the last column letter if there is no previous column
+    /// </summary>
+    /// <param name="seats">The list of seats in the airplane</param>
+    /// <param name="column">The current column from which we are trying to move to the previous</param>
+    static string GetPreviousColumn(List<Seat> seats, string column, int row)
+    {
+        int minColumn = 1;
+        if (GetColumnIndex(column) > minColumn)
+        {
+            List<Seat> seatsDown = seats.Where(s => GetColumnIndex(s.Column) < GetColumnIndex(column) && s.Row == row).ToList();
+            if (seatsDown.Count > 0)
+            {
+                return GetColumnLetter(seatsDown.Max(s => GetColumnIndex(s.Column)));
+            }
+        }
+        return GetColumnLetter(seats.Where(s => s.Row == row).Max(s => GetColumnIndex(s.Column)));
     }
 
     static int GetColumnIndex(string column)
