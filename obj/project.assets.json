@@ -1304,26 +1304,28 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\Rens\\.nuget\\packages\\": {}
+    "C:\\Users\\max\\.nuget\\packages\\": {},
+    "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Rens\\School\\2022-2023\\Projects\\Project-b-airline\\project-b\\project-b.csproj",
+      "projectUniqueName": "H:\\project-b\\project-b.csproj",
       "projectName": "project-b",
-      "projectPath": "C:\\Users\\Rens\\School\\2022-2023\\Projects\\Project-b-airline\\project-b\\project-b.csproj",
-      "packagesPath": "C:\\Users\\Rens\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Rens\\School\\2022-2023\\Projects\\Project-b-airline\\project-b\\obj\\",
+      "projectPath": "H:\\project-b\\project-b.csproj",
+      "packagesPath": "C:\\Users\\max\\.nuget\\packages\\",
+      "outputPath": "H:\\project-b\\obj\\",
       "projectStyle": "PackageReference",
+      "fallbackFolders": [
+        "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+      ],
       "configFilePaths": [
-        "C:\\Users\\Rens\\AppData\\Roaming\\NuGet\\NuGet.Config",
-        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        "C:\\Users\\max\\AppData\\Roaming\\NuGet\\NuGet.Config"
       ],
       "originalTargetFrameworks": [
         "net6.0"
       ],
       "sources": {
-        "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
@@ -1374,13 +1376,5 @@
         "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.405\\RuntimeIdentifierGraph.json"
       }
     }
-  },
-  "logs": [
-    {
-      "code": "Undefined",
-      "level": "Warning",
-      "warningLevel": 1,
-      "message": "Problem reading the cache file C:\\Users\\Rens\\School\\2022-2023\\Projects\\Project-b-airline\\project-b\\obj\\project.nuget.cache : Invalid property identifier character: <. Path 'version', line 3, position 0."
-    }
-  ]
+  }
 }

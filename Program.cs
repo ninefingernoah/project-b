@@ -1,12 +1,14 @@
-﻿public class Program {
+﻿public class Program
+{
 
     /// <summary>
     /// Main entry point for the application.
     /// </summary>
     /// <param name="args">Command line arguments.</param>
-    public static void Main(string[] args) {
+    public static void Main(string[] args)
+    {
         DatabaseManager.CreateDatabase();
-        // PopulateTestData();
+        //PopulateTestData();
         var mainMenuController = MainMenuController.Instance;
         mainMenuController.ShowMainMenu();
         // FlightController.Instance.ShowFlightEditor(FlightManager.GetFlight(1));
@@ -51,8 +53,8 @@
             ");
         // Insert reservations
         DatabaseManager.QueryNonResult($@"
-                INSERT INTO reservations (number, flight_id, user_id, email, price, made_on, is_paid)
-                VALUES (1234, 1, 2, 'johndoe@email.com', 400, '2020-01-01 12:00:00', 1)
+                INSERT INTO reservations (number, outward_flight_id, inward_flight_id, user_id, email, price, made_on, is_paid)
+                VALUES (1234, 1, 2, 2, 'johndoe@email.com', 400, '2020-01-01 12:00:00', 1)
             ");
         // Insert addresses
         DatabaseManager.QueryNonResult($@"

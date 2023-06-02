@@ -1,8 +1,8 @@
 public class Reservation
 {
-    private string _reservationNumber;
+    private int _reservationNumber;
     private Flight _outwardflight;
-    private Flight _inwardflight;
+    private Flight? _inwardflight;
     private User _user;
     private String _email;
     private List<Seat> _seats;
@@ -12,7 +12,7 @@ public class Reservation
     private bool _isPaid;
 
 
-    public string ReservationNumber { get => _reservationNumber; set => _reservationNumber = value; }
+    public int ReservationNumber { get => _reservationNumber; set => _reservationNumber = value; }
     public Flight OutwardFlight { get => _outwardflight; set => _outwardflight = value; }
     public Flight InwardFlight { get => _inwardflight; set => _inwardflight = value; }
     public User User { get => _user; set => _user = value; }
@@ -23,7 +23,7 @@ public class Reservation
     public DateTime ReservationDate { get => _reservationDate; set => _reservationDate = value; }
     public bool IsPaid { get => _isPaid; set => _isPaid = value; }
 
-    public Reservation(string reservationNumber, Flight outwardFlight, Flight inwardFlight, User user, string email, List<Seat> seats, List<Passenger> passengers, double price, DateTime reservationDate)
+    public Reservation(int reservationNumber, Flight outwardFlight, Flight? inwardFlight, User user, string email, List<Seat> seats, List<Passenger> passengers, double price, DateTime reservationDate)
     {
         _reservationNumber = reservationNumber;
         _outwardflight = outwardFlight;

@@ -23,49 +23,80 @@ public sealed class ReservationController
     // TODO: Get Seat selection and prices
     public void ShowBookingMenu()
     {
-        // get type of booking
-        string type = GetBookingType();
-
-        List<Flight> flights = GetFlights(type);
-        if(flights == null)
+        bool correct = true;
+        Reservation res;
+        do
         {
-            MainMenuController.Instance.ShowMainMenu();
-            return;
-        } // TODO: Ga hier verder
+            // get type of booking
+            string type = GetBookingType();
 
-        // get passengers
-        List<Passenger> passengers = GetPassengerAmountInfo();
-        if (passengers == null)
-        {
-            MainMenuController.Instance.ShowMainMenu();
-            return;
-        }
-        // see TODO
-        List<Seat> seats = new List<Seat>();
-        seats.Add(new Seat("1", "1"));
-        seats.Add(new Seat("2", "1"));
-        double Price = 100;
+            List<Flight> flights = GetFlights(type);
+            if (flights == null)
+            {
+                MainMenuController.Instance.ShowMainMenu();
+                return;
+            }
+            Flight outwardFlight = flights[0];
+            Flight inwardFlight;
+            try
+            {
+                inwardFlight = flights[1];
+            }
+            catch (System.Exception)
+            {
 
-        DisplayData(flight, passengers, seats);
+                inwardFlight = null;
+            }
 
-        // check if logged in
-        User? user;
-        if (UserManager.GetCurrentUser() != null)
-        {
-            user = UserManager.GetCurrentUser();
-        }
-        else
-        {
-            user = null;
-        }
-        int reservationCode = ReservationManager.GetReservationCode();
-        Reservation res = new Reservation(reservationCode.ToString(), flight, user, null, seats, passengers, Price, DateTime.Now);
-        ReservationManager.MakeReservation(res);
+            // get passengers
+            List<Passenger> passengers = GetPassengerAmountInfo();
+            if (passengers == null)
+            {
+                MainMenuController.Instance.ShowMainMenu();
+                return;
+            }
+
+            // see TODO
+            List<Seat> seats = new List<Seat>();
+            seats.Add(new Seat("1", "1"));
+            seats.Add(new Seat("2", "1"));
+
+            double Price = 0;
+            foreach (var seat in seats)
+            {
+                Price += seat.Price;
+            }
+
+            // check if logged in
+            User? user;
+            string email;
+            if (UserManager.GetCurrentUser() != null)
+            {
+                user = UserManager.GetCurrentUser();
+                email = user.Email;
+
+            }
+            else
+            {
+                user = null;
+                email = passengers[0].Email;
+            }
+            int reservationCode = ReservationManager.GetReservationCode();
+            res = new Reservation(reservationCode, outwardFlight, inwardFlight, user, email, seats, passengers, Price, DateTime.Now);
+
+            if (DisplayData(res))
+            {
+                ReservationManager.MakeReservation(res);
+                correct = true;
+            }
+        } while (!correct);
+
+
     }
 
     private List<Flight> GetFlights(string type)
     {
-        if(type == "Enkel")
+        if (type == "Enkel")
         {
             FlightListController.Instance.ShowFlightSearchMenu();
             Flight flight = FlightController.Instance.GetChosenFlight();
@@ -73,7 +104,7 @@ public sealed class ReservationController
             flights.Add(flight);
             return flights;
         }
-        if(type == "Retour")
+        if (type == "Retour")
         {
             FlightListController.Instance.ShowFlightSearchMenu();
             Flight outwardflight = FlightController.Instance.GetChosenFlight();
@@ -84,6 +115,7 @@ public sealed class ReservationController
             List<Flight> flights = new List<Flight>();
             flights.Add(outwardflight);
             flights.Add(returnflight);
+            return flights;
         }
         return null;
     }
@@ -133,7 +165,7 @@ public sealed class ReservationController
     {
         IntInputMenu menu = new IntInputMenu("Met hoeveel reizgers bent u?");
         int? amount = menu.Run();
-        if(amount == null)
+        if (amount == null)
         {
             return null;
         }
@@ -143,27 +175,40 @@ public sealed class ReservationController
             for (int i = 0; i < amount; i++)
             {
                 passengers.Add(PassengerController.Instance.NewPassenger());
+                // passengers.Add(new Passenger(1, null, null, null, null, null, null));
             }
         }
 
         return passengers;
     }
 
-    public void DisplayData(Flight flight, List<Passenger> passengers, List<Seat> seats)
+    public bool DisplayData(Reservation ress)
     {
         Console.Clear();
         Console.WriteLine("Vlucht informatie:");
-        Console.WriteLine(flight.ToString());
+        Console.WriteLine("Vlucht heen:");
+        Console.WriteLine(ress.OutwardFlight.ToString());
+        if (ress.InwardFlight != null)
+        {
+            Console.WriteLine("Vlucht terug:");
+            Console.WriteLine(ress.InwardFlight.ToString());
+        }
+
         Console.WriteLine("Reizigers:");
-        foreach (var passenger in passengers)
+        foreach (Passenger passenger in ress.Passengers)
         {
             Console.WriteLine(passenger.ToString());
         }
         Console.WriteLine("Stoelen:");
-        foreach (var seat in seats)
+        foreach (var seat in ress.Seats)
         {
             Console.WriteLine(seat.ToString());
         }
+
+        Console.WriteLine($"Totale prijs: {ress.Price}");
+
+        return ConsoleUtils.Confirm("Gaat u akkoord met deze reservering?", false);
+
     }
 
     public void UserCancelReservation(Reservation ress)

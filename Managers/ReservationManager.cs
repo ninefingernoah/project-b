@@ -6,7 +6,7 @@ public static class ReservationManager
     {
         string made_on = res.ReservationDate.ToString();
         // main reservation
-        DatabaseManager.QueryNonResult($"INSERT INTO reservations (number,flight_id,user_id,price,made_on,is_paid) VALUES ('{res.ReservationNumber}','{res.Flight.Id}','{res.User.Id}','{res.Price}','{made_on}','{res.IsPaid}')");
+        DatabaseManager.QueryNonResult($"INSERT INTO reservations (number,flight_id,user_id,price,made_on,is_paid) VALUES ('{res.ReservationNumber}','{res.InwardFlight.Id}','{res.User.Id}','{res.Price}','{made_on}','{res.IsPaid}')");
 
         // reservation passengers
         foreach (var pass in res.Passengers)
@@ -22,10 +22,10 @@ public static class ReservationManager
         foreach (var seat in res.Seats)
         {
             // reservation seats
-            DatabaseManager.QueryNonResult($"INSERT INTO reservation_seats (reservation_number, seat_number, airplane_id) VALUES ('{res.ReservationNumber}','{seat.Number}','{res.Flight.Airplane.Id}')");
+            DatabaseManager.QueryNonResult($"INSERT INTO reservation_seats (reservation_number, seat_number, airplane_id) VALUES ('{res.ReservationNumber}','{seat.Number}','{res.InwardFlight.Airplane.Id}')");
 
             // flight taken seats
-            DatabaseManager.QueryNonResult($"INSERT INTO flight_takenseats (flight_id, seat_number, airplane_id) VALUES ('{res.Flight.Id}','{seat.Number}','{res.Flight.Airplane.Id}')");
+            DatabaseManager.QueryNonResult($"INSERT INTO flight_takenseats (flight_id, seat_number, airplane_id) VALUES ('{res.InwardFlight.Id}','{seat.Number}','{res.InwardFlight.Airplane.Id}')");
         }
     }
 
@@ -49,7 +49,7 @@ public static class ReservationManager
             DatabaseManager.QueryNonResult($"DELETE FROM reservation_seats WHERE reservation_number = {reservation.ReservationNumber};");
 
             // delete flight taken seat
-            DatabaseManager.QueryNonResult($"DELETE FROM flight_takenseats WHERE flight_id = {reservation.Flight.Id} AND seat_number = {seat.Number};");
+            DatabaseManager.QueryNonResult($"DELETE FROM flight_takenseats WHERE flight_id = {reservation.InwardFlight.Id} AND seat_number = {seat.Number};");
         }
         // delete main
         DatabaseManager.QueryNonResult($"DELETE FROM reservations WHERE number = {reservation.ReservationNumber};");
@@ -62,7 +62,7 @@ public static class ReservationManager
     /// <param name="reservation">The reservation to update</param>
     public static bool UpdateReservation(Reservation reservation)
     {
-        DatabaseManager.QueryNonResult($"UPDATE reservations SET flight_id = {reservation.Flight.Id}, user_id = {reservation.User.Id}, email = '{reservation.Email}', price = {reservation.Price}, made_on = {reservation.ReservationDate.ToString("dd-MM-yyyy")}' WHERE number = '{reservation.ReservationNumber}'");
+        DatabaseManager.QueryNonResult($"UPDATE reservations SET flight_id = {reservation.InwardFlight.Id}, user_id = {reservation.User.Id}, email = '{reservation.Email}', price = {reservation.Price}, made_on = {reservation.ReservationDate.ToString("dd-MM-yyyy")}' WHERE number = '{reservation.ReservationNumber}'");
         foreach (Passenger p in reservation.Passengers)
         {
             // Check if the name has changed
@@ -99,7 +99,8 @@ public static class ReservationManager
         int user_id = (int)(long)dr["user_id"];
         User user = UserManager.GetUser(user_id);
         Reservation r = new Reservation(
-            (string)dr["number"],
+            (int)dr["number"],
+            f,
             f,
             user,
             (string)dr["email"],
@@ -135,11 +136,6 @@ public static class ReservationManager
 
     public static int GetReservationCode()
     {
-        DataTable dt = DatabaseManager.QueryResult("SELECT MAX(number) FROM reservations");
-        if (dt.Rows[0][0] == DBNull.Value)
-        {
-            return 1;
-        }
-        return (int)(long)dt.Rows[0][0] + 1;
+        return (int)(long)DatabaseManager.QueryResult("SELECT MAX(number) FROM reservations").Rows[0][0] + 1;
     }
 }
