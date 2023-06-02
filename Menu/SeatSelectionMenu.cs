@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using Newtonsoft.Json;
 
+// TODO: Break this class up into smaller classes
 public class SeatSelectionMenu {
     private Flight _flight;
     public static List<Seat> SelectedSeats = new List<Seat>();
@@ -18,6 +19,9 @@ public class SeatSelectionMenu {
         _flight = flight;
     }
 
+    /// <summary>
+    /// Runs the seat selection menu.
+    /// </summary>
     public void Run() {
         List<Seat> allSeats = _flight.Airplane.Seats;
 
@@ -41,13 +45,13 @@ public class SeatSelectionMenu {
             switch (keyInfo.Key)
             {
                 case ConsoleKey.LeftArrow:
-                    MoveCursorLeft(allSeats, maxRow);
+                    MoveCursorLeft(allSeats);
                     break;
                 case ConsoleKey.RightArrow:
-                    MoveCursorRight(allSeats, maxRow);
+                    MoveCursorRight(allSeats);
                     break;
                 case ConsoleKey.UpArrow:
-                    MoveCursorUp(allSeats, maxColumn);
+                    MoveCursorUp(allSeats);
                     break;
                 case ConsoleKey.DownArrow:
                     MoveCursorDown(allSeats);
@@ -67,6 +71,12 @@ public class SeatSelectionMenu {
         }
     }
 
+    /// <summary>
+    /// Prints the seat layout to the console.
+    /// </summary>
+    /// <param name="seats">The list of seats to print.</param>
+    /// <param name="maxRow">The maximum row number.</param>
+    /// <param name="maxColumn">The maximum column number.</param>
     void PrintSeatLayout(List<Seat> seats, int maxRow, int maxColumn){
         for (int column = maxColumn; column > 0; column--)
         {
@@ -109,6 +119,12 @@ public class SeatSelectionMenu {
         }
     }
 
+    /// <summary>
+    /// Returns a seat at a given position.
+    /// </summary>
+    /// <param name="seats">The list of seats to search in.</param>
+    /// <param name="row">The row number.</param>
+    /// <param name="column">The column number.</param>
     static Seat GetSeatAtPosition(List<Seat> seats, int row, int column)
     {
         foreach (var seat in seats)
@@ -122,8 +138,10 @@ public class SeatSelectionMenu {
         return null;
     }
 
-    //TODO: if GetSeatAtPosition returns null, check if theres seats further down the row/column
-
+    /// <summary>
+    /// Moves the cursor to the next column.
+    /// </summary>
+    /// <param name="seats">The list of seats to move through.</param>
     static void MoveCursorDown(List<Seat> seats)
     {
         int columnIndex = GetColumnIndex(Cursor.Column);
@@ -134,7 +152,11 @@ public class SeatSelectionMenu {
         }
     }
 
-    static void MoveCursorUp(List<Seat> seats, int maxColumn)
+    /// <summary>
+    /// Moves the cursor to the previous column.
+    /// </summary>
+    /// <param name="seats">The list of seats to move through.</param>
+    static void MoveCursorUp(List<Seat> seats)
     {
         int columnIndex = GetColumnIndex(Cursor.Column);
         string newColumn = GetNextColumn(seats, Cursor.Column, Cursor.Row);
@@ -144,7 +166,11 @@ public class SeatSelectionMenu {
         }
     }
 
-    static void MoveCursorLeft(List<Seat> seats, int maxRow)
+    /// <summary>
+    /// Moves the cursor to the previous row.
+    /// </summary>
+    /// <param name="seats">The list of seats to move through.</param>
+    static void MoveCursorLeft(List<Seat> seats)
     {
         int newRow = GetPreviousRow(seats, Cursor.Row, Cursor.Column);
         string newColumn = Cursor.Column;
@@ -154,7 +180,11 @@ public class SeatSelectionMenu {
         }
     }
 
-    static void MoveCursorRight(List<Seat> seats, int maxRow)
+    /// <summary>
+    /// Moves the cursor to the next row.
+    /// </summary>
+    /// <param name="seats">The list of seats to move through.</param>
+    static void MoveCursorRight(List<Seat> seats)
     {
         int newRow = GetNextRow(seats, Cursor.Row, Cursor.Column);
         string newColumn = Cursor.Column;
@@ -164,6 +194,10 @@ public class SeatSelectionMenu {
         }
     }
 
+    /// <summary>
+    /// Selects or deselects a seat.
+    /// </summary>
+    /// <param name="seat">The seat to select or deselect.</param>
     void ToggleSeatSelection(Seat seat)
     {
         if (_flight.TakenSeats.Contains(seat))
@@ -180,11 +214,18 @@ public class SeatSelectionMenu {
         }
     }
 
+    /// <summary>
+    /// Clears all selected seats.
+    /// </summary>
     static void ClearSeatSelection()
     {
         SelectedSeats.Clear();
     }
 
+    /// <summary>
+    /// Prints a seat box.
+    /// </summary>
+    /// <param name="color">The color of the seat.</param>
     static void PrintSeatBox(string color)
     {
         Console.ForegroundColor = GetConsoleColor(color);
@@ -192,16 +233,27 @@ public class SeatSelectionMenu {
         Console.ResetColor();
     }
 
+    /// <summary>
+    /// Prints an empty box.
+    /// </summary>
     static void PrintEmptyBox()
     {
         Console.Write(" ");
     }
 
+    /// <summary>
+    /// Returns the letter corresponding to a column index.
+    /// </summary>
+    /// <param name="columnIndex">The column index.</param>
     static string GetColumnLetter(int columnIndex)
     {
         return ((char)('A' + columnIndex - 1)).ToString();
     }
 
+    /// <summary>
+    /// Prints a highlighted seat box, used for the cursor.
+    /// </summary>
+    /// <param name="color">The color of the seat.</param>
     static void PrintHighlightedSeatBox(string color)
     {
         Console.BackgroundColor = ConsoleColor.Gray;
@@ -210,6 +262,9 @@ public class SeatSelectionMenu {
         Console.ResetColor();
     }
 
+    /// <summary>
+    /// Prints a selected seat box.
+    /// </summary>
     static void PrintSelectedSeatBox()
     {
         Console.BackgroundColor = ConsoleColor.Magenta;
@@ -217,6 +272,10 @@ public class SeatSelectionMenu {
         Console.ResetColor();
     }
 
+    /// <summary>
+    /// Prints a taken seat box.
+    /// </summary>
+    /// <param name="color">The color of the seat.</param>
     static void PrintTakenSeatBox(string color)
     {
         Console.BackgroundColor = ConsoleColor.Red;
@@ -226,6 +285,10 @@ public class SeatSelectionMenu {
     }
 
 
+    /// <summary>
+    /// Returns the maximum row number in the airplane.
+    /// </summary>
+    /// <param name="seats">The list of seats in the airplane.</param>
     static int GetMaxRow(List<Seat> seats)
     {
         int maxRow = 0;
@@ -239,6 +302,10 @@ public class SeatSelectionMenu {
         return maxRow;
     }
 
+    /// <summary>
+    /// Returns the maximum column index in the airplane.
+    /// </summary>
+    /// <param name="seats">The list of seats in the airplane.</param>
     static int GetMaxColumn(List<Seat> seats)
     {
         int maxColumn = 0;
@@ -331,11 +398,19 @@ public class SeatSelectionMenu {
         return GetColumnLetter(seats.Where(s => s.Row == row).Max(s => GetColumnIndex(s.Column)));
     }
 
+    /// <summary>
+    /// Returns the column index of a column letter.
+    /// </summary>
+    /// <param name="column">The column letter.</param>
     static int GetColumnIndex(string column)
     {
         return column[0] - 'A' + 1;
     }
 
+    /// <summary>
+    /// Returns a ConsoleColor for the given seat color string.
+    /// </summary>
+    /// <param name="color">The color of the seat.</param>
     static ConsoleColor GetConsoleColor(string color)
     {
         switch (color)
