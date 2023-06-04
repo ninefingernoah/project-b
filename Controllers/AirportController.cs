@@ -1,18 +1,30 @@
-public class AirportController
-{
+public class AirportController {
     private static readonly AirportController instance = new AirportController();
-
-    private AirportController()
-    {
+    private AirportController() {
+    }
+    static AirportController() {
+    }
+    public static AirportController Instance {
+        get {
+            return instance;
+        }
     }
 
-    static AirportController()
-    {
+    public void ShowAirportDetails(Airport airport) {
+        AirportDetailsView.Instance.Display(airport);
+        int choice = int.Parse(AirportDetailsView.Instance.ViewBag["AirportDetailsSelection"]);
+        ShowAirportList();
     }
 
-    public static AirportController Instance
-    {
-        get { return instance; }
+    public void ShowAirportList() {
+        AirportListView.Instance.Display(AirportManager.GetAirports());
+        int choice = int.Parse(AirportListView.Instance.ViewBag["AirportListSelection"]);
+        if (choice == AirportManager.GetAirports().Count) {
+            MainMenuController.Instance.ShowMainMenu();
+        } else {
+            Airport airport = AirportManager.GetAirports()[choice];
+            ShowAirportDetails(airport);
+        }
     }
 
     public void showAirportCreationMenu()
@@ -106,7 +118,6 @@ public class AirportController
                 break;
         }
 
-
     }
 
     private void ShowPlaneClassInputMenu(string? kleur, string? vliegtuig, string? ViewBagNaam)
@@ -118,36 +129,8 @@ public class AirportController
             showFlightsAndPricesMenu();
             return;
         }
-public class AirportController {
-    private static readonly AirportController instance = new AirportController();
-    private AirportController() {
-    }
-    static AirportController() {
-    }
-    public static AirportController Instance {
-        get {
-            return instance;
-        }
-    }
-
-    public void ShowAirportDetails(Airport airport) {
-        AirportDetailsView.Instance.Display(airport);
-        int choice = int.Parse(AirportDetailsView.Instance.ViewBag["AirportDetailsSelection"]);
-        ShowAirportList();
-    }
 
         AirportSeatAndPricesView.Instance.ViewBag[ViewBagNaam] = price!;
         showFlightsAndPricesMenu();
-    }
-}
-    public void ShowAirportList() {
-        AirportListView.Instance.Display(AirportManager.GetAirports());
-        int choice = int.Parse(AirportListView.Instance.ViewBag["AirportListSelection"]);
-        if (choice == AirportManager.GetAirports().Count) {
-            MainMenuController.Instance.ShowMainMenu();
-        } else {
-            Airport airport = AirportManager.GetAirports()[choice];
-            ShowAirportDetails(airport);
-        }
     }
 }

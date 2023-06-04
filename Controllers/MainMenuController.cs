@@ -60,7 +60,18 @@ public sealed class MainMenuController {
             case 3: // View booking
                 ReservationController.Instance.AskReservation();
                 break;
-            case 4: // Exit
+            case 4: // stoel selectie testje
+                Flight flight = FlightManager.GetFlight(1);
+                SeatSelectionMenu seatSelectionMenu = new SeatSelectionMenu(flight);
+                flight.TakenSeats.Add(flight.Airplane.Seats[0]);
+                flight.TakenSeats.Add(flight.Airplane.Seats[1]);
+                flight.TakenSeats.Add(flight.Airplane.Seats[6]);
+                seatSelectionMenu.Run();
+                break;
+            case 5:
+                AirportController.Instance.ShowAirportList();
+                break;
+            case 6:
                 break;
             default:
                 Console.WriteLine("Ongeldige keuze.");
