@@ -22,7 +22,7 @@ public class AirportDetailsView : IView {
     public void Display(Airport airport){
         string[] options = new string[] { "Terug" };
         string topString = "Luchthaven details:\n";
-        topString += airport.ToString();
+        topString += airport.ToFacilitiesString();
         Menu menu = new Menu(topString, options);
         int choice = menu.Run();
         ViewBag["AirportDetailsSelection"] = choice.ToString();

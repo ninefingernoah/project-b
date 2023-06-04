@@ -5,15 +5,6 @@ build_property.UsingMicrosoftNETSdkWeb =
 build_property.ProjectTypeGuids = 
 build_property.InvariantGlobalization = 
 build_property.PlatformNeutralAssembly = 
-build_property.EnforceExtendedAnalyzerRules = 
 build_property._SupportedPlatformList = Linux,macOS,Windows
 build_property.RootNamespace = project_b
-<<<<<<< HEAD
-build_property.ProjectDir = c:\Users\noahm\Documents\school\semester 2\Project B v2\project-b\
-=======
-<<<<<<< HEAD
-build_property.ProjectDir = c:\Users\stein\Desktop\GitHub\project-b\
-=======
-build_property.ProjectDir = C:\Users\Rens\School\2022-2023\Projects\Project-b-airline\project-b\
->>>>>>> 761c0be5700ec554e81a98704f692cec98fd1b28
->>>>>>> 00b6a0bbf6eaebd7632a21ac65f9a4d0721926cf
+build_property.ProjectDir = C:\Users\noahm\Documents\school\semester 2\Project B v2\project-b\

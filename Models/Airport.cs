@@ -30,7 +30,7 @@ public class Airport {
         _facilities.Remove(facility);
     }
 
-    public override string ToString() {
+    public string ToFacilitiesString() {
         string facilities = " ";
         foreach (string facility in _facilities) {
             facilities += facility + ",\n";
