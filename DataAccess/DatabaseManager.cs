@@ -18,15 +18,6 @@ public static class DatabaseManager
                 );
             ");
         QueryNonResult(@"
-                CREATE TABLE IF NOT EXISTS passengers (
-                    id INTEGER NOT NULL PRIMARY KEY,
-                    email TEXT NOT NULL,
-                    first_name TEXT NOT NULL,
-                    last_name TEXT NOT NULL,
-                    document_number TEXT NOT NULL
-                );
-            ");
-        QueryNonResult(@"
                 CREATE TABLE IF NOT EXISTS airplanes (
 	                id INTEGER NOT NULL PRIMARY KEY,
 	                name TEXT NOT NULL,
@@ -34,12 +25,34 @@ public static class DatabaseManager
                 );
             ");
         QueryNonResult(@"
+                CREATE TABLE IF NOT EXISTS addresses (
+                    id INTEGER NOT NULL PRIMARY KEY,
+                    city TEXT NOT NULL,
+                    country TEXT NOT NULL,
+                    street TEXT NOT NULL,
+                    street_number TEXT NOT NULL
+                );
+        ");
+        QueryNonResult(@"
                 CREATE TABLE IF NOT EXISTS airports (
                     id INTEGER NOT NULL PRIMARY KEY,
                     name TEXT NOT NULL,
                     city TEXT NOT NULL,
                     country TEXT NOT NULL,
                     code TEXT NOT NULL
+                );
+            ");
+        QueryNonResult(@"
+                CREATE TABLE IF NOT EXISTS passengers (
+                    id INTEGER NOT NULL PRIMARY KEY,
+                    email TEXT NOT NULL,
+                    first_name TEXT NOT NULL,
+                    last_name TEXT NOT NULL,
+                    document_number TEXT NOT NULL,
+                    date_of_birth TEXT NOT NULL,
+                    address_id INTEGER NOT NULL,
+                    letters_changed INTEGER DEFAULT 0,
+                    FOREIGN KEY(address_id) REFERENCES addresses(id)
                 );
             ");
         QueryNonResult(@"
@@ -79,6 +92,7 @@ public static class DatabaseManager
                 CREATE TABLE IF NOT EXISTS reservations (
                     number TEXT NOT NULL PRIMARY KEY,
                     flight_id INTEGER NOT NULL,
+                    user_id INTEGER NOT NULL,
                     email TEXT NOT NULL,
                     price REAL NOT NULL,
                     made_on TEXT NOT NULL,

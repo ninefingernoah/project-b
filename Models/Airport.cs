@@ -38,4 +38,8 @@ public class Airport {
         string facilitiesToString = facilities.Substring(0, facilities.Length - 1);
         return $"Luchthaven {_name} ({_code}) in {_city}, {_country} met faciliteiten:\n{facilitiesToString}";
     }
+
+    public override string ToString() {
+        return $"{_name} ({_code})";
+    }
 }

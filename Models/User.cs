@@ -22,4 +22,15 @@ public class User {
     public Boolean IsAdmin() {
         return _role.ToLower() == "admin";
     }
+
+    public List<Reservation> GetReservations()
+    {
+        return ReservationManager.GetReservationsByUser(this);
+    }
+
+    public int GetReservationCount()
+    {
+        var res = DatabaseManager.QueryResult($"SELECT COUNT(*) FROM reservations WHERE user_id = {Id}").Rows[0];
+        return (int)(long)res["Count(*)"];
+    }
 }
