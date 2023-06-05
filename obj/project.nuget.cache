@@ -1,8 +1,14 @@
 {
   "version": 2,
+<<<<<<< HEAD
   "dgSpecHash": "vshmuw195qgxXtbcYeCj8sFlVx+TLQMQu+SGGbEIZL+pbPWYvmXAWBwL/edk5RDvn14h14Ie6lB0H9vObJrrRQ==",
   "success": true,
   "projectFilePath": "C:\\Users\\noahm\\Documents\\school\\semester 2\\Project B v2\\project-b kopietje\\project-b\\project-b.csproj",
+=======
+  "dgSpecHash": "xu8OBGxG8KINpHBu1CouZEnZl4MHdBrHXkqh480OTiiniQ+icMzDRmuWGWoPT3a5UhvHnk7Yf66QvqLc8rQ7XA==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\noahm\\Documents\\school\\semester 2\\Project B v2\\project-b\\project-b.csproj",
+>>>>>>> a63adab35e481596df20a6d8e2bca224a1c16e53
   "expectedPackageFiles": [
     "C:\\Users\\noahm\\.nuget\\packages\\bcrypt.net-next\\4.0.3\\bcrypt.net-next.4.0.3.nupkg.sha512",
     "C:\\Users\\noahm\\.nuget\\packages\\entityframework\\6.4.4\\entityframework.6.4.4.nupkg.sha512",
@@ -30,5 +36,12 @@
     "C:\\Users\\noahm\\.nuget\\packages\\system.security.principal.windows\\4.7.0\\system.security.principal.windows.4.7.0.nupkg.sha512",
     "C:\\Users\\noahm\\.nuget\\packages\\system.windows.extensions\\4.7.0\\system.windows.extensions.4.7.0.nupkg.sha512"
   ],
-  "logs": []
+  "logs": [
+    {
+      "code": "Undefined",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "Problem reading the cache file C:\\Users\\noahm\\Documents\\school\\semester 2\\Project B v2\\project-b\\obj\\project.nuget.cache : Invalid property identifier character: <. Path 'version', line 3, position 0."
+    }
+  ]
 }

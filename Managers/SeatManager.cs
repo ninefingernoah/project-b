@@ -1,5 +1,7 @@
 using Newtonsoft.Json.Linq;
 using Newtonsoft.Json;
+using System.Data.SQLite;
+using System.Data;
 public static class SeatManager {
     
     public static bool AddSeat(Seat seat) {
@@ -30,5 +32,26 @@ public static class SeatManager {
         .Children<JProperty>()
         .ToDictionary(prop => prop.Name, prop => prop.Value.Value<double>());
         return prices;
+    }
+
+    public static List<Seat> GetTakenSeats(Flight flight) {
+        // Get taken seats from database
+        List<Seat> takenSeats = new List<Seat>();
+        DataTable dt = DatabaseManager.QueryResult(@$"
+            SELECT seat_number
+            FROM reservations_seats
+            JOIN reservations ON number = reservation_number
+            WHERE flight_id = {flight.Id}
+        ");
+        List<string> takenSeatNumbers = new List<string>();
+        foreach (DataRow row in dt.Rows) {
+            takenSeatNumbers.Add(row["seat_number"].ToString());
+        }
+        foreach (Seat seat in flight.Airplane.Seats) {
+            if (takenSeatNumbers.Contains(seat.Number)) {
+                takenSeats.Add(seat);
+            }
+        }
+        return null;
     }
 }
