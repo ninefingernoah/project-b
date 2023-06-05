@@ -17,7 +17,7 @@ public static class ReservationManager
                     foreach (var seat in res.InwardSeats)
                     {
                         // reservation seats
-                        DatabaseManager.QueryNonResult($"INSERT INTO reservation_seats (reservation_number, seat_number, airplane_id, flight_id) VALUES ('{res.ReservationNumber}','{seat.Number}','{res.InwardFlight.Airplane.Id}', '{res.InwardFlight.Id}')");
+                        DatabaseManager.QueryNonResult($"INSERT INTO reservations_seats (reservation_number, seat_number, airplane_id, flight_id) VALUES ('{res.ReservationNumber}','{seat.Number}','{res.InwardFlight.Airplane.Id}', '{res.InwardFlight.Id}')");
 
                         // flight taken seats
                         DatabaseManager.QueryNonResult($"INSERT INTO flight_takenseats (flight_id, seat_number, airplane_id) VALUES ('{res.InwardFlight.Id}','{seat.Number}','{res.InwardFlight.Airplane.Id}')");
@@ -35,7 +35,7 @@ public static class ReservationManager
             foreach (var seat in res.OutwardSeats)
             {
                 // reservation seats
-                DatabaseManager.QueryNonResult($"INSERT INTO reservation_seats (reservation_number, seat_number, airplane_id, flight_id) VALUES ('{res.ReservationNumber}','{seat.Number}','{res.OutwardFlight.Airplane.Id}', '{res.OutwardFlight.Id}')");
+                DatabaseManager.QueryNonResult($"INSERT INTO reservations_seats (reservation_number, seat_number, airplane_id, flight_id) VALUES ('{res.ReservationNumber}','{seat.Number}','{res.OutwardFlight.Airplane.Id}', '{res.OutwardFlight.Id}')");
 
                 // flight taken seats
                 DatabaseManager.QueryNonResult($"INSERT INTO flight_takenseats (flight_id, seat_number, airplane_id) VALUES ('{res.OutwardFlight.Id}','{seat.Number}','{res.OutwardFlight.Airplane.Id}')");
