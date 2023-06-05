@@ -54,14 +54,14 @@ public sealed class MainMenuController {
             case 1:
                 LoginController.Instance.ShowLoginMenu();
                 break;
-            case 2:
+            case 2: // Book flight
                 ReservationController.Instance.ShowBookingMenu();
                 break;
-            case 3:
-                FlightListController.Instance.ShowFlightSearchMenu();
-                break;
-            case 4: // View booking
+            case 3: // View booking
                 ReservationController.Instance.AskReservation();
+                break;
+            case 4: // View airport information
+                AirportController.Instance.ShowAirportList();
                 break;
             case 5: // Exit
                 break;
@@ -124,7 +124,10 @@ public sealed class MainMenuController {
                 case 1:
                     // View account info
                     break;
-                case 2:
+                case 2: // Book flight
+                    ReservationController.Instance.ShowBookingMenu();
+                    break;
+                case 3:
                     AirportController.Instance.ShowAirportList();
                     break;
                 case 4:

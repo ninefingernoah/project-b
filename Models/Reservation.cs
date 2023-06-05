@@ -4,6 +4,7 @@ public class Reservation
     private Flight _outwardflight;
     private Flight? _inwardflight;
     private User _user;
+    private string _email;
     private List<Seat> _seats;
     private double _price;
     private List<Passenger> _passengers;
@@ -16,7 +17,6 @@ public class Reservation
     public Flight InwardFlight { get => _inwardflight; set => _inwardflight = value; }
     public User User { get => _user; set => _user = value; }
     public string Email { get => _email; set => _email = value; }
-    public User User { get => _user; set => _user = value; }
     public List<Seat> Seats { get => _seats; }
     public double Price { get => _price; set => _price = value; }
     public List<Passenger> Passengers { get => _passengers; }

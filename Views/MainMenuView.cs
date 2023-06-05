@@ -15,9 +15,7 @@ public class MainMenuView : IView {
             "Registreren",
             "Inloggen",
             "Boek vlucht",
-            "Zoek vlucht",
             "Boeking bekijken",
-            "Stoel selectie test",
             "Vliegveldinformatie",
             "Afsluiten"
         };
