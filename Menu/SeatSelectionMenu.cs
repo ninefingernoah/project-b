@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 // TODO: Break this class up into smaller classes
 public class SeatSelectionMenu {
     private Flight _flight;
-    public static List<Seat> SelectedSeats = new List<Seat>();
-    public static Seat Cursor;
+    public List<Seat> SelectedSeats = new List<Seat>();
+    public Seat Cursor;
 
     public Flight Flight {
         get {
@@ -142,7 +142,7 @@ public class SeatSelectionMenu {
     /// Moves the cursor to the next column.
     /// </summary>
     /// <param name="seats">The list of seats to move through.</param>
-    static void MoveCursorDown(List<Seat> seats)
+    void MoveCursorDown(List<Seat> seats)
     {
         int columnIndex = GetColumnIndex(Cursor.Column);
         string newColumn = GetPreviousColumn(seats, Cursor.Column, Cursor.Row);
@@ -156,7 +156,7 @@ public class SeatSelectionMenu {
     /// Moves the cursor to the previous column.
     /// </summary>
     /// <param name="seats">The list of seats to move through.</param>
-    static void MoveCursorUp(List<Seat> seats)
+    void MoveCursorUp(List<Seat> seats)
     {
         int columnIndex = GetColumnIndex(Cursor.Column);
         string newColumn = GetNextColumn(seats, Cursor.Column, Cursor.Row);
@@ -170,7 +170,7 @@ public class SeatSelectionMenu {
     /// Moves the cursor to the previous row.
     /// </summary>
     /// <param name="seats">The list of seats to move through.</param>
-    static void MoveCursorLeft(List<Seat> seats)
+    void MoveCursorLeft(List<Seat> seats)
     {
         int newRow = GetPreviousRow(seats, Cursor.Row, Cursor.Column);
         string newColumn = Cursor.Column;
@@ -184,7 +184,7 @@ public class SeatSelectionMenu {
     /// Moves the cursor to the next row.
     /// </summary>
     /// <param name="seats">The list of seats to move through.</param>
-    static void MoveCursorRight(List<Seat> seats)
+    void MoveCursorRight(List<Seat> seats)
     {
         int newRow = GetNextRow(seats, Cursor.Row, Cursor.Column);
         string newColumn = Cursor.Column;
@@ -217,7 +217,7 @@ public class SeatSelectionMenu {
     /// <summary>
     /// Clears all selected seats.
     /// </summary>
-    static void ClearSeatSelection()
+    void ClearSeatSelection()
     {
         SelectedSeats.Clear();
     }

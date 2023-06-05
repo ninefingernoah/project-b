@@ -20,7 +20,6 @@ public sealed class ReservationController
         }
     }
 
-    // TODO: Get Seat selection and prices
     public void ShowBookingMenu()
     {
         bool correct = true;
@@ -132,7 +131,7 @@ public sealed class ReservationController
             Flight outwardflight = FlightController.Instance.GetChosenFlight();
             Airport retarr = outwardflight.Departure;
             Airport retdep = outwardflight.Destination;
-            FlightListController.Instance.ShowFlights(retarr, retdep); //TODO: switcharoo
+            FlightListController.Instance.ShowFlights(retdep, retarr);
             Flight returnflight = FlightController.Instance.GetChosenFlight();
             List<Flight> flights = new List<Flight>();
             flights.Add(outwardflight);

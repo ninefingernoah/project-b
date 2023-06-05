@@ -27,8 +27,10 @@ public static class PassengerManager
 
     public static void DeletePassenger(Passenger pass)
     {
-        // TODO: Delete address
+        // TODO: TEST ADDRESS DELETION
+        var address_id = (int)(long)DatabaseManager.QueryResult($"SELECT address_id FROM passengers WHERE id = {pass.Id}").Rows[0][0];
         DatabaseManager.QueryNonResult($"DELETE FROM passengers WHERE id = {pass.Id}");
+        DatabaseManager.QueryNonResult($"DELETE FROM addresses WHERE id = {address_id}");
     }
 
     public static Address GetAddress(int id)
