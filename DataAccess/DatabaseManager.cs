@@ -117,6 +117,8 @@ public static class DatabaseManager
                     reservation_number TEXT NOT NULL,
                     seat_number TEXT NOT NULL,
                     airplane_id INTEGER NOT NULL,
+                    flight_id INTEGER NOT NULL,
+                    FOREIGN KEY(flight_id) REFERENCES flights(id),
                     FOREIGN KEY(reservation_number) REFERENCES reservations(number),
                     FOREIGN KEY(seat_number, airplane_id) REFERENCES seats(seat_number,airplane_id),
                     PRIMARY KEY(reservation_number, seat_number, airplane_id)

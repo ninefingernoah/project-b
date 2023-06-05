@@ -1309,19 +1309,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-<<<<<<< HEAD
       "projectUniqueName": "C:\\Users\\noahm\\Documents\\school\\semester 2\\Project B v2\\project-b kopietje\\project-b\\project-b.csproj",
       "projectName": "project-b",
       "projectPath": "C:\\Users\\noahm\\Documents\\school\\semester 2\\Project B v2\\project-b kopietje\\project-b\\project-b.csproj",
       "packagesPath": "C:\\Users\\noahm\\.nuget\\packages\\",
       "outputPath": "C:\\Users\\noahm\\Documents\\school\\semester 2\\Project B v2\\project-b kopietje\\project-b\\obj\\",
-=======
-      "projectUniqueName": "C:\\Users\\noahm\\Documents\\school\\semester 2\\Project B v2\\project-b\\project-b.csproj",
-      "projectName": "project-b",
-      "projectPath": "C:\\Users\\noahm\\Documents\\school\\semester 2\\Project B v2\\project-b\\project-b.csproj",
-      "packagesPath": "C:\\Users\\noahm\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\noahm\\Documents\\school\\semester 2\\Project B v2\\project-b\\obj\\",
->>>>>>> a63adab35e481596df20a6d8e2bca224a1c16e53
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\noahm\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -1388,7 +1380,7 @@
       "code": "Undefined",
       "level": "Warning",
       "warningLevel": 1,
-      "message": "Problem reading the cache file C:\\Users\\noahm\\Documents\\school\\semester 2\\Project B v2\\project-b\\obj\\project.nuget.cache : Invalid property identifier character: <. Path 'version', line 3, position 0."
+      "message": "Problem reading the cache file C:\\Users\\noahm\\Documents\\school\\semester 2\\Project B v2\\project-b kopietje\\project-b\\obj\\project.nuget.cache : Invalid property identifier character: <. Path 'version', line 3, position 0."
     }
   ]
 }

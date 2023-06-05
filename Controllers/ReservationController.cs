@@ -55,19 +55,6 @@ public sealed class ReservationController
                 return;
             }
 
-            // assign random seats
-            // then ask if they want to change seats
-            // if yes, show seat selection menu
-            List<Seat> seats = new List<Seat>();
-            seats.Add(new Seat("1", "1"));
-            seats.Add(new Seat("2", "1"));
-
-            double Price = 0;
-            foreach (var seat in seats)
-            {
-                Price += seat.Price;
-            }
-
             // check if logged in
             User? user;
             string email;
@@ -84,12 +71,24 @@ public sealed class ReservationController
                 email = emailMenu.Run()!;
                 if (email.ToLower() == "terug")
                 {
-                    //TODO: return back to seats
+                    //TODO: return to passenger info
                     return;
                 }
             }
             int reservationCode = ReservationManager.GetReservationCode();
-            res = new Reservation(reservationCode, outwardFlight, inwardFlight, user, email, seats, passengers, Price, DateTime.Now);
+            res = new Reservation(reservationCode, outwardFlight, inwardFlight, user, email, passengers, 0, DateTime.Now);
+            // assign random seats
+            // then ask if they want to change seats
+            // if yes, show seat selection menu
+            List<Seat> outwardSeats = new List<Seat>();
+            List<Seat> inwardSeats = new List<Seat>();
+            SeatController.Instance.ShowSeatSelection(res);
+
+            double price = 0;
+            foreach (var seat in outwardSeats)
+            {
+                price += seat.Price;
+            }
 
             if (ReservationManager.MakeReservation(res))
             {
@@ -215,21 +214,26 @@ public sealed class ReservationController
         Console.WriteLine("------------------");
         Console.WriteLine("Vlucht heen:");
         Console.WriteLine(ress.OutwardFlight.ToString());
+        Console.WriteLine("Stoelen:");
+        foreach (var seat in ress.OutwardSeats)
+        {
+            Console.WriteLine(seat.Number);
+        }
         if (ress.InwardFlight != null)
         {
             Console.WriteLine("Vlucht terug:");
             Console.WriteLine(ress.InwardFlight.ToString());
+            Console.WriteLine("Stoelen:");
+            foreach (var seat in ress.InwardSeats)
+            {
+                Console.WriteLine(seat.Number);
+            }
         }
 
         Console.WriteLine("Reizigers:");
         foreach (Passenger passenger in ress.Passengers)
         {
             Console.WriteLine(passenger.ToString());
-        }
-        Console.WriteLine("Stoelen:");
-        foreach (var seat in ress.Seats)
-        {
-            Console.WriteLine(seat.Number);
         }
         Console.WriteLine();
         Console.WriteLine($"Totale prijs: {ress.Price}");

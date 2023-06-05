@@ -14,6 +14,14 @@ public static class ReservationManager
                 }
                 else {
                     DatabaseManager.QueryNonResult($"INSERT INTO reservations (number,outward_flight_id,inward_flight_id,user_id,price,made_on,is_paid) VALUES ('{res.ReservationNumber}','{res.OutwardFlight.Id}','{res.InwardFlight.Id}','{res.User.Id}','{res.Price}','{made_on}','{res.IsPaid}')");
+                    foreach (var seat in res.InwardSeats)
+                    {
+                        // reservation seats
+                        DatabaseManager.QueryNonResult($"INSERT INTO reservation_seats (reservation_number, seat_number, airplane_id, flight_id) VALUES ('{res.ReservationNumber}','{seat.Number}','{res.InwardFlight.Airplane.Id}', '{res.InwardFlight.Id}')");
+
+                        // flight taken seats
+                        DatabaseManager.QueryNonResult($"INSERT INTO flight_takenseats (flight_id, seat_number, airplane_id) VALUES ('{res.InwardFlight.Id}','{seat.Number}','{res.InwardFlight.Airplane.Id}')");
+                    }
                 }
             }
             else {
@@ -24,6 +32,14 @@ public static class ReservationManager
                     DatabaseManager.QueryNonResult($"INSERT INTO reservations (number,outward_flight_id,inward_flight_id,email,price,made_on,is_paid) VALUES ('{res.ReservationNumber}','{res.OutwardFlight.Id}','{res.InwardFlight.Id}','{res.Email}','{res.Price}','{made_on}','{res.IsPaid}')");
                 }
             }
+            foreach (var seat in res.OutwardSeats)
+            {
+                // reservation seats
+                DatabaseManager.QueryNonResult($"INSERT INTO reservation_seats (reservation_number, seat_number, airplane_id, flight_id) VALUES ('{res.ReservationNumber}','{seat.Number}','{res.OutwardFlight.Airplane.Id}', '{res.OutwardFlight.Id}')");
+
+                // flight taken seats
+                DatabaseManager.QueryNonResult($"INSERT INTO flight_takenseats (flight_id, seat_number, airplane_id) VALUES ('{res.OutwardFlight.Id}','{seat.Number}','{res.OutwardFlight.Airplane.Id}')");
+            }
             
 
             // reservation passengers
@@ -33,15 +49,6 @@ public static class ReservationManager
                 PassengerManager.AddPassenger(pass);
 
                 DatabaseManager.QueryNonResult($"INSERT INTO reservation_passengers (reservation_number, passenger_id) VALUES ('{res.ReservationNumber}','{pass.Id}');");
-            }
-
-            foreach (var seat in res.Seats)
-            {
-                // reservation seats
-                DatabaseManager.QueryNonResult($"INSERT INTO reservation_seats (reservation_number, seat_number, airplane_id) VALUES ('{res.ReservationNumber}','{seat.Number}','{res.InwardFlight.Airplane.Id}')");
-
-                // flight taken seats
-                DatabaseManager.QueryNonResult($"INSERT INTO flight_takenseats (flight_id, seat_number, airplane_id) VALUES ('{res.InwardFlight.Id}','{seat.Number}','{res.InwardFlight.Airplane.Id}')");
             }
         }
         catch (Exception e)
@@ -66,13 +73,18 @@ public static class ReservationManager
         }
 
         // delete seat data
-        foreach (var seat in reservation.Seats)
-        {
             // delete reservation seat
             DatabaseManager.QueryNonResult($"DELETE FROM reservation_seats WHERE reservation_number = {reservation.ReservationNumber};");
-
+        foreach (var seat in reservation.OutwardSeats)
+        {
+            // delete flight taken seat
+            DatabaseManager.QueryNonResult($"DELETE FROM flight_takenseats WHERE flight_id = {reservation.OutwardFlight.Id} AND seat_number = {seat.Number};");
+        }
+        if (reservation.InwardSeats.Count > 0) {
+            foreach (var seat in reservation.InwardSeats) {
             // delete flight taken seat
             DatabaseManager.QueryNonResult($"DELETE FROM flight_takenseats WHERE flight_id = {reservation.InwardFlight.Id} AND seat_number = {seat.Number};");
+            }
         }
         // delete main
         DatabaseManager.QueryNonResult($"DELETE FROM reservations WHERE number = {reservation.ReservationNumber};");
@@ -118,25 +130,35 @@ public static class ReservationManager
 
     public static Reservation GetReservation(DataRow dr)
     {
-        Flight f = FlightManager.GetFlight((int)(long)dr["flight_id"])!;
+        Flight f_out = FlightManager.GetFlight((int)(long)dr["outward_flight_id"])!;
+        Flight f_in = FlightManager.GetFlight((int)(long)dr["inward_flight_id"])!;
         int user_id = (int)(long)dr["user_id"];
         User user = UserManager.GetUser(user_id);
         Reservation r = new Reservation(
             (int)dr["number"],
-            f,
-            f,
+            f_out,
+            f_in,
             user,
             (string)dr["email"],
-            null,
             null,
             (double)dr["price"],
             DateTime.Parse((string)dr["made_on"])
         );
-        var seats = DatabaseManager.QueryResult($"SELECT * FROM reservations_seats WHERE reservation_number = '{r.ReservationNumber}'");
-        foreach (DataRow seat in seats.Rows)
+        //outward
+        var outSeats = DatabaseManager.QueryResult($"SELECT * FROM reservations_seats WHERE reservation_number = '{r.ReservationNumber}' AND flight_id = '{r.OutwardFlight.Id}'");
+        foreach (DataRow seat in outSeats.Rows)
         {
             string color = (string)seat["color"];
-            r.Seats.Add(new Seat((string)seat["seat_number"], color));
+            r.AddOutwardSeat(new Seat((string)seat["seat_number"], color));
+        }
+        //inward
+        if(f_in != null) {
+            var inSeats = DatabaseManager.QueryResult($"SELECT * FROM reservations_seats WHERE reservation_number = '{r.ReservationNumber}' AND flight_id = '{r.InwardFlight.Id}'");
+            foreach (DataRow seat in inSeats.Rows)
+            {
+                string color = (string)seat["color"];
+                r.AddInwardSeat(new Seat((string)seat["seat_number"], color));
+            }
         }
         var passengers = DatabaseManager.QueryResult($"SELECT passengers.id, passengers.email, passengers.first_name, passengers.last_name, passengers.document_number FROM passengers INNER JOIN reservation_passengers ON passengers.id = reservation_passengers.passenger_id WHERE reservation_number = '{r.ReservationNumber}'");
         foreach (DataRow dr2 in passengers.Rows)

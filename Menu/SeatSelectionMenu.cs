@@ -6,6 +6,7 @@ using Newtonsoft.Json;
 // TODO: Break this class up into smaller classes
 public class SeatSelectionMenu {
     private Flight _flight;
+    private int _passengerAmount;
     public List<Seat> SelectedSeats = new List<Seat>();
     public Seat Cursor;
 
@@ -15,8 +16,9 @@ public class SeatSelectionMenu {
         }
     }
 
-    public SeatSelectionMenu(Flight flight) {
+    public SeatSelectionMenu(Flight flight, int passengerAmount) {
         _flight = flight;
+        _passengerAmount = passengerAmount;
     }
 
     /// <summary>
@@ -36,6 +38,7 @@ public class SeatSelectionMenu {
         {
             Console.Clear();
             Console.WriteLine("Selecteer een stoel met de pijltjestoetsen en druk op enter om te selecteren.");
+            Console.WriteLine("Druk nogmaals op enter om een selectie ongedaan te maken.");
             Console.WriteLine("Druk op C om alle selecties te verwijderen.");
             Console.WriteLine("Druk op S of escape om uw selectie op te slaan.");
             PrintSeatLayout(allSeats, maxRow, maxColumn);
@@ -57,7 +60,9 @@ public class SeatSelectionMenu {
                     MoveCursorDown(allSeats);
                     break;
                 case ConsoleKey.Enter:
-                    ToggleSeatSelection(Cursor);
+                    if (SelectedSeats.Count < _passengerAmount) {
+                        ToggleSeatSelection(Cursor);
+                    }
                     break;
                 case ConsoleKey.Escape:
                 case ConsoleKey.S:
@@ -112,6 +117,7 @@ public class SeatSelectionMenu {
         // print the cursor position
         Console.WriteLine($"{Cursor.Number}");
         // print the selected seats
+        Console.WriteLine($"\n{SelectedSeats.Count}/{_passengerAmount} stoelen gekozen");
         Console.WriteLine("\nGeselecteerde stoelen:");
         foreach (var seat in SelectedSeats)
         {

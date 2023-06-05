@@ -14,9 +14,9 @@ public class SeatSelectionView {
         }
     }
     
-    public void Display(Flight flight) {
+    public void Display(Flight flight, int passengerAmount) {
         // show seat grid
-        SeatSelectionMenu menu = new SeatSelectionMenu(flight);
+        SeatSelectionMenu menu = new SeatSelectionMenu(flight, passengerAmount);
         menu.Run();
         if (menu.SelectedSeats.Count > 0) {
             SelectedSeats.AddRange(menu.SelectedSeats);

@@ -21,7 +21,7 @@ public static class PassengerManager
         // TODO: Address
         DatabaseManager.QueryNonResult($"INSERT INTO addresses (city, country, street, street_number) VALUES ('{pass.Address.City}','{pass.Address.Country}','{pass.Address.Street}','{pass.Address.StreetNumber}');");
         var address_id = (int)(long)DatabaseManager.QueryResult($"SELECT MAX(id) FROM addresses").Rows[0][0];
-        DatabaseManager.QueryNonResult($"INSERT INTO passengers (id, email, first_name, last_name, document_number, address_id) VALUES ('{pass.Id}','{pass.Email}','{pass.FirstName}','{pass.LastName}','{pass.DocumentNumber}', '{address_id}');");
+        DatabaseManager.QueryNonResult($"INSERT INTO passengers (id, email, first_name, last_name, document_number, date_of_birth, address_id) VALUES ('{pass.Id}','{pass.Email}','{pass.FirstName}','{pass.LastName}','{pass.DocumentNumber}','{pass.BirthDate.ToString()}', '{address_id}');");
         
     }
 
