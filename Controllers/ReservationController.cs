@@ -49,14 +49,16 @@ public sealed class ReservationController
             }
 
             // get passengers
-            List<Passenger> passengers = GetPassengerAmountInfo();
+            List<Passenger>? passengers = GetPassengerAmountInfo();
             if (passengers == null)
             {
                 MainMenuController.Instance.ShowMainMenu();
                 return;
             }
 
-            // see TODO
+            // assign random seats
+            // then ask if they want to change seats
+            // if yes, show seat selection menu
             List<Seat> seats = new List<Seat>();
             seats.Add(new Seat("1", "1"));
             seats.Add(new Seat("2", "1"));
@@ -79,19 +81,39 @@ public sealed class ReservationController
             else
             {
                 user = null;
-                email = passengers[0].Email;
+                StringInputMenu emailMenu = new StringInputMenu("Vul het emailadres in: ");
+                email = emailMenu.Run()!;
+                if (email.ToLower() == "terug")
+                {
+                    //TODO: return back to seats
+                    return;
+                }
             }
             int reservationCode = ReservationManager.GetReservationCode();
             res = new Reservation(reservationCode, outwardFlight, inwardFlight, user, email, seats, passengers, Price, DateTime.Now);
 
-            if (DisplayData(res))
+            if (ReservationManager.MakeReservation(res))
             {
-                ReservationManager.MakeReservation(res);
-                correct = true;
+                if (DisplayData(res)) {
+                    correct = true;
+                }
+                else {
+                    if(ConsoleUtils.Confirm("Wilt u de huidige reservering bewerken? (Zo niet keert u terug naar het hoofdmenu)"))
+                    {
+                        correct = true;
+                        ShowReservationToReservationOwner(res); // TODO: add seat selection to editor //TODO: maybe also add changing the flights if its more than 30 days away uwu
+                    }
+                    else
+                    {
+                        ReservationManager.DeleteReservation(res);
+                        MainMenuController.Instance.ShowMainMenu();
+                        return;
+                    }
+                }
+                
             }
-        } while (!correct);
-
-
+        } while (!correct); //TODO: remove loop
+        MainMenuController.Instance.ShowMainMenu();
     }
 
     private List<Flight> GetFlights(string type)
@@ -110,7 +132,7 @@ public sealed class ReservationController
             Flight outwardflight = FlightController.Instance.GetChosenFlight();
             Airport retarr = outwardflight.Departure;
             Airport retdep = outwardflight.Destination;
-            FlightListController.Instance.ShowFlights(retarr, retdep);
+            FlightListController.Instance.ShowFlights(retarr, retdep); //TODO: switcharoo
             Flight returnflight = FlightController.Instance.GetChosenFlight();
             List<Flight> flights = new List<Flight>();
             flights.Add(outwardflight);
@@ -174,7 +196,12 @@ public sealed class ReservationController
         {
             for (int i = 0; i < amount; i++)
             {
-                passengers.Add(PassengerController.Instance.NewPassenger());
+                Passenger newPassenger = PassengerController.Instance.NewPassenger();
+                if (newPassenger == null)
+                {
+                    return null;
+                }
+                passengers.Add(newPassenger);
                 // passengers.Add(new Passenger(1, null, null, null, null, null, null));
             }
         }
@@ -185,7 +212,8 @@ public sealed class ReservationController
     public bool DisplayData(Reservation ress)
     {
         Console.Clear();
-        Console.WriteLine("Vlucht informatie:");
+        Console.WriteLine("Vlucht informatie");
+        Console.WriteLine("------------------");
         Console.WriteLine("Vlucht heen:");
         Console.WriteLine(ress.OutwardFlight.ToString());
         if (ress.InwardFlight != null)
@@ -202,9 +230,9 @@ public sealed class ReservationController
         Console.WriteLine("Stoelen:");
         foreach (var seat in ress.Seats)
         {
-            Console.WriteLine(seat.ToString());
+            Console.WriteLine(seat.Number);
         }
-
+        Console.WriteLine();
         Console.WriteLine($"Totale prijs: {ress.Price}");
 
         return ConsoleUtils.Confirm("Gaat u akkoord met deze reservering?", false);
@@ -291,7 +319,7 @@ public sealed class ReservationController
                 break;
             case 8:
                 ReservationManager.UpdateReservation(reservation);
-                ConsoleUtils.Success("Uw reservering is succesvol gewijzigd.");
+                ConsoleUtils.Success($"Uw reservering: {reservation.ReservationNumber} is succesvol gewijzigd.");
                 MainMenuController.Instance.ShowMainMenu();
                 break;
             case 9:

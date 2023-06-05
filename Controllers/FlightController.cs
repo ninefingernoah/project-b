@@ -98,7 +98,7 @@ public class FlightController
             switch (selection)
             {
                 case 0:
-                    //_seatController.Run(flight);
+                    chosenFlight = flight;
                     break;
                 case 1:
                     ShowFlightEditor(flight);

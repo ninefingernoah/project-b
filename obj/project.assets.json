@@ -1304,28 +1304,26 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\max\\.nuget\\packages\\": {},
-    "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder": {}
+    "C:\\Users\\noahm\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "H:\\project-b\\project-b.csproj",
+      "projectUniqueName": "C:\\Users\\noahm\\Documents\\school\\semester 2\\Project B v2\\project-b kopietje\\project-b\\project-b.csproj",
       "projectName": "project-b",
-      "projectPath": "H:\\project-b\\project-b.csproj",
-      "packagesPath": "C:\\Users\\max\\.nuget\\packages\\",
-      "outputPath": "H:\\project-b\\obj\\",
+      "projectPath": "C:\\Users\\noahm\\Documents\\school\\semester 2\\Project B v2\\project-b kopietje\\project-b\\project-b.csproj",
+      "packagesPath": "C:\\Users\\noahm\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\noahm\\Documents\\school\\semester 2\\Project B v2\\project-b kopietje\\project-b\\obj\\",
       "projectStyle": "PackageReference",
-      "fallbackFolders": [
-        "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
-      ],
       "configFilePaths": [
-        "C:\\Users\\max\\AppData\\Roaming\\NuGet\\NuGet.Config"
+        "C:\\Users\\noahm\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
         "net6.0"
       ],
       "sources": {
+        "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {

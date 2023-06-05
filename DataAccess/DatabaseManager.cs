@@ -93,7 +93,7 @@ public static class DatabaseManager
                     number INTEGER NOT NULL PRIMARY KEY,
                     outward_flight_id INTEGER NOT NULL,
                     inward_flight_id INTEGER,
-                    user_id INTEGER NOT NULL,
+                    user_id INTEGER,
                     email TEXT NOT NULL,
                     price REAL NOT NULL,
                     made_on TEXT NOT NULL,

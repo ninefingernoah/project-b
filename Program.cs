@@ -36,11 +36,11 @@
         // Insert airplanes
         DatabaseManager.QueryNonResult($@"
                 INSERT INTO airplanes (name, total_capacity)
-                VALUES ('Boeing_787', 500)
+                VALUES ('Boeing_787', 0)
             ");
         DatabaseManager.QueryNonResult($@"
                 INSERT INTO airplanes (name, total_capacity)
-                VALUES ('Boeing_737', 300)
+                VALUES ('Boeing_737', 0)
             ");
         // Insert flights
         DatabaseManager.QueryNonResult($@"

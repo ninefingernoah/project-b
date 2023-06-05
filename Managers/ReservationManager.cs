@@ -2,31 +2,54 @@ using System.Data;
 public static class ReservationManager
 {
 
-    public static void MakeReservation(Reservation res)
+    public static bool MakeReservation(Reservation res)
     {
         string made_on = res.ReservationDate.ToString();
-        // main reservation
-        DatabaseManager.QueryNonResult($"INSERT INTO reservations (number,flight_id,user_id,price,made_on,is_paid) VALUES ('{res.ReservationNumber}','{res.InwardFlight.Id}','{res.User.Id}','{res.Price}','{made_on}','{res.IsPaid}')");
+        
+        try {
+            // main reservation
+            if (res.User != null) {
+                if (res.InwardFlight == null) {
+                    DatabaseManager.QueryNonResult($"INSERT INTO reservations (number,outward_flight_id,user_id,price,made_on,is_paid) VALUES ('{res.ReservationNumber}','{res.OutwardFlight.Id}','{res.User.Id}','{res.Price}','{made_on}','{res.IsPaid}')");
+                }
+                else {
+                    DatabaseManager.QueryNonResult($"INSERT INTO reservations (number,outward_flight_id,inward_flight_id,user_id,price,made_on,is_paid) VALUES ('{res.ReservationNumber}','{res.OutwardFlight.Id}','{res.InwardFlight.Id}','{res.User.Id}','{res.Price}','{made_on}','{res.IsPaid}')");
+                }
+            }
+            else {
+                if (res.InwardFlight == null) {
+                    DatabaseManager.QueryNonResult($"INSERT INTO reservations (number,outward_flight_id,email,price,made_on,is_paid) VALUES ('{res.ReservationNumber}','{res.OutwardFlight.Id}','{res.Email}','{res.Price}','{made_on}','{res.IsPaid}')");
+                }
+                else {
+                    DatabaseManager.QueryNonResult($"INSERT INTO reservations (number,outward_flight_id,inward_flight_id,email,price,made_on,is_paid) VALUES ('{res.ReservationNumber}','{res.OutwardFlight.Id}','{res.InwardFlight.Id}','{res.Email}','{res.Price}','{made_on}','{res.IsPaid}')");
+                }
+            }
+            
 
-        // reservation passengers
-        foreach (var pass in res.Passengers)
-        {
-            //push passenger
-            PassengerManager.AddPassenger(pass);
+            // reservation passengers
+            foreach (var pass in res.Passengers)
+            {
+                //add passenger
+                PassengerManager.AddPassenger(pass);
 
-            DatabaseManager.QueryNonResult($"INSERT INTO reservation_passengers (reservation_number, passenger_id) VALUES ('{res.ReservationNumber}','{pass.Id}');");
+                DatabaseManager.QueryNonResult($"INSERT INTO reservation_passengers (reservation_number, passenger_id) VALUES ('{res.ReservationNumber}','{pass.Id}');");
+            }
+
+            foreach (var seat in res.Seats)
+            {
+                // reservation seats
+                DatabaseManager.QueryNonResult($"INSERT INTO reservation_seats (reservation_number, seat_number, airplane_id) VALUES ('{res.ReservationNumber}','{seat.Number}','{res.InwardFlight.Airplane.Id}')");
+
+                // flight taken seats
+                DatabaseManager.QueryNonResult($"INSERT INTO flight_takenseats (flight_id, seat_number, airplane_id) VALUES ('{res.InwardFlight.Id}','{seat.Number}','{res.InwardFlight.Airplane.Id}')");
+            }
         }
-
-
-
-        foreach (var seat in res.Seats)
+        catch (Exception e)
         {
-            // reservation seats
-            DatabaseManager.QueryNonResult($"INSERT INTO reservation_seats (reservation_number, seat_number, airplane_id) VALUES ('{res.ReservationNumber}','{seat.Number}','{res.InwardFlight.Airplane.Id}')");
-
-            // flight taken seats
-            DatabaseManager.QueryNonResult($"INSERT INTO flight_takenseats (flight_id, seat_number, airplane_id) VALUES ('{res.InwardFlight.Id}','{seat.Number}','{res.InwardFlight.Airplane.Id}')");
+            return false;
         }
+        
+        return true;
     }
 
     public static void DeleteReservation(Reservation reservation)
