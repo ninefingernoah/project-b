@@ -3,6 +3,7 @@ public class AirportView : IView
     private static readonly AirportView instance = new AirportView();
     
     public Dictionary<string, string> ViewBag = new Dictionary<string, string>();
+    public List<string> facilities = new List<string>();
 
     public static AirportView Instance
     {
@@ -20,6 +21,7 @@ public class AirportView : IView
             $"Naam van het vliegveld: {ViewBag["AirportName"]}",
             $"Code van het vliegveld: {ViewBag["AirportCode"]}",
             "Vluchten en prijzen",
+            "Faciliteiten",
             "-",
             "Confirm",
             "Annuleren"
@@ -45,5 +47,6 @@ public class AirportView : IView
     public void ClearViewBag()
     {
         ViewBag.Clear();
+        facilities = new List<string>();
     }
 }

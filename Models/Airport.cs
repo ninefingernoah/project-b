@@ -30,13 +30,20 @@ public class Airport {
         _facilities.Remove(facility);
     }
 
-    public string ToFacilitiesString() {
-        string facilities = " ";
-        foreach (string facility in _facilities) {
-            facilities += facility + ",\n";
+    public string FacilitiesToString() {
+        string facilities = "";
+        for(int i = 0; i < _facilities.Count; i++) {
+            if(i == _facilities.Count - 1)
+                facilities += "- " + _facilities[i];
+            else
+                facilities += "- " + _facilities[i] + "\n";
         }
-        string facilitiesToString = facilities.Substring(0, facilities.Length - 1);
-        return $"Luchthaven {_name} ({_code}) in {_city}, {_country} met faciliteiten:\n{facilitiesToString}";
+        return facilities;
+    }
+    
+    public string AirportOverviewString()
+    {
+        return $"Luchthaven {_name} ({_code})\n{_city}, {_country}\n\nFaciliteiten:\n{FacilitiesToString()}";
     }
 
     public override string ToString() {
