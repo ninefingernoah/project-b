@@ -1,26 +1,35 @@
 using System.Data;
+using System;
+using System.Text;
 public static class ReservationManager
 {
 
     public static bool MakeReservation(Reservation res)
     {
         string made_on = res.ReservationDate.ToString();
-        
-        try {
+
+        try
+        {
             // main reservation
-            if (res.User != null) {
-                if (res.InwardFlight == null) {
+            if (res.User != null)
+            {
+                if (res.InwardFlight == null)
+                {
                     DatabaseManager.QueryNonResult($"INSERT INTO reservations (number,outward_flight_id,user_id,price,made_on,is_paid) VALUES ('{res.ReservationNumber}','{res.OutwardFlight.Id}','{res.User.Id}','{res.Price}','{made_on}','{res.IsPaid}')");
                 }
-                else {
+                else
+                {
                     DatabaseManager.QueryNonResult($"INSERT INTO reservations (number,outward_flight_id,inward_flight_id,user_id,price,made_on,is_paid) VALUES ('{res.ReservationNumber}','{res.OutwardFlight.Id}','{res.InwardFlight.Id}','{res.User.Id}','{res.Price}','{made_on}','{res.IsPaid}')");
                 }
             }
-            else {
-                if (res.InwardFlight == null) {
+            else
+            {
+                if (res.InwardFlight == null)
+                {
                     DatabaseManager.QueryNonResult($"INSERT INTO reservations (number,outward_flight_id,email,price,made_on,is_paid) VALUES ('{res.ReservationNumber}','{res.OutwardFlight.Id}','{res.Email}','{res.Price}','{made_on}','{res.IsPaid}')");
                 }
-                else {
+                else
+                {
                     DatabaseManager.QueryNonResult($"INSERT INTO reservations (number,outward_flight_id,inward_flight_id,email,price,made_on,is_paid) VALUES ('{res.ReservationNumber}','{res.OutwardFlight.Id}','{res.InwardFlight.Id}','{res.Email}','{res.Price}','{made_on}','{res.IsPaid}')");
                 }
             }
@@ -32,15 +41,16 @@ public static class ReservationManager
                 // flight taken seats
                 DatabaseManager.QueryNonResult($"INSERT INTO flight_takenseats (flight_id, seat_number, airplane_id) VALUES ('{res.OutwardFlight.Id}','{seat.Number}','{res.OutwardFlight.Airplane.Id}')");
             }
-            if (res.InwardFlight != null) {
+            if (res.InwardFlight != null)
+            {
                 foreach (var seat in res.InwardSeats)
-                    {
-                        // reservation seats
-                        DatabaseManager.QueryNonResult($"INSERT INTO reservations_seats (reservation_number, seat_number, airplane_id, flight_id) VALUES ('{res.ReservationNumber}','{seat.Number}','{res.InwardFlight.Airplane.Id}', '{res.InwardFlight.Id}')");
+                {
+                    // reservation seats
+                    DatabaseManager.QueryNonResult($"INSERT INTO reservations_seats (reservation_number, seat_number, airplane_id, flight_id) VALUES ('{res.ReservationNumber}','{seat.Number}','{res.InwardFlight.Airplane.Id}', '{res.InwardFlight.Id}')");
 
-                        // flight taken seats
-                        DatabaseManager.QueryNonResult($"INSERT INTO flight_takenseats (flight_id, seat_number, airplane_id) VALUES ('{res.InwardFlight.Id}','{seat.Number}','{res.InwardFlight.Airplane.Id}')");
-                    }
+                    // flight taken seats
+                    DatabaseManager.QueryNonResult($"INSERT INTO flight_takenseats (flight_id, seat_number, airplane_id) VALUES ('{res.InwardFlight.Id}','{seat.Number}','{res.InwardFlight.Airplane.Id}')");
+                }
             }
 
             // reservation passengers
@@ -56,7 +66,7 @@ public static class ReservationManager
         {
             return false;
         }
-        
+
         return true;
     }
 
@@ -80,10 +90,12 @@ public static class ReservationManager
             // delete taken seats from flight
             DatabaseManager.QueryNonResult($"DELETE FROM flight_takenseats WHERE flight_id = {reservation.OutwardFlight.Id} AND seat_number = {seat.Number};");
         }
-        if (reservation.InwardSeats.Count > 0) {
-            foreach (var seat in reservation.InwardSeats) {
-            // delete taken seats from flight
-            DatabaseManager.QueryNonResult($"DELETE FROM flight_takenseats WHERE flight_id = {reservation.InwardFlight.Id} AND seat_number = {seat.Number};");
+        if (reservation.InwardSeats.Count > 0)
+        {
+            foreach (var seat in reservation.InwardSeats)
+            {
+                // delete taken seats from flight
+                DatabaseManager.QueryNonResult($"DELETE FROM flight_takenseats WHERE flight_id = {reservation.InwardFlight.Id} AND seat_number = {seat.Number};");
             }
         }
         // delete main
@@ -98,13 +110,16 @@ public static class ReservationManager
     public static bool UpdateReservation(Reservation reservation)
     {
         // TODO: update reservation_seats en flight_takenseats
-        if (reservation.User == null) {
+        if (reservation.User == null)
+        {
             DatabaseManager.QueryNonResult($"UPDATE reservations SET outward_flight_id = {reservation.OutwardFlight.Id}, user_id = NULL, email = '{reservation.Email}', price = {reservation.Price}, made_on = '{reservation.ReservationDate.ToString("dd-MM-yyyy")}' WHERE number = '{reservation.ReservationNumber}'");
         }
-        else {
+        else
+        {
             DatabaseManager.QueryNonResult($"UPDATE reservations SET outward_flight_id = {reservation.OutwardFlight.Id}, user_id = {reservation.User.Id}, email = '{reservation.Email}', price = {reservation.Price}, made_on = '{reservation.ReservationDate.ToString("dd-MM-yyyy")}' WHERE number = '{reservation.ReservationNumber}'");
         }
-        if (reservation.InwardFlight != null) {
+        if (reservation.InwardFlight != null)
+        {
             DatabaseManager.QueryNonResult($"UPDATE reservations SET inward_flight_id = {reservation.InwardFlight.Id} WHERE number = '{reservation.ReservationNumber}'");
         }
         foreach (Passenger p in reservation.Passengers)
@@ -141,17 +156,21 @@ public static class ReservationManager
     {
         Flight f_out = FlightManager.GetFlight((int)(long)dr["outward_flight_id"])!;
         Flight f_in = null;
-        try {
+        try
+        {
             f_in = FlightManager.GetFlight((int)(long)dr["inward_flight_id"])!;
         }
-        catch (Exception e) {
+        catch (Exception e)
+        {
             f_in = null;
         }
         User user = null;
-        try {
+        try
+        {
             user = UserManager.GetUser((int)(long)dr["user_id"]);
         }
-        catch (Exception e) {
+        catch (Exception e)
+        {
             user = null;
         }
         Reservation r = new Reservation(
@@ -172,12 +191,13 @@ public static class ReservationManager
             if (planeSeat != null) r.AddOutwardSeat(planeSeat);
         }
         //inward
-        if(f_in != null) {
+        if (f_in != null)
+        {
             var inSeats = DatabaseManager.QueryResult($"SELECT seat_number FROM reservations_seats WHERE reservation_number = '{r.ReservationNumber}' AND flight_id = {r.InwardFlight.Id}");
             foreach (DataRow seat in inSeats.Rows)
             {
                 Seat planeSeat = f_in.Airplane.Seats.Find(s => s.Number == (string)seat["seat_number"]);
-            if (planeSeat != null) r.AddInwardSeat(planeSeat);
+                if (planeSeat != null) r.AddInwardSeat(planeSeat);
             }
         }
         var passengers = DatabaseManager.QueryResult($"SELECT p.id, p.email, p.first_name, p.last_name, p.document_number FROM passengers p INNER JOIN reservation_passengers rp ON p.id = rp.passenger_id WHERE rp.reservation_number = '{r.ReservationNumber}'");
@@ -199,8 +219,22 @@ public static class ReservationManager
         return reservations;
     }
 
-    public static string GetReservationCode()
+    public static string GetNewReservationCode()
     {
-        return (string)DatabaseManager.QueryResult("SELECT MAX(number) FROM reservations").Rows[0][0] + 1;
+        Random random = new Random();
+        int length = 5;
+        string Rando;
+        const string chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+        StringBuilder stringBuilder = new StringBuilder(length);
+        do
+        {
+            for (int i = 0; i < length; i++)
+            {
+                int index = random.Next(chars.Length);
+                stringBuilder.Append(chars[index]);
+            }
+            Rando = stringBuilder.ToString();
+        } while (GetReservation(Rando) != null);
+        return Rando;
     }
 }

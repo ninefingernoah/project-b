@@ -51,6 +51,7 @@ public sealed class ReservationController
             List<Passenger>? passengers = GetPassengerAmountInfo();
             if (passengers == null)
             {
+                ConsoleUtils.Error("Er is iets fout gegaan met de gebruikers");
                 MainMenuController.Instance.ShowMainMenu();
                 return;
             }
@@ -75,7 +76,7 @@ public sealed class ReservationController
                     return;
                 }
             }
-            string reservationCode = ReservationManager.GetReservationCode();
+            string reservationCode = ReservationManager.GetNewReservationCode();
             res = new Reservation(reservationCode, outwardFlight, inwardFlight, user, email, passengers, 0, DateTime.Now);
             
             // ask if they want to change seats
@@ -183,7 +184,7 @@ public sealed class ReservationController
     {
         IntInputMenu menu = new IntInputMenu("Met hoeveel reizigers bent u?");
         int? amount = menu.Run();
-        if (amount == null)
+        if (amount == null || amount == 0)
         {
             return null;
         }
