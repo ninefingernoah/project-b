@@ -9,6 +9,7 @@ public class SeatSelectionMenu {
     private int _passengerAmount;
     public List<Seat> SelectedSeats = new List<Seat>();
     public Seat Cursor;
+    public double CurrentPrice;
 
     public Flight Flight {
         get {
@@ -16,9 +17,10 @@ public class SeatSelectionMenu {
         }
     }
 
-    public SeatSelectionMenu(Flight flight, int passengerAmount) {
+    public SeatSelectionMenu(Flight flight, int passengerAmount, double currentPrice) {
         _flight = flight;
         _passengerAmount = passengerAmount;
+        CurrentPrice = currentPrice;
     }
 
     /// <summary>
@@ -60,9 +62,10 @@ public class SeatSelectionMenu {
                     MoveCursorDown(allSeats);
                     break;
                 case ConsoleKey.Enter:
-                    if (SelectedSeats.Count < _passengerAmount) {
-                        ToggleSeatSelection(Cursor);
+                    if (SelectedSeats.Count >= _passengerAmount && !SelectedSeats.Contains(Cursor)) {
+                        break;
                     }
+                    ToggleSeatSelection(Cursor);
                     break;
                 case ConsoleKey.Escape:
                 case ConsoleKey.S:
@@ -123,6 +126,7 @@ public class SeatSelectionMenu {
         {
             Console.WriteLine($"Stoel {seat.Number}");
         }
+        Console.WriteLine($"\nTotaalprijs van uw boeking: €{CurrentPrice}");
     }
 
     /// <summary>
@@ -213,10 +217,12 @@ public class SeatSelectionMenu {
         if (SelectedSeats.Contains(seat))
         {
             SelectedSeats.Remove(seat);
+            CurrentPrice -= seat.Price;
         }
         else
         {
             SelectedSeats.Add(seat);
+            CurrentPrice += seat.Price;
         }
     }
 

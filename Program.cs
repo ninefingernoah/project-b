@@ -51,6 +51,10 @@
                 INSERT INTO flights (airplane_id, departure_id, destination_id, departure_time, arrival_time)
                 VALUES (1, 1, 2, '2025-01-06 14:00', '2025-01-06 16:00:00')
             ");
+        DatabaseManager.QueryNonResult($@"
+                INSERT INTO flights (airplane_id, departure_id, destination_id, departure_time, arrival_time)
+                VALUES (2, 2, 1, '2025-01-08 11:00', '2025-01-08 12:00:00')
+            ");
         // Insert reservations
         DatabaseManager.QueryNonResult($@"
                 INSERT INTO reservations (number, outward_flight_id, inward_flight_id, user_id, email, price, made_on, is_paid)

@@ -18,8 +18,8 @@ public class Reservation
     public Flight InwardFlight { get => _inwardflight; set => _inwardflight = value; }
     public User User { get => _user; set => _user = value; }
     public string Email { get => _email; set => _email = value; }
-    public List<Seat> OutwardSeats { get => _outwardSeats; }
-    public List<Seat> InwardSeats { get => _inwardSeats; }
+    public List<Seat> OutwardSeats { get => _outwardSeats; set=> _outwardSeats = value; }
+    public List<Seat> InwardSeats { get => _inwardSeats; set => _inwardSeats = value; }
     public double Price { get => _price; set => _price = value; }
     public List<Passenger> Passengers { get => _passengers; }
     public DateTime ReservationDate { get => _reservationDate; set => _reservationDate = value; }
@@ -55,5 +55,8 @@ public class Reservation
     public void AddInwardSeat(Seat seat)
     {
         _inwardSeats.Add(seat);
+    }
+
+    public void UpdatePrice() {
     }
 }

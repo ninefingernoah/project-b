@@ -77,17 +77,13 @@ public sealed class ReservationController
             }
             int reservationCode = ReservationManager.GetReservationCode();
             res = new Reservation(reservationCode, outwardFlight, inwardFlight, user, email, passengers, 0, DateTime.Now);
-            // assign random seats
-            // then ask if they want to change seats
-            // if yes, show seat selection menu
-            List<Seat> outwardSeats = new List<Seat>();
-            List<Seat> inwardSeats = new List<Seat>();
-            SeatController.Instance.ShowSeatSelection(res);
-
-            double price = 0;
-            foreach (var seat in outwardSeats)
+            
+            // ask if they want to change seats
+            if (ConsoleUtils.Confirm("Wilt u stoelen kiezen? (LET OP: Stoelen kiezen kost €4 extra per stoel, buiten de kosten van de stoel zelf)"))
             {
-                price += seat.Price;
+                // show seat selection menu
+                int kostenPerStoel = 4;
+                SeatController.Instance.ShowSeatSelection(res, kostenPerStoel);
             }
 
             if (ReservationManager.MakeReservation(res))
