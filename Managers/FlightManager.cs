@@ -44,13 +44,18 @@ public static class FlightManager
         return flight;
     }
 
+    public static void NewFlight(Flight flight)
+    {
+        DataTable dt = DatabaseManager.QueryResult($"INSERT INTO flights (departure_id,destination_id,departure_time,arrival_time,airplane_id) VALUES ('{flight.Departure.Id}','{flight.Destination.Id}','{flight.DepartureTime}','{flight.ArrivalTime}','{flight.Airplane.Id}');");
+    }
+
     public static List<Flight> GetFlights(Airport departure, Airport arrival)
     {
         int depID = departure.Id;
         int arrID = arrival.Id;
         DataTable dt = DatabaseManager.QueryResult($"SELECT * FROM flights WHERE departure_id = {depID} AND destination_id = {arrID}");
         List<Flight> flights = new List<Flight>();
-        foreach(DataRow dr in dt.Rows)
+        foreach (DataRow dr in dt.Rows)
         {
             flights.Add(GetFlight((int)(long)dr["id"]));
         }
@@ -174,13 +179,13 @@ public static class FlightManager
 
             Flights.Add(GetFlight(id));
         }
-        
+
         return Flights.Where(filter ?? (f => true)).ToList();
     }
 
     public static int GetNewestId()
     {
-        DataTable dt = DatabaseManager.QueryResult($"SELECT id FROM flights ORDER BY id ASC");
+        DataTable dt = DatabaseManager.QueryResult($"SELECT id FROM flights ORDER BY id DESC");
         try
         {
             DataRow dr = dt.Rows[0];

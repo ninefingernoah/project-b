@@ -86,6 +86,7 @@ public sealed class MainMenuController {
             switch (selection)
             {
                 case 0: // Add flight
+                    FlightController.Instance.NewFlight();
                     break;
                 case 1: // Change flight
                     FlightListController.Instance.ShowFlightSearchMenu();

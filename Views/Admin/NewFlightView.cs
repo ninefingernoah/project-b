@@ -1,8 +1,11 @@
-public class NewFlightView : IView
+public class NewFlightView
 {
     private static readonly NewFlightView instance = new NewFlightView();
-    public Dictionary<string, object> ViewBag = new Dictionary<string, object>();
-    public Flight? CurrentFlight = new Flight(FlightManager.GetNewestId(), null, null, DateTime.Now, DateTime.Now, null);
+    public Airport Departure;
+    public Airport Arrival;
+    public Airplane Plane;
+    public DateTime depTime;
+    public DateTime ArrTime;
 
     static NewFlightView()
     {
@@ -11,33 +14,24 @@ public class NewFlightView : IView
     /// <summary>
     /// Displays the flight editor view.
     /// </summary>
-    public void Display()
+    public int Display()
     {
-
         List<string> optionsList = new List<string>() {
-            $"Vertrek vanaf: {CurrentFlight.Departure.Name}",
-            $"Aankomst op: {CurrentFlight.Destination.Name}",
-            $"Vliegtuig: {CurrentFlight.Airplane.Name}",
-            $"Vertrekdatum: {CurrentFlight.DepartureTime.ToString("dd-MM-yyyy HH:mm")}",
-            $"Aankomstdatum: {CurrentFlight.ArrivalTime.ToString("dd-MM-yyyy HH:mm")}",
+            $"Vertrek vanaf: {Departure}",
+            $"Aankomst op: {Arrival}",
+            $"Vliegtuig: {Plane}",
+            $"Vertrekdatum: {depTime.ToString("dd-MM-yyyy HH:mm")}",
+            $"Aankomstdatum: {ArrTime.ToString("dd-MM-yyyy HH:mm")}",
             "-",
             "Opslaan",
-            "Verwijder",
             "-",
             "Terug"
         };
         string[] options = optionsList.ToArray();
         Menu editorMenu;
-        if (ViewBag.ContainsKey("MainMenuSelection"))
-        {
-            editorMenu = new Menu("Vlucht bewerken", options, int.Parse((string)ViewBag["MainMenuSelection"]));
-        }
-        else
-        {
-            editorMenu = new Menu("Vlucht bewerken", options);
-        }
-        int choice = editorMenu.Run();
-        ViewBag["MainMenuSelection"] = choice.ToString();
+        editorMenu = new Menu("Nieuwe vlucht", options);
+        return editorMenu.Run();
+
     }
 
     /// <summary>
@@ -53,7 +47,47 @@ public class NewFlightView : IView
 
     public void ClearViewBag()
     {
-        ViewBag.Clear();
-        CurrentFlight = null;
+        Departure = null;
+        Arrival = null;
+        Plane = null;
+        depTime = DateTime.MinValue;
+        ArrTime = DateTime.MinValue;
+    }
+
+    public bool CheckValid()
+    {
+        try
+        {
+            if (Departure == null)
+            {
+                return false;
+            }
+            else if (Arrival == null)
+            {
+                return false;
+            }
+            else if (Plane == null)
+            {
+                return false;
+            }
+            else if (depTime == DateTime.MinValue)
+            {
+                return false;
+            }
+            else if (ArrTime == DateTime.MinValue)
+            {
+                return false;
+            }
+            else
+            {
+                return true;
+            }
+        }
+        catch (System.Exception)
+        {
+
+            return false;
+        }
+
     }
 }
