@@ -140,7 +140,8 @@ public class FlightController
     {
         NewFlightView.Instance.ClearViewBag();
         NewFlightView.Instance.Display();
-        int selection = int.Parse((string)FlightEditorView.Instance.ViewBag["MainMenuSelection"]);    }
+        int selection = int.Parse((string)FlightEditorView.Instance.ViewBag["MainMenuSelection"]);
+    }
 
 
     /// <summary>

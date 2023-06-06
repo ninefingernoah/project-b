@@ -13,10 +13,6 @@ public class NewFlightView : IView
     /// </summary>
     public void Display()
     {
-        if (CurrentFlight == null)
-        {
-            throw new Exception("Flight is null");
-        }
 
         List<string> optionsList = new List<string>() {
             $"Vertrek vanaf: {CurrentFlight.Departure.Name}",

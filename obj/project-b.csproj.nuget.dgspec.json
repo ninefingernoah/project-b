@@ -1,20 +1,23 @@
 {
   "format": 1,
   "restore": {
-    "D:\\project-b\\project-b.csproj": {}
+    "H:\\project-b\\project-b.csproj": {}
   },
   "projects": {
-    "D:\\project-b\\project-b.csproj": {
+    "H:\\project-b\\project-b.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\project-b\\project-b.csproj",
+        "projectUniqueName": "H:\\project-b\\project-b.csproj",
         "projectName": "project-b",
-        "projectPath": "D:\\project-b\\project-b.csproj",
-        "packagesPath": "C:\\Users\\Max\\.nuget\\packages\\",
-        "outputPath": "D:\\project-b\\obj\\",
+        "projectPath": "H:\\project-b\\project-b.csproj",
+        "packagesPath": "C:\\Users\\max\\.nuget\\packages\\",
+        "outputPath": "H:\\project-b\\obj\\",
         "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+        ],
         "configFilePaths": [
-          "C:\\Users\\Max\\AppData\\Roaming\\NuGet\\NuGet.Config"
+          "C:\\Users\\max\\AppData\\Roaming\\NuGet\\NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net6.0"
