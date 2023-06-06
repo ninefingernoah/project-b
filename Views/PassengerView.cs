@@ -25,7 +25,7 @@ public class PassengerView
 
 
     /// <summary>
-    /// Displays the login menu.
+    /// Displays the menu for creating a passenger.
     /// </summary>
     private void Display()
     {
@@ -43,9 +43,16 @@ public class PassengerView
             "Sla op",
             "Ga terug"
         };
+        Menu passengerMenu;
         string[] options = optionsList.ToArray();
-        Menu loginMenu = new Menu("Nieuwe reiziger", options);
-        int choice = loginMenu.Run();
+        if (ViewBag.ContainsKey("MainMenuSelection"))
+        {
+            passengerMenu = new Menu("Nieuwe reiziger", options, int.Parse((string)ViewBag["MainMenuSelection"]));
+        } else
+        {
+            passengerMenu = new Menu("Nieuwe reiziger", options);
+        }
+        int choice = passengerMenu.Run();
         ViewBag["MainMenuSelection"] = choice.ToString();
     }
 
