@@ -21,21 +21,36 @@ public class ReservationOverviewView : IView {
     /// Displays the login menu.
     /// </summary>
     public void Display() {
-        // TODO: Is deze manier een beetje oke?
+        // TODO: Stoelen wijzigen
         Reservation reservation = (Reservation)ViewBag["reservation"];
         string email = reservation.Email != null ? reservation.Email : reservation.User.Email;
-        List<string> optionsList = new List<string>() {
+        List<string> optionsList = new List<string>();
+        if (reservation.InwardFlight != null){
+            optionsList = new List<string>() {
             $"Boekingsnummer: {reservation.ReservationNumber}",
             $"Email: {email}", 
-            $"Vertrek van: {reservation.OutwardFlight}",
-            $"Vertrek naar: {reservation.InwardFlight}",
-            $"Vertrek op: {reservation.OutwardFlight.DepartureTime}",
-            $"Aankomst op: {reservation.InwardFlight.ArrivalTime}",
+            $"\nVlucht: {reservation.OutwardFlight}",
+            $"Retourvlucht: {reservation.InwardFlight}",
             $"Passagiers: {reservation.Passengers.Count} personen",
             "-",
-            "Wijzigingen Opslaan",
+            "Wijzigingen opslaan",
+            "Annuleer reservering",
             "Ga terug"
         };
+        }
+        else {
+            optionsList = new List<string>() {
+            $"Boekingsnummer: {reservation.ReservationNumber}",
+            $"Email: {email}", 
+            $"Vlucht: {reservation.OutwardFlight}",
+            $"Retourvlucht: Geen",
+            $"\nPassagiers: {reservation.Passengers.Count} personen",
+            "-",
+            "Wijzigingen opslaan",
+            "Annuleer reservering",
+            "Ga terug"
+        };
+        }
         string[] options = optionsList.ToArray();
         Menu overviewmenu;
         if (ViewBag.ContainsKey("MainMenuSelection"))

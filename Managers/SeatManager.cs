@@ -51,6 +51,6 @@ public static class SeatManager {
                 takenSeats.Add(seat);
             }
         }
-        return null;
+        return takenSeats;
     }
 }

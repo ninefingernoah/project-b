@@ -25,6 +25,7 @@ public class Reservation
     public DateTime ReservationDate { get => _reservationDate; set => _reservationDate = value; }
     public bool IsPaid { get => _isPaid; set => _isPaid = value; }
 
+    //TODO: Maak reservationNumber een string en maak een methode die een random string van 6 tekens genereert
     public Reservation(int reservationNumber, Flight outwardFlight, Flight? inwardFlight, User user, string email, List<Passenger> passengers, double price, DateTime reservationDate)
     {
         _reservationNumber = reservationNumber;

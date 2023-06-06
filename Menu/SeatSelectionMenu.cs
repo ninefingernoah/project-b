@@ -126,7 +126,7 @@ public class SeatSelectionMenu {
         {
             Console.WriteLine($"Stoel {seat.Number}");
         }
-        Console.WriteLine($"\nTotaalprijs van uw boeking: €{CurrentPrice}");
+        Console.WriteLine($"\nTotaalprijs van uw boeking: {CurrentPrice} euro");
     }
 
     /// <summary>
