@@ -43,6 +43,7 @@ public class SeatSelectionMenu {
             Console.WriteLine("Druk nogmaals op enter om een selectie ongedaan te maken.");
             Console.WriteLine("Druk op C om alle selecties te verwijderen.");
             Console.WriteLine("Druk op S of escape om uw selectie op te slaan.");
+            Console.WriteLine("\nU selecteert stoelen voor: " + _flight);
             PrintSeatLayout(allSeats, maxRow, maxColumn);
 
             ConsoleKeyInfo keyInfo = Console.ReadKey(true);
@@ -97,7 +98,7 @@ public class SeatSelectionMenu {
                 {
                     PrintEmptyBox();
                 }
-                else if (_flight.TakenSeats.Contains(seat))
+                else if (_flight.TakenSeats.Contains(seat) && !SelectedSeats.Contains(seat))
                 {
                     PrintTakenSeatBox(seat.Color);
                 }
@@ -210,7 +211,7 @@ public class SeatSelectionMenu {
     /// <param name="seat">The seat to select or deselect.</param>
     void ToggleSeatSelection(Seat seat)
     {
-        if (_flight.TakenSeats.Contains(seat))
+        if (_flight.TakenSeats.Contains(seat) && !SelectedSeats.Contains(seat))
         {
             return;
         }

@@ -75,7 +75,7 @@ public sealed class ReservationController
                     return;
                 }
             }
-            int reservationCode = ReservationManager.GetReservationCode();
+            string reservationCode = ReservationManager.GetReservationCode();
             res = new Reservation(reservationCode, outwardFlight, inwardFlight, user, email, passengers, 0, DateTime.Now);
             
             // ask if they want to change seats
@@ -318,16 +318,20 @@ public sealed class ReservationController
             case 4: // Show passengers
                 ShowPassengers(reservation);
                 break;
-            case 6:
+            case 5:
+                SeatController.Instance.ShowSeatSelection(reservation, 4);
+                ShowReservationToReservationOwner(reservation);
+                break;
+            case 7:
                 ReservationManager.UpdateReservation(reservation);
                 ConsoleUtils.Success($"Uw reservering: {reservation.ReservationNumber} is succesvol gewijzigd.");
                 MainMenuController.Instance.ShowMainMenu();
                 break;
-            case 7:
+            case 8:
                 UserCancelReservation(reservation);
                 MainMenuController.Instance.ShowMainMenu();
                 break;
-            case 8:
+            case 9:
                 MainMenuController.Instance.ShowMainMenu();
                 break;
         }

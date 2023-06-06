@@ -1,6 +1,6 @@
 public class Reservation
 {
-    private int _reservationNumber;
+    private string _reservationNumber;
     private Flight _outwardflight;
     private Flight? _inwardflight;
     private User _user;
@@ -13,7 +13,7 @@ public class Reservation
     private bool _isPaid;
 
 
-    public int ReservationNumber { get => _reservationNumber; set => _reservationNumber = value; }
+    public string ReservationNumber { get => _reservationNumber; set => _reservationNumber = value; }
     public Flight OutwardFlight { get => _outwardflight; set => _outwardflight = value; }
     public Flight InwardFlight { get => _inwardflight; set => _inwardflight = value; }
     public User User { get => _user; set => _user = value; }
@@ -26,7 +26,7 @@ public class Reservation
     public bool IsPaid { get => _isPaid; set => _isPaid = value; }
 
     //TODO: Maak reservationNumber een string en maak een methode die een random string van 6 tekens genereert
-    public Reservation(int reservationNumber, Flight outwardFlight, Flight? inwardFlight, User user, string email, List<Passenger> passengers, double price, DateTime reservationDate)
+    public Reservation(string reservationNumber, Flight outwardFlight, Flight? inwardFlight, User user, string email, List<Passenger> passengers, double price, DateTime reservationDate)
     {
         _reservationNumber = reservationNumber;
         _outwardflight = outwardFlight;

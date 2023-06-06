@@ -70,11 +70,11 @@ public static class ReservationManager
             PassengerManager.DeletePassenger(pass);
 
             // delete reservation passenger
-            DatabaseManager.QueryNonResult($"DELETE FROM reservation_passengers WHERE reservation_number = {reservation.ReservationNumber};");
+            DatabaseManager.QueryNonResult($"DELETE FROM reservation_passengers WHERE reservation_number = '{reservation.ReservationNumber}';");
         }
 
         // delete reservation seat
-        DatabaseManager.QueryNonResult($"DELETE FROM reservations_seats WHERE reservation_number = {reservation.ReservationNumber};");
+        DatabaseManager.QueryNonResult($"DELETE FROM reservations_seats WHERE reservation_number = '{reservation.ReservationNumber}';");
         foreach (var seat in reservation.OutwardSeats)
         {
             // delete taken seats from flight
@@ -87,7 +87,7 @@ public static class ReservationManager
             }
         }
         // delete main
-        DatabaseManager.QueryNonResult($"DELETE FROM reservations WHERE number = {reservation.ReservationNumber};");
+        DatabaseManager.QueryNonResult($"DELETE FROM reservations WHERE number = '{reservation.ReservationNumber}';");
     }
 
 
@@ -154,7 +154,7 @@ public static class ReservationManager
             user = null;
         }
         Reservation r = new Reservation(
-            (int)(long)dr["number"],
+            (string)dr["number"],
             f_out,
             f_in,
             user,
@@ -164,7 +164,7 @@ public static class ReservationManager
             DateTime.Parse((string)dr["made_on"])
         );
         //outward
-        var outSeats = DatabaseManager.QueryResult($"SELECT rs.seat_number, color FROM reservations_seats rs JOIN seats s ON rs.seat_number = s.seat_number WHERE reservation_number = '{r.ReservationNumber}' AND flight_id = '{r.OutwardFlight.Id}'");
+        var outSeats = DatabaseManager.QueryResult($"SELECT rs.seat_number, color FROM reservations_seats rs JOIN seats s ON rs.seat_number = s.seat_number WHERE reservation_number = '{r.ReservationNumber}' AND flight_id = {r.OutwardFlight.Id}");
         foreach (DataRow seat in outSeats.Rows)
         {
             string color = (string)seat["color"];
@@ -172,7 +172,7 @@ public static class ReservationManager
         }
         //inward
         if(f_in != null) {
-            var inSeats = DatabaseManager.QueryResult($"SELECT rs.seat_number, color FROM reservations_seats rs JOIN seats s ON rs.seat_number = s.seat_number WHERE reservation_number = '{r.ReservationNumber}' AND flight_id = '{r.InwardFlight.Id}'");
+            var inSeats = DatabaseManager.QueryResult($"SELECT rs.seat_number, color FROM reservations_seats rs JOIN seats s ON rs.seat_number = s.seat_number WHERE reservation_number = '{r.ReservationNumber}' AND flight_id = {r.InwardFlight.Id}");
             foreach (DataRow seat in inSeats.Rows)
             {
                 string color = (string)seat["color"];
@@ -198,8 +198,8 @@ public static class ReservationManager
         return reservations;
     }
 
-    public static int GetReservationCode()
+    public static string GetReservationCode()
     {
-        return (int)(long)DatabaseManager.QueryResult("SELECT MAX(number) FROM reservations").Rows[0][0] + 1;
+        return (string)DatabaseManager.QueryResult("SELECT MAX(number) FROM reservations").Rows[0][0] + 1;
     }
 }

@@ -32,6 +32,7 @@ public class ReservationOverviewView : IView {
             $"\nVlucht: {reservation.OutwardFlight}",
             $"Retourvlucht: {reservation.InwardFlight}",
             $"Passagiers: {reservation.Passengers.Count} personen",
+            $"Stoelselectie", //TODO: prijsweergave
             "-",
             "Wijzigingen opslaan",
             "Annuleer reservering",
@@ -45,6 +46,7 @@ public class ReservationOverviewView : IView {
             $"Vlucht: {reservation.OutwardFlight}",
             $"Retourvlucht: Geen",
             $"\nPassagiers: {reservation.Passengers.Count} personen",
+            $"Stoelselectie",
             "-",
             "Wijzigingen opslaan",
             "Annuleer reservering",
