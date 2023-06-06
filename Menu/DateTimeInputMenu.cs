@@ -1,5 +1,7 @@
 public class DateTimeInputMenu
 {
+
+    //TODO: pas datetime format aan naar dd-mm-yyyy
     public string Title { get; set; }
 
     public DateTimeInputMenu(string title)

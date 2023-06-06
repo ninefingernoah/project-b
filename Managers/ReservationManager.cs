@@ -97,6 +97,7 @@ public static class ReservationManager
     /// <param name="reservation">The reservation to update</param>
     public static bool UpdateReservation(Reservation reservation)
     {
+        // TODO: update reservation_seats en flight_takenseats
         if (reservation.User == null) {
             DatabaseManager.QueryNonResult($"UPDATE reservations SET outward_flight_id = {reservation.OutwardFlight.Id}, user_id = NULL, email = '{reservation.Email}', price = {reservation.Price}, made_on = '{reservation.ReservationDate.ToString("dd-MM-yyyy")}' WHERE number = '{reservation.ReservationNumber}'");
         }
@@ -164,19 +165,19 @@ public static class ReservationManager
             DateTime.Parse((string)dr["made_on"])
         );
         //outward
-        var outSeats = DatabaseManager.QueryResult($"SELECT rs.seat_number, color FROM reservations_seats rs JOIN seats s ON rs.seat_number = s.seat_number WHERE reservation_number = '{r.ReservationNumber}' AND flight_id = {r.OutwardFlight.Id}");
+        var outSeats = DatabaseManager.QueryResult($"SELECT seat_number FROM reservations_seats WHERE reservation_number = '{r.ReservationNumber}' AND flight_id = {r.OutwardFlight.Id}");
         foreach (DataRow seat in outSeats.Rows)
         {
-            string color = (string)seat["color"];
-            r.AddOutwardSeat(new Seat((string)seat["seat_number"], color));
+            Seat planeSeat = f_out.Airplane.Seats.Find(s => s.Number == (string)seat["seat_number"]);
+            if (planeSeat != null) r.AddOutwardSeat(planeSeat);
         }
         //inward
         if(f_in != null) {
-            var inSeats = DatabaseManager.QueryResult($"SELECT rs.seat_number, color FROM reservations_seats rs JOIN seats s ON rs.seat_number = s.seat_number WHERE reservation_number = '{r.ReservationNumber}' AND flight_id = {r.InwardFlight.Id}");
+            var inSeats = DatabaseManager.QueryResult($"SELECT seat_number FROM reservations_seats WHERE reservation_number = '{r.ReservationNumber}' AND flight_id = {r.InwardFlight.Id}");
             foreach (DataRow seat in inSeats.Rows)
             {
-                string color = (string)seat["color"];
-                r.AddInwardSeat(new Seat((string)seat["seat_number"], color));
+                Seat planeSeat = f_in.Airplane.Seats.Find(s => s.Number == (string)seat["seat_number"]);
+            if (planeSeat != null) r.AddInwardSeat(planeSeat);
             }
         }
         var passengers = DatabaseManager.QueryResult($"SELECT p.id, p.email, p.first_name, p.last_name, p.document_number FROM passengers p INNER JOIN reservation_passengers rp ON p.id = rp.passenger_id WHERE rp.reservation_number = '{r.ReservationNumber}'");

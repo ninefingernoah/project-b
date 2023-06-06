@@ -18,10 +18,12 @@ public class SeatSelectionView {
     public void Display(Flight flight, int passengerAmount, double startPrice) {
         // show seat grid
         SeatSelectionMenu menu = new SeatSelectionMenu(flight, passengerAmount, startPrice);
+        menu.SelectedSeats = SelectedSeats;
         menu.Run();
         if (menu.SelectedSeats.Count > 0) {
             SelectedSeats.AddRange(menu.SelectedSeats);
         }
+        menu.SelectedSeats.Clear();
         Price = menu.CurrentPrice;
     }
 }

@@ -205,6 +205,7 @@ public class SeatSelectionMenu {
         }
     }
 
+    //TODO: fix dat taken seats wordt geupdate hierna (zie ReservationManager.UpdateReservation)
     /// <summary>
     /// Selects or deselects a seat.
     /// </summary>
@@ -219,6 +220,10 @@ public class SeatSelectionMenu {
         {
             SelectedSeats.Remove(seat);
             CurrentPrice -= seat.Price;
+            if(_flight.TakenSeats.Contains(seat))
+            {
+                _flight.TakenSeats.Remove(seat);
+            }
         }
         else
         {
