@@ -10,13 +10,11 @@ public static class AirportManager
         List<Airport> airports = new List<Airport>();
         foreach (DataRow row in dt.Rows)
         {
-            airports.Add(new Airport(
-                (int)(long)row["id"],
-                (string)row["name"],
-                (string)row["city"],
-                (string)row["country"],
-                (string)row["code"]
-            ));
+            Airport? airport = GetAirport((int)(long)row["id"]);
+            if (airport != null)
+            {
+                airports.Add(airport);
+            }
         }
         return airports;
     }
@@ -33,13 +31,32 @@ public static class AirportManager
             return null;
         }
         DataRow row = dt.Rows[0];
-        return new Airport(
+        
+        Airport airport = new Airport(
             (int)(long)row["id"],
             (string)row["name"],
             (string)row["city"],
             (string)row["country"],
             (string)row["code"]
         );
+        List<String>? facilities = getFacilities(airport.Id);
+        // If there are facilities, add them to the airport. We don't want to add null to the airport.
+        if(facilities != null)
+        {
+            airport.Facilities = facilities;
+        }
+        return airport;
+    }
+
+    private static List<string>? getFacilities(int airportId)
+    {
+        DataTable dt = DatabaseManager.QueryResult($"SELECT * FROM airport_facilities WHERE airport_id = {airportId}");
+        List<string> facilities = new List<string>();
+        foreach (DataRow row in dt.Rows)
+        {
+            facilities.Add((string)row["facility"]);
+        }
+        return facilities;
     }
 
     public static void AddAirport(Airport airport)

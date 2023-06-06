@@ -113,6 +113,13 @@ public static class DatabaseManager
                 );
             ");
         QueryNonResult(@"
+                CREATE TABLE IF NOT EXISTS airport_facilities (
+                    airport_id INTEGER NOT NULL,
+                    facility TEXT NOT NULL,
+                    FOREIGN KEY(airport_id) REFERENCES airports(id)
+                );
+        ");
+        QueryNonResult(@"
                 CREATE TABLE IF NOT EXISTS reservations_seats (
                     reservation_number TEXT NOT NULL,
                     seat_number TEXT NOT NULL,

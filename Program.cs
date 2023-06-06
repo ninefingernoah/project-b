@@ -8,7 +8,7 @@
     public static void Main(string[] args)
     {
         DatabaseManager.CreateDatabase();
-        // PopulateTestData();
+        PopulateTestData();
         var mainMenuController = MainMenuController.Instance;
         mainMenuController.ShowMainMenu();
         // FlightController.Instance.ShowFlightEditor(FlightManager.GetFlight(1));
@@ -32,6 +32,23 @@
         DatabaseManager.QueryNonResult($@"
                 INSERT INTO airports (name, city, country, code)
                 VALUES ('Heathrow', 'Londen', 'Verenigd Koninkrijk', 'LHR')
+            ");
+        // Insert airport_facilities
+        DatabaseManager.QueryNonResult($@"
+                INSERT INTO airport_facilities (airport_id, facility)
+                VALUES (1, 'Wifi')
+            ");
+        DatabaseManager.QueryNonResult($@"
+                INSERT INTO airport_facilities (airport_id, facility)
+                VALUES (1, 'Restaurant')
+            ");
+        DatabaseManager.QueryNonResult($@"
+                INSERT INTO airport_facilities (airport_id, facility)
+                VALUES (2, 'Wifi')
+            ");
+        DatabaseManager.QueryNonResult($@"
+                INSERT INTO airport_facilities (airport_id, facility)
+                VALUES (2, 'Taco bar')
             ");
         // Insert airplanes
         DatabaseManager.QueryNonResult($@"
