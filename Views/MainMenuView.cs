@@ -14,8 +14,9 @@ public class MainMenuView : IView {
         List<string> optionsList = new List<string>() {
             "Registreren",
             "Inloggen",
-            "Zoek vlucht",
+            "Boek vlucht",
             "Boeking bekijken",
+            "Vliegveldinformatie",
             "Afsluiten"
         };
         string[] options = optionsList.ToArray();

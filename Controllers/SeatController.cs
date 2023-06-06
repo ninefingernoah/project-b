@@ -15,18 +15,55 @@ public class SeatController {
         }
     }
 
-    public void ShowSeatSelection(Flight flight) {
-        SeatSelectionView.Instance.Display(flight);
-        try {
-            string selection = SeatSelectionView.Instance.ViewBag["SeatViewSelection"];
-            // TODO: Use a switch statement.
-            if (selection == "1") {
-                // reserve seat
+    /// <summary>
+    /// Displays the seat selection views for the given reservation.
+    /// </summary>
+    /// <param name="reservation">The reservation to display the seat selection view for.</param>
+    public void ShowSeatSelection(Reservation reservation, int costPerSeat) {
+        // clear view
+        SeatSelectionView.Instance.SelectedSeats.Clear();
+
+        // add previously selected seats
+        SeatSelectionView.Instance.SelectedSeats.AddRange(reservation.OutwardSeats);
+
+        // display view
+        SeatSelectionView.Instance.Display(reservation.OutwardFlight, reservation.Passengers.Count, reservation.Price);
+
+        // update price
+        reservation.Price = SeatSelectionView.Instance.Price;
+
+        // update seats
+        if(SeatSelectionView.Instance.SelectedSeats.Count > 0) {
+            // add the costs of the amount of seats that have been changed to the price
+            reservation.Price += AmountOfSeatsChanged(reservation.OutwardSeats, SeatSelectionView.Instance.SelectedSeats) * costPerSeat;
+            reservation.OutwardSeats = new List<Seat>(SeatSelectionView.Instance.SelectedSeats);
+        }
+
+        // repeat for inward flight
+        SeatSelectionView.Instance.SelectedSeats.Clear();
+        SeatSelectionView.Instance.SelectedSeats.AddRange(reservation.InwardSeats);
+        if (reservation.InwardFlight != null) {
+            SeatSelectionView.Instance.Display(reservation.InwardFlight, reservation.Passengers.Count, reservation.Price);
+            reservation.Price = SeatSelectionView.Instance.Price;
+            if (SeatSelectionView.Instance.SelectedSeats.Count > 0) {
+                reservation.Price += AmountOfSeatsChanged(reservation.InwardSeats, SeatSelectionView.Instance.SelectedSeats) * costPerSeat;
+                reservation.InwardSeats = new List<Seat>(SeatSelectionView.Instance.SelectedSeats);
             }
         }
-        catch (Exception) {
-            Console.WriteLine("Er is iets fout gegaan.");
-            // return to main menu
+    }
+
+    /// <summary>
+    /// Returns the amount of seats that have been changed between the old and new list of seats.
+    /// </summary>
+    /// <param name="oldSeats">The old list of seats.</param>
+    /// <param name="newSeats">The new list of seats.</param>
+    public static int AmountOfSeatsChanged(List<Seat> oldSeats, List<Seat> newSeats) {
+        int amount = 0;
+        foreach (Seat seat in oldSeats) {
+            if (!newSeats.Contains(seat)) {
+                amount++;
+            }
         }
+        return amount;
     }
 }

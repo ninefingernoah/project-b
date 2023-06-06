@@ -77,4 +77,8 @@ public static class JSONManager {
             ConsoleUtils.Error("Er is iets fout gegaan bij het toevoegen van de prijzen aan de JSON.");
         }
     }
+
+    public static string GetJSONString(string path) {
+        return File.ReadAllText("Data\\" + path);
+    }
 }

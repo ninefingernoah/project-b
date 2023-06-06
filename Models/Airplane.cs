@@ -39,16 +39,17 @@ public class Airplane {
         return $"{Name} ({TotalCapacity} stoelen)";
     }
 
-    // public abstract void InitializeSeats();
     public void InitializeSeats() {
-        // get seats from database w seatmanager
-        // add seats to _seats
-        // test code
-        /* for (int i = 0; i < _totalCapacity/4; i++) {
-            _seats.Add(new Seat(i.ToString(), "white"));
-            _seats.Add(new Seat(i.ToString(), "dark_blue"));
-            _seats.Add(new Seat(i.ToString(), "purple"));
-        } */
+        AirplaneLayout airplaneLayout = AirplaneManager.GetAirplaneLayout(_name);
+        List<Seat> allSeats = new List<Seat>();
+
+        foreach (var section in airplaneLayout.SeatLayout)
+        {
+            allSeats.AddRange(section.Seats);
+        }
+
+        _seats = allSeats;
+        _totalCapacity = allSeats.Count;
     }
 
 }

@@ -20,11 +20,239 @@ public sealed class ReservationController
         }
     }
 
+    public void ShowBookingMenu()
+    {
+        bool correct = true;
+        Reservation res;
+        do
+        {
+            // get type of booking
+            string type = GetBookingType();
+
+            List<Flight> flights = GetFlights(type);
+            if (flights == null)
+            {
+                MainMenuController.Instance.ShowMainMenu();
+                return;
+            }
+            Flight outwardFlight = flights[0];
+            Flight inwardFlight;
+            try
+            {
+                inwardFlight = flights[1];
+            }
+            catch (System.Exception)
+            {
+
+                inwardFlight = null;
+            }
+
+            // get passengers
+            List<Passenger>? passengers = GetPassengerAmountInfo();
+            if (passengers == null)
+            {
+                MainMenuController.Instance.ShowMainMenu();
+                return;
+            }
+
+            // check if logged in
+            User? user;
+            string email;
+            if (UserManager.GetCurrentUser() != null)
+            {
+                user = UserManager.GetCurrentUser();
+                email = user.Email;
+
+            }
+            else
+            {
+                user = null;
+                StringInputMenu emailMenu = new StringInputMenu("Vul het emailadres in: ");
+                email = emailMenu.Run()!;
+                if (email.ToLower() == "terug")
+                {
+                    //TODO: return to passenger info
+                    return;
+                }
+            }
+            string reservationCode = ReservationManager.GetReservationCode();
+            res = new Reservation(reservationCode, outwardFlight, inwardFlight, user, email, passengers, 0, DateTime.Now);
+            
+            // ask if they want to change seats
+            //TODO: fiks prijzen (4 euro wordt niet toegevoegd)
+            if (ConsoleUtils.Confirm("Wilt u stoelen kiezen? (LET OP: Stoelen kiezen kost 4 euro extra per stoel, buiten de kosten van de stoel zelf)"))
+            {
+                // show seat selection menu
+                int kostenPerStoel = 4;
+                SeatController.Instance.ShowSeatSelection(res, kostenPerStoel);
+            }
+
+            if (ReservationManager.MakeReservation(res))
+            {
+                if (DisplayData(res)) {
+                    correct = true;
+                    ConsoleUtils.Success("Uw reservering is succesvol geplaatst. Uw reserveringscode is: " + res.ReservationNumber + ".\nU kunt deze code gebruiken om uw reservering te bekijken of te wijzigen.");
+                }
+                else {
+                    if(ConsoleUtils.Confirm("Wilt u de huidige reservering bewerken? (Zo niet keert u terug naar het hoofdmenu)"))
+                    {
+                        correct = true;
+                        ShowReservationToReservationOwner(res); // TODO: add seat selection to editor //TODO: maybe also add changing the flights if its more than 30 days away uwu
+                    }
+                    else
+                    {
+                        ReservationManager.DeleteReservation(res);
+                        MainMenuController.Instance.ShowMainMenu();
+                        return;
+                    }
+                }
+                
+            }
+        } while (!correct); //TODO: remove loop
+        MainMenuController.Instance.ShowMainMenu();
+    }
+
+    private List<Flight> GetFlights(string type)
+    {
+        if (type == "Enkel")
+        {
+            FlightListController.Instance.ShowFlightSearchMenu();
+            Flight flight = FlightController.Instance.GetChosenFlight();
+            List<Flight> flights = new List<Flight>();
+            flights.Add(flight);
+            return flights;
+        }
+        if (type == "Retour")
+        {
+            FlightListController.Instance.ShowFlightSearchMenu();
+            Flight outwardflight = FlightController.Instance.GetChosenFlight();
+            Airport retarr = outwardflight.Departure;
+            Airport retdep = outwardflight.Destination;
+            FlightListController.Instance.ShowFlights(retdep, retarr);
+            Flight returnflight = FlightController.Instance.GetChosenFlight();
+            List<Flight> flights = new List<Flight>();
+            flights.Add(outwardflight);
+            flights.Add(returnflight);
+            return flights;
+        }
+        return null;
+    }
+
+    private Airport GetAirport(string prompt)
+    {
+        List<Airport> airports = AirportManager.GetAirports();
+        List<string> options = new List<string>();
+        foreach (var airport in airports)
+        {
+            options.Add(airport.ToString());
+        }
+        options.Add("-");
+        options.Add("Annuleer");
+        Menu menu = new Menu(prompt, options.ToArray());
+        int choice = menu.Run();
+        if (choice == airports.Count + 1)
+        {
+            return null;
+        }
+        return airports[choice];
+    }
+
+    private string GetBookingType()
+    {
+        List<string> options = new List<string>();
+        options.Add("Enkele reis");
+        options.Add("Retour");
+        options.Add("Terug");
+        MenuView.Instance.Display("Selecteer het type reis", options);
+        int choice = MenuView.Instance.LastChoice;
+        switch (choice)
+        {
+            case 0:
+                return "Enkel";
+            case 1:
+                return "Retour";
+            case 2:
+                MainMenuController.Instance.ShowMainMenu();
+                return "";
+            default:
+                return "";
+        }
+    }
+
+    public List<Passenger> GetPassengerAmountInfo()
+    {
+        IntInputMenu menu = new IntInputMenu("Met hoeveel reizigers bent u?");
+        int? amount = menu.Run();
+        if (amount == null)
+        {
+            return null;
+        }
+        List<Passenger> passengers = new List<Passenger>();
+        if (amount != null && amount > 0)
+        {
+            for (int i = 0; i < amount; i++)
+            {
+                Passenger newPassenger = PassengerController.Instance.NewPassenger();
+                if (newPassenger == null)
+                {
+                    return null;
+                }
+                passengers.Add(newPassenger);
+            }
+        }
+
+        return passengers;
+    }
+
+    public bool DisplayData(Reservation ress)
+    {
+        Console.Clear();
+        Console.WriteLine("Vlucht informatie");
+        Console.WriteLine("------------------");
+        Console.WriteLine("Vlucht heen:");
+        Console.WriteLine(ress.OutwardFlight.ToString());
+        Console.WriteLine("Stoelen:");
+        foreach (var seat in ress.OutwardSeats)
+        {
+            Console.WriteLine(seat.Number);
+        }
+        if (ress.InwardFlight != null)
+        {
+            Console.WriteLine("\nVlucht terug:");
+            Console.WriteLine(ress.InwardFlight.ToString());
+            Console.WriteLine("Stoelen:");
+            foreach (var seat in ress.InwardSeats)
+            {
+                Console.WriteLine(seat.Number);
+            }
+        }
+
+        Console.WriteLine("\nReizigers:");
+        foreach (Passenger passenger in ress.Passengers)
+        {
+            Console.WriteLine(passenger.ToString());
+        }
+        Console.WriteLine();
+        Console.WriteLine($"Totale prijs: {ress.Price} euro");
+
+        return ConsoleUtils.Confirm("Gaat u akkoord met deze reservering?", false);
+
+    }
+
+    public void UserCancelReservation(Reservation ress)
+    {
+        if (ConsoleUtils.Confirm("Weet u zeker dat u de reservering wilt annuleren?"))
+        {
+            ReservationManager.DeleteReservation(ress);
+            ConsoleUtils.Success("U reservering is geannuleerd");
+        }
+    }
+
     public void AskReservation()
     {
         StringInputMenu menu = new StringInputMenu("Vul uw reserveringscode in: ");
         string reservationCode = menu.Run()!;
-        if (reservationCode.ToLower() == "terug")
+        if (reservationCode == null)
         {
             MainMenuController.Instance.ShowMainMenu();
             return;
@@ -43,7 +271,8 @@ public sealed class ReservationController
             MainMenuController.Instance.ShowMainMenu();
             return;
         }
-        if (reservation.User.Email != email && reservation.Email != email)
+        string emailOnReservation = reservation.User == null ? reservation.Email : reservation.User.Email;
+        if (emailOnReservation != email)
         {
             ConsoleUtils.Error("Het ingevoerde emailadres is ongeldig.");
             MainMenuController.Instance.ShowMainMenu();
@@ -57,7 +286,7 @@ public sealed class ReservationController
         ReservationOverviewView.Instance.ViewBag["reservation"] = reservation;
         ReservationOverviewView.Instance.Display();
         int choice = int.Parse((string)ReservationOverviewView.Instance.ViewBag["MainMenuSelection"]);
-        if (choice == 0 || (choice > 1 && choice <= 5))
+        if (choice == 0 || (choice > 1 && choice <= 4))
         {
             ShowReservationToReservationOwner(reservation);
             return;
@@ -72,13 +301,13 @@ public sealed class ReservationController
                     ShowReservationToReservationOwner(reservation);
                     return;
                 }
-                if(!StringUtils.CheckValidEmail(email))
+                if (!StringUtils.CheckValidEmail(email))
                 {
                     ConsoleUtils.Error("Het ingevoerde emailadres is ongeldig.");
                     ShowReservationToReservationOwner(reservation);
                     return;
                 }
-                if(reservation.Email != null)
+                if (reservation.Email != null)
                     reservation.Email = email;
                 if (reservation.User != null)
                 {
@@ -86,12 +315,20 @@ public sealed class ReservationController
                 }
                 ShowReservationToReservationOwner(reservation);
                 break;
-            case 6: // Show passengers
+            case 4: // Show passengers
                 ShowPassengers(reservation);
                 break;
-            case 8:
+            case 5:
+                SeatController.Instance.ShowSeatSelection(reservation, 4);
+                ShowReservationToReservationOwner(reservation);
+                break;
+            case 7:
                 ReservationManager.UpdateReservation(reservation);
-                ConsoleUtils.Success("Uw reservering is succesvol gewijzigd.");
+                ConsoleUtils.Success($"Uw reservering: {reservation.ReservationNumber} is succesvol gewijzigd.");
+                MainMenuController.Instance.ShowMainMenu();
+                break;
+            case 8:
+                UserCancelReservation(reservation);
                 MainMenuController.Instance.ShowMainMenu();
                 break;
             case 9:
@@ -195,7 +432,7 @@ public sealed class ReservationController
 
     private void ChangeFirstName(Passenger passenger)
     {
-        if(!passenger.CanChangeName())
+        if (!passenger.CanChangeName())
         {
             ConsoleUtils.Error("Deze passagier kan zijn/haar naam niet meer veranderen. Neem contact op met de klantenservice.");
             ShowPassengerEditor(passenger);
@@ -208,7 +445,7 @@ public sealed class ReservationController
             ShowPassengerEditor(passenger);
             return;
         }
-        if(CalcUtils.DeltaString(firstName, passenger.FirstName) > 2)
+        if (CalcUtils.DeltaString(firstName, passenger.FirstName) > 2)
         {
             ConsoleUtils.Error("De ingevoerde voornaam wijkt te veel af van de huidige voornaam.");
             ShowPassengerEditor(passenger);
@@ -222,7 +459,7 @@ public sealed class ReservationController
 
     private void ChangeLastName(Passenger passenger)
     {
-        if(!passenger.CanChangeName())
+        if (!passenger.CanChangeName())
         {
             ConsoleUtils.Error("Deze passagier kan zijn/haar naam niet meer veranderen. Neem contact op met de klantenservice.");
             ShowPassengerEditor(passenger);
@@ -235,7 +472,7 @@ public sealed class ReservationController
             ShowPassengerEditor(passenger);
             return;
         }
-        if(CalcUtils.DeltaString(lastName, passenger.LastName) > 2)
+        if (CalcUtils.DeltaString(lastName, passenger.LastName) > 2)
         {
             ConsoleUtils.Error("De ingevoerde achternaam wijkt te veel af van de huidige achternaam.");
             ShowPassengerEditor(passenger);
@@ -245,12 +482,5 @@ public sealed class ReservationController
         // passenger.LockName();
         ShowPassengerEditor(passenger);
     }
-
-    // Dit is niet nodig
-    // private void ShowNonUserReservation(Reservation reservation)
-    // {
-    //     ReservationOverviewView.Instance.ViewBag["Reservation"] = reservation;
-
-    // }
 
 }
