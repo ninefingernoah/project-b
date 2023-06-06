@@ -30,6 +30,8 @@ public class FlightController
         return chosenFlight;
     }
 
+
+
     /// <summary>
     /// Displays the menu for booking a flight and handles the user input.
     /// </summary>
@@ -84,7 +86,7 @@ public class FlightController
     //     // {
     //     //     return FlightListController.Instance.SelectFlight(MenuView.Instance.ViewBag["Selection"]);
     //     // }
-        
+
     //     return null;
     // }
 
@@ -98,7 +100,7 @@ public class FlightController
             switch (selection)
             {
                 case 0:
-                    chosenFlight = flight;
+                    NewFlight();
                     break;
                 case 1:
                     ShowFlightEditor(flight);
@@ -133,6 +135,13 @@ public class FlightController
             // return to main menu
         }
     }
+
+    public void NewFlight()
+    {
+        NewFlightView.Instance.ClearViewBag();
+        NewFlightView.Instance.Display();
+        int selection = int.Parse((string)FlightEditorView.Instance.ViewBag["MainMenuSelection"]);    }
+
 
     /// <summary>
     /// Displays the menu for booking a flight and handles the user input. This method populates the viewbag with the flight.
