@@ -253,7 +253,7 @@ public sealed class ReservationController
     {
         StringInputMenu menu = new StringInputMenu("Vul uw reserveringscode in: ");
         string reservationCode = menu.Run()!;
-        if (reservationCode == null)
+        if (reservationCode == null || reservationCode.ToLower() == "terug")
         {
             MainMenuController.Instance.ShowMainMenu();
             return;
@@ -267,7 +267,7 @@ public sealed class ReservationController
         }
         StringInputMenu emailMenu = new StringInputMenu("Vul uw emailadres in: ");
         string email = emailMenu.Run()!;
-        if (email.ToLower() == "terug")
+        if (email == null || email.ToLower() == "terug")
         {
             MainMenuController.Instance.ShowMainMenu();
             return;
