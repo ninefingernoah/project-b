@@ -1304,26 +1304,24 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\Rens\\.nuget\\packages\\": {}
+    "C:\\Users\\Max\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Rens\\School\\2022-2023\\Projects\\Project-b-airline\\project-b\\project-b.csproj",
+      "projectUniqueName": "D:\\project-b\\project-b.csproj",
       "projectName": "project-b",
-      "projectPath": "C:\\Users\\Rens\\School\\2022-2023\\Projects\\Project-b-airline\\project-b\\project-b.csproj",
-      "packagesPath": "C:\\Users\\Rens\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Rens\\School\\2022-2023\\Projects\\Project-b-airline\\project-b\\obj\\",
+      "projectPath": "D:\\project-b\\project-b.csproj",
+      "packagesPath": "C:\\Users\\Max\\.nuget\\packages\\",
+      "outputPath": "D:\\project-b\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\Rens\\AppData\\Roaming\\NuGet\\NuGet.Config",
-        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        "C:\\Users\\Max\\AppData\\Roaming\\NuGet\\NuGet.Config"
       ],
       "originalTargetFrameworks": [
         "net6.0"
       ],
       "sources": {
-        "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
