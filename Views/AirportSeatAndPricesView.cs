@@ -65,6 +65,19 @@ public class AirportSeatAndPricesView : IView
             ViewBag["Boeing787Orange"] = "<Vul In>";
     }
 
+    /// <summary>
+    /// Checks if all fields are filled in.
+    /// </summary>
+    public bool AllFieldsFilledIn()
+    {
+        foreach(KeyValuePair<string, string> entry in ViewBag)
+        {
+            if(entry.Value == "<Vul In>")
+                return false;
+        }
+        return true;
+    }
+
     public void ClearViewBag() //Clears the viewbag
     {
         ViewBag.Clear();

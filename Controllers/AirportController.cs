@@ -64,7 +64,13 @@ public class AirportController
                 showAirportCreationMenu();
                 break;
             case 7: // Confirm (adds to the JSON and DB.)
-                // TODO: Check if all fields are filled in.
+                bool allFieldsFilledIn = AirportView.Instance.AllFieldsFilledIn();
+                bool allFIeldsFilledInPrices = AirportSeatAndPricesView.Instance.AllFieldsFilledIn();
+                if (!allFieldsFilledIn || !allFIeldsFilledInPrices)
+                {
+                    ConsoleUtils.Error("Niet alle velden zijn ingevuld. Probeer het opnieuw.", showAirportCreationMenu);
+                    return;
+                }
                 Airport NewAirport = new Airport(0, AirportView.Instance.ViewBag["AirportName"], AirportView.Instance.ViewBag["AirportCity"], AirportView.Instance.ViewBag["AirportCountry"], AirportView.Instance.ViewBag["AirportCode"]);
                 JSONManager.AddAirportToJson(NewAirport);
                 AirportManager.AddAirport(NewAirport);

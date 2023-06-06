@@ -43,7 +43,12 @@ public class Airport {
     
     public string AirportOverviewString()
     {
-        return $"Luchthaven {_name} ({_code})\n{_city}, {_country}\n\nFaciliteiten:\n{FacilitiesToString()}";
+        var res = $"Luchthaven {_name} ({_code})\n{_city}, {_country}";
+        if (_facilities.Count > 0)
+        {
+            res += $"\n\nFaciliteiten:\n{FacilitiesToString()}";
+        }
+        return res;
     }
 
     public override string ToString() {
