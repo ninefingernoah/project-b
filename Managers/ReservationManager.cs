@@ -190,7 +190,7 @@ public static class ReservationManager
 
     public static List<Reservation> GetReservationsByUser(User user)
     {
-        DataTable res = DatabaseManager.QueryResult($"SELECT * FROM reservations WHERE user_id = {user.Id} OR email = '{user.Email}'");
+        DataTable res = DatabaseManager.QueryResult($"SELECT * FROM reservations WHERE user_id = {user.Id}");
         List<Reservation> reservations = new List<Reservation>();
         foreach (DataRow dr in res.Rows)
         {
