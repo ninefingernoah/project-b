@@ -21,7 +21,7 @@ public class PassengerController
     }
 
 
-    public Passenger NewPassenger()
+    public Passenger? NewPassenger()
     {
         PassengerView.Instance.ClearView();
         return PassengerView.Instance.Run();

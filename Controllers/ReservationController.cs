@@ -48,17 +48,17 @@ public sealed class ReservationController
             }
 
             // get passengers
-            List<Passenger>? passengers = GetPassengerAmountInfo();
-            if (passengers == null)
+            List<Passenger>? passengers = null;
+            while(passengers == null || passengers.Count == 0)
             {
-                ConsoleUtils.Error("Er is iets fout gegaan met de gebruikers");
-                MainMenuController.Instance.ShowMainMenu();
-                return;
+                passengers = GetPassengerAmountInfo();
+                if (passengers == null || passengers.Count == 0)
+                    ConsoleUtils.Error("Helaas is die hoeveelheid passagiers ongeldig. Vul alstublieft een geldige hoeveelheid in.");
             }
 
             // check if logged in
             User? user;
-            string email;
+            string? email;
             if (UserManager.GetCurrentUser() != null)
             {
                 user = UserManager.GetCurrentUser();
@@ -68,12 +68,13 @@ public sealed class ReservationController
             else
             {
                 user = null;
-                StringInputMenu emailMenu = new StringInputMenu("Vul het emailadres in: ");
-                email = emailMenu.Run()!;
-                if (email.ToLower() == "terug")
+                // I made it in such a way that the user is forced to enter an email. It was the easiest way.
+                StringInputMenu emailMenu = new StringInputMenu("Vul het emailadres in: ", false);
+                email = emailMenu.Run();
+                while (email == null || !StringUtils.CheckValidEmail(email))
                 {
-                    //TODO: return to passenger info
-                    return;
+                    ConsoleUtils.Error("Het ingevoerde emailadres is ongeldig.");
+                    email = emailMenu.Run();
                 }
             }
             string reservationCode = ReservationManager.GetNewReservationCode();
@@ -200,11 +201,12 @@ public sealed class ReservationController
             return new List<Passenger>();
         }
         List<Passenger> passengers = new List<Passenger>();
+        // Why do we perform this check? This was checked before?
         if (amount != null && amount > 0)
         {
             for (int i = 0; i < amount; i++)
             {
-                Passenger newPassenger = PassengerController.Instance.NewPassenger();
+                Passenger? newPassenger = PassengerController.Instance.NewPassenger();
                 if (newPassenger == null)
                 {
                     return new List<Passenger>();

@@ -116,7 +116,7 @@ public class PassengerView
                     views[8] = country;
                     break;
                 case 10:
-                    if (!views.Contains("<vul in>"))
+                    if (!views.Contains("<vul in>") && !views.Contains(""))
                     {
                         loop = false;
                     }
