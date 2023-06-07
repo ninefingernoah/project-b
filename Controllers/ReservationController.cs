@@ -36,7 +36,7 @@ public sealed class ReservationController
                 return;
             }
             Flight outwardFlight = flights[0];
-            Flight inwardFlight;
+            Flight? inwardFlight;
             try
             {
                 inwardFlight = flights[1];
@@ -62,7 +62,7 @@ public sealed class ReservationController
             if (UserManager.GetCurrentUser() != null)
             {
                 user = UserManager.GetCurrentUser();
-                email = user.Email;
+                email = user!.Email; // This cannot be null here.
 
             }
             else
@@ -78,7 +78,7 @@ public sealed class ReservationController
             }
             string reservationCode = ReservationManager.GetNewReservationCode();
             res = new Reservation(reservationCode, outwardFlight, inwardFlight, user, email, passengers, 0, DateTime.Now);
-            
+
             // ask if they want to change seats
             //TODO: fiks prijzen (4 euro wordt niet toegevoegd)
             if (ConsoleUtils.Confirm("Wilt u stoelen kiezen? (LET OP: Stoelen kiezen kost 4 euro extra per stoel, buiten de kosten van de stoel zelf)"))
@@ -90,12 +90,14 @@ public sealed class ReservationController
 
             if (ReservationManager.MakeReservation(res))
             {
-                if (DisplayData(res)) {
+                if (DisplayData(res))
+                {
                     correct = true;
                     ConsoleUtils.Success("Uw reservering is succesvol geplaatst. Uw reserveringscode is: " + res.ReservationNumber + ".\nU kunt deze code gebruiken om uw reservering te bekijken of te wijzigen.");
                 }
-                else {
-                    if(ConsoleUtils.Confirm("Wilt u de huidige reservering bewerken? (Zo niet keert u terug naar het hoofdmenu)"))
+                else
+                {
+                    if (ConsoleUtils.Confirm("Wilt u de huidige reservering bewerken? (Zo niet keert u terug naar het hoofdmenu)"))
                     {
                         correct = true;
                         ShowReservationToReservationOwner(res); // TODO: add seat selection to editor //TODO: maybe also add changing the flights if its more than 30 days away uwu
@@ -107,7 +109,7 @@ public sealed class ReservationController
                         return;
                     }
                 }
-                
+
             }
         } while (!correct); //TODO: remove loop
         MainMenuController.Instance.ShowMainMenu();
@@ -118,28 +120,37 @@ public sealed class ReservationController
         if (type == "Enkel")
         {
             FlightListController.Instance.ShowFlightSearchMenu();
-            Flight flight = FlightController.Instance.GetChosenFlight();
+            Flight? flight = FlightController.Instance.GetChosenFlight();
             List<Flight> flights = new List<Flight>();
-            flights.Add(flight);
+            if (flight != null)
+                flights.Add(flight);
             return flights;
         }
         if (type == "Retour")
         {
             FlightListController.Instance.ShowFlightSearchMenu();
-            Flight outwardflight = FlightController.Instance.GetChosenFlight();
+            Flight? outwardflight = FlightController.Instance.GetChosenFlight();
+            if (outwardflight == null)
+            {
+                throw new Exception("Outward flight is null");
+            }
             Airport retarr = outwardflight.Departure;
             Airport retdep = outwardflight.Destination;
             FlightListController.Instance.ShowFlights(retdep, retarr);
-            Flight returnflight = FlightController.Instance.GetChosenFlight();
+            Flight? returnflight = FlightController.Instance.GetChosenFlight();
             List<Flight> flights = new List<Flight>();
             flights.Add(outwardflight);
+            if (returnflight == null)
+            {
+                throw new Exception("Return flight is null while return booking.");
+            }
             flights.Add(returnflight);
             return flights;
         }
-        return null;
+        return new List<Flight>();
     }
 
-    private Airport GetAirport(string prompt)
+    private Airport? GetAirport(string prompt)
     {
         List<Airport> airports = AirportManager.GetAirports();
         List<string> options = new List<string>();
@@ -186,7 +197,7 @@ public sealed class ReservationController
         int? amount = menu.Run();
         if (amount == null || amount == 0)
         {
-            return null;
+            return new List<Passenger>();
         }
         List<Passenger> passengers = new List<Passenger>();
         if (amount != null && amount > 0)
@@ -196,7 +207,7 @@ public sealed class ReservationController
                 Passenger newPassenger = PassengerController.Instance.NewPassenger();
                 if (newPassenger == null)
                 {
-                    return null;
+                    return new List<Passenger>();
                 }
                 passengers.Add(newPassenger);
             }
@@ -222,9 +233,12 @@ public sealed class ReservationController
             Console.WriteLine("\nVlucht terug:");
             Console.WriteLine(ress.InwardFlight.ToString());
             Console.WriteLine("Stoelen:");
-            foreach (var seat in ress.InwardSeats)
+            if (ress.InwardSeats != null)
             {
-                Console.WriteLine(seat.Number);
+                foreach (var seat in ress.InwardSeats)
+                {
+                    Console.WriteLine(seat.Number);
+                }
             }
         }
 
@@ -252,13 +266,13 @@ public sealed class ReservationController
     public void AskReservation()
     {
         StringInputMenu menu = new StringInputMenu("Vul uw reserveringscode in: ");
-        string reservationCode = menu.Run()!;
+        string? reservationCode = menu.Run();
         if (reservationCode == null || reservationCode.ToLower() == "terug")
         {
             MainMenuController.Instance.ShowMainMenu();
             return;
         }
-        Reservation reservation = ReservationManager.GetReservation(reservationCode);
+        Reservation? reservation = ReservationManager.GetReservation(reservationCode);
         if (reservation == null)
         {
             ConsoleUtils.Error("De ingevoerde reserveringscode is ongeldig.");
@@ -272,7 +286,7 @@ public sealed class ReservationController
             MainMenuController.Instance.ShowMainMenu();
             return;
         }
-        string emailOnReservation = reservation.User == null ? reservation.Email : reservation.User.Email;
+        string emailOnReservation = reservation.User == null ? reservation.Email! : reservation.User.Email;
         if (emailOnReservation != email)
         {
             ConsoleUtils.Error("Het ingevoerde emailadres is ongeldig.");
@@ -420,13 +434,19 @@ public sealed class ReservationController
                 break;
             case 7:
                 Reservation? reservation = ReservationOverviewView.Instance.ViewBag["reservation"] as Reservation;
-                Passenger originalPassenger = reservation.Passengers.Find(p => p.Id == passenger.Id);
-                if (!originalPassenger.Equals(passenger))
+                if(reservation == null)
+                {
+                    ConsoleUtils.Error("Er is iets fout gegaan bij het opslaan van de passagier.");
+                    ShowPassengerEditor(passenger);
+                    return;
+                }
+                Passenger? originalPassenger = reservation.Passengers.Find(p => p.Id == passenger.Id);
+                if (reservation != null && originalPassenger != null && !originalPassenger.Equals(passenger))
                 {
                     int index = reservation.Passengers.IndexOf(originalPassenger);
                     reservation.Passengers[index] = passenger;
                 }
-                ShowPassengers(reservation);
+                ShowPassengers(reservation!);
                 break;
         }
     }
@@ -440,8 +460,8 @@ public sealed class ReservationController
             return;
         }
         StringInputMenu firstNameMenu = new StringInputMenu("Vul de voornaam in: ");
-        string firstName = firstNameMenu.Run()!;
-        if (firstName.ToLower() == "terug")
+        string? firstName = firstNameMenu.Run();
+        if (firstName == null || firstName.ToLower() == "terug")
         {
             ShowPassengerEditor(passenger);
             return;

@@ -5,7 +5,7 @@ public class FlightController
     /// </summary>
     private static readonly FlightController instance = new FlightController();
 
-    Flight chosenFlight;
+    Flight? chosenFlight;
 
     static FlightController()
     {
@@ -25,7 +25,7 @@ public class FlightController
         }
     }
 
-    public Flight GetChosenFlight()
+    public Flight? GetChosenFlight()
     {
         return chosenFlight;
     }
@@ -36,7 +36,7 @@ public class FlightController
     /// <param name="flight">The flight to book.</param>
     public void ShowFlight(Flight flight)
     {
-        if (UserManager.IsLoggedIn() && UserManager.GetCurrentUser().IsAdmin())
+        if (UserManager.IsLoggedIn() && UserManager.GetCurrentUser() != null && UserManager.GetCurrentUser()!.IsAdmin())
         {
             ShowFlightAdmin(flight);
             return;

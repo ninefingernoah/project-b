@@ -45,7 +45,7 @@ public static class ReservationManager
                 // flight taken seats
                 DatabaseManager.QueryNonResult($"INSERT INTO flight_takenseats (flight_id, seat_number, airplane_id) VALUES ('{res.OutwardFlight.Id}','{seat.Number}','{res.OutwardFlight.Airplane.Id}')");
             }
-            if (res.InwardFlight != null)
+            if (res.InwardFlight != null && res.InwardSeats != null)
             {
                 foreach (var seat in res.InwardSeats)
                 {
@@ -99,7 +99,7 @@ public static class ReservationManager
             // delete taken seats from flight
             DatabaseManager.QueryNonResult($"DELETE FROM flight_takenseats WHERE flight_id = {reservation.OutwardFlight.Id} AND seat_number = {seat.Number};");
         }
-        if (reservation.InwardFlight != null && reservation.InwardSeats.Count > 0) // This will short circuit so it does not matter if the InwardFlight is null.
+        if (reservation.InwardFlight != null && reservation.InwardSeats != null)
         {
             foreach (var seat in reservation.InwardSeats)
             {

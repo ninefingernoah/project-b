@@ -200,7 +200,7 @@ public class AirportController
 
     }
 
-    private void ShowPlaneClassInputMenu(string? kleur, string? vliegtuig, string? ViewBagNaam)
+    private void ShowPlaneClassInputMenu(string kleur, string vliegtuig, string ViewBagNaam)
     {
         StringInputMenu menu = new StringInputMenu($"Vul de prijs in voor de {kleur} klasse in de {vliegtuig}:");
         string? price = menu.Run();

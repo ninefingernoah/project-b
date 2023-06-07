@@ -25,7 +25,7 @@ public sealed class AddressController
 
     public Address NewAddress()
     {
-        return EditAddress(new Address(null, null, null, null));
+        return EditAddress(new Address("", "", "", ""));
     }
 
     private Address EditAddress(Address addr)
@@ -37,8 +37,8 @@ public sealed class AddressController
         {
             case 0:
                 StringInputMenu streetMenu = new StringInputMenu("Vul de straatnaam in: ");
-                string street = streetMenu.Run()!;
-                if (street.ToLower() == "terug")
+                string? street = streetMenu.Run();
+                if (street == null || street.ToLower() == "terug")
                 {
                     return EditAddress(addr);
                 }
@@ -52,8 +52,8 @@ public sealed class AddressController
                 return EditAddress(addr);
             case 1:
                 StringInputMenu streetNumberMenu = new StringInputMenu("Vul het huisnummer in: ");
-                string streetNumber = streetNumberMenu.Run()!;
-                if (streetNumber.ToLower() == "terug")
+                string? streetNumber = streetNumberMenu.Run();
+                if (streetNumber == null || streetNumber.ToLower() == "terug")
                 {
                     return EditAddress(addr);
                 }
@@ -67,8 +67,8 @@ public sealed class AddressController
                 return EditAddress(addr);
             case 2:
                 StringInputMenu cityMenu = new StringInputMenu("Vul de plaats in: ");
-                string city = cityMenu.Run()!;
-                if (city.ToLower() == "terug")
+                string? city = cityMenu.Run();
+                if (city == null || city.ToLower() == "terug")
                 {
                     return EditAddress(addr);
                 }
@@ -82,8 +82,8 @@ public sealed class AddressController
                 return EditAddress(addr);
             case 3:
                 StringInputMenu countryMenu = new StringInputMenu("Vul het land in: ");
-                string country = countryMenu.Run()!;
-                if (country.ToLower() == "terug")
+                string? country = countryMenu.Run();
+                if (country == null || country.ToLower() == "terug")
                 {
                     return EditAddress(addr);
                 }
