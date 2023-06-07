@@ -1,17 +1,20 @@
 public class IntInputMenu
 {
     public string Title { get; set; }
+    private bool backoption { get; }
 
-    public IntInputMenu(string title)
+    public IntInputMenu(string title, bool backoption = true)
     {
         Title = title;
+        this.backoption = backoption;
     }
 
     public int? Run()
     {
         Console.Clear();
         Console.WriteLine(Title);
-        Console.WriteLine("Typ 'terug' om terug te gaan.");
+        if (backoption)
+            Console.WriteLine("Typ 'terug' om terug te gaan.");
         Console.WriteLine();
 
         string input;

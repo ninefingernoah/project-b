@@ -48,12 +48,19 @@ public sealed class ReservationController
             }
 
             // get passengers
-            List<Passenger>? passengers = null;
-            while(passengers == null || passengers.Count == 0)
+            List<Passenger>? passengers = new();
+            while(passengers != null && passengers.Count < 1)
             {
                 passengers = GetPassengerAmountInfo();
-                if (passengers == null || passengers.Count == 0)
+                // This can lead to weird situations, so I'll leave it out for now.
+                if (passengers != null && passengers.Count < 1)
                     ConsoleUtils.Error("Helaas is die hoeveelheid passagiers ongeldig. Vul alstublieft een geldige hoeveelheid in.");
+            }
+            
+            if (passengers == null)
+            {
+                MainMenuController.Instance.ShowMainMenu();
+                return;
             }
 
             // check if logged in
@@ -192,11 +199,12 @@ public sealed class ReservationController
         }
     }
 
-    public List<Passenger> GetPassengerAmountInfo()
+    public List<Passenger>? GetPassengerAmountInfo()
     {
         IntInputMenu menu = new IntInputMenu("Met hoeveel reizigers bent u?");
         int? amount = menu.Run();
-        if (amount == null || amount == 0)
+        if (amount == null) return null;
+        if (amount == 0)
         {
             return new List<Passenger>();
         }
