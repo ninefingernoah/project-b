@@ -1,6 +1,12 @@
 using Newtonsoft.Json.Linq;
 public static class JSONManager {
-    public static JObject GetJSON(string path) {
+
+    /// <summary>
+    /// Returns a JObject from a JSON file. Will return null if the file or the object is not found.
+    /// </summary>
+    /// <param name="path"></param>
+    /// <returns>The JSON object. Will return null if the file or the object is not found.</returns>
+    public static JObject? GetJSON(string path) {
         try {
             using (StreamReader r = new StreamReader("Data\\" + path)) {
                 string json = r.ReadToEnd();
@@ -14,9 +20,18 @@ public static class JSONManager {
         return null;
     }
 
-
+    /// <summary>
+    /// Adds a city to a JSON file
+    /// </summary>
+    /// <param name="path">The path to the JSON file</param>
+    /// <param name="jObject">The JSON Object</param>
+    /// <param name="cityName">The name of the city</param>
     public static void AddCityToJSON(string path, JObject jObject, string? cityName)
     {
+        if(cityName == null)
+        {
+            throw new ArgumentNullException(nameof(cityName));
+        }
         // Read the existing JSON file
         string jsonContent = File.ReadAllText("Data\\" + path);
 
@@ -36,11 +51,15 @@ public static class JSONManager {
         File.WriteAllText("Data\\" + path, updatedJsonContent);
     }
 
+    /// <summary>
+    /// Adds a city to a JSON file
+    /// </summary>
+    /// <param name="NewAirport">The new airport object</param>
     public static void AddAirportToJson(Airport NewAirport)
     {
         try
         {
-            JObject JSONClassPriceData = JSONManager.GetJSON("seatprices.json");
+            JObject? JSONClassPriceData = JSONManager.GetJSON("seatprices.json");
             if (JSONClassPriceData == null)
             {
                 ConsoleUtils.Error("Er is iets fout gegaan bij het ophalen van de prijzen. Probeer het opnieuw.", AirportController.Instance.showAirportCreationMenu);
@@ -78,6 +97,11 @@ public static class JSONManager {
         }
     }
 
+    /// <summary>
+    /// Gathers the data from a JSON file and returns it as a string
+    /// </summary>
+    /// <param name="path">The path to the JSON file</param>
+    /// <returns></returns>
     public static string GetJSONString(string path) {
         return File.ReadAllText("Data\\" + path);
     }

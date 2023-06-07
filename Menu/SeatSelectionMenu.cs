@@ -8,7 +8,7 @@ public class SeatSelectionMenu {
     private Flight _flight;
     private int _passengerAmount;
     public List<Seat> SelectedSeats = new List<Seat>();
-    public Seat Cursor;
+    public Seat? Cursor;
     public double CurrentPrice;
 
     public Flight Flight {
@@ -87,12 +87,16 @@ public class SeatSelectionMenu {
     /// <param name="maxRow">The maximum row number.</param>
     /// <param name="maxColumn">The maximum column number.</param>
     void PrintSeatLayout(List<Seat> seats, int maxRow, int maxColumn){
+        if (Cursor == null)
+        {
+            throw new Exception("Cursor is null");
+        }
         for (int column = maxColumn; column > 0; column--)
         {
             Console.Write($"{GetColumnLetter(column)} ");
             for (int row = 1; row <= maxRow; row++)
             {
-                Seat seat = GetSeatAtPosition(seats, row, column);
+                Seat? seat = GetSeatAtPosition(seats, row, column);
 
                 if (seat == null)
                 {
@@ -136,7 +140,7 @@ public class SeatSelectionMenu {
     /// <param name="seats">The list of seats to search in.</param>
     /// <param name="row">The row number.</param>
     /// <param name="column">The column number.</param>
-    static Seat GetSeatAtPosition(List<Seat> seats, int row, int column)
+    static Seat? GetSeatAtPosition(List<Seat> seats, int row, int column)
     {
         foreach (var seat in seats)
         {
@@ -155,6 +159,10 @@ public class SeatSelectionMenu {
     /// <param name="seats">The list of seats to move through.</param>
     void MoveCursorDown(List<Seat> seats)
     {
+        if(Cursor == null)
+        {
+            throw new Exception("Cursor is null");
+        }
         int columnIndex = GetColumnIndex(Cursor.Column);
         string newColumn = GetPreviousColumn(seats, Cursor.Column, Cursor.Row);
         if (GetSeatAtPosition(seats, Cursor.Row, GetColumnIndex(newColumn)) != null)
@@ -169,6 +177,10 @@ public class SeatSelectionMenu {
     /// <param name="seats">The list of seats to move through.</param>
     void MoveCursorUp(List<Seat> seats)
     {
+        if (Cursor == null)
+        {
+            throw new Exception("Cursor is null");
+        }
         int columnIndex = GetColumnIndex(Cursor.Column);
         string newColumn = GetNextColumn(seats, Cursor.Column, Cursor.Row);
         if (GetSeatAtPosition(seats, Cursor.Row, GetColumnIndex(newColumn)) != null)
@@ -183,6 +195,10 @@ public class SeatSelectionMenu {
     /// <param name="seats">The list of seats to move through.</param>
     void MoveCursorLeft(List<Seat> seats)
     {
+        if (Cursor == null)
+        {
+            throw new Exception("Cursor is null");
+        }
         int newRow = GetPreviousRow(seats, Cursor.Row, Cursor.Column);
         string newColumn = Cursor.Column;
         if (GetSeatAtPosition(seats, newRow, GetColumnIndex(newColumn)) != null)
@@ -197,6 +213,10 @@ public class SeatSelectionMenu {
     /// <param name="seats">The list of seats to move through.</param>
     void MoveCursorRight(List<Seat> seats)
     {
+        if (Cursor == null)
+        {
+            throw new Exception("Cursor is null");
+        }
         int newRow = GetNextRow(seats, Cursor.Row, Cursor.Column);
         string newColumn = Cursor.Column;
         if (GetSeatAtPosition(seats, newRow, GetColumnIndex(newColumn)) != null)
