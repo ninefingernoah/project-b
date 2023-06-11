@@ -38,18 +38,20 @@ public class SeatController {
         // update seats
         if(SeatSelectionView.Instance.SelectedSeats.Count > 0) {
             // add the costs of the amount of seats that have been changed to the price
-            reservation.Price += AmountOfSeatsChanged(reservation.OutwardSeats, SeatSelectionView.Instance.SelectedSeats) * costPerSeat;
+            // reservation.Price += AmountOfSeatsChanged(reservation.OutwardSeats, SeatSelectionView.Instance.SelectedSeats) * costPerSeat;
             reservation.OutwardSeats = new List<Seat>(SeatSelectionView.Instance.SelectedSeats);
         }
 
         // repeat for inward flight
         SeatSelectionView.Instance.SelectedSeats.Clear();
-        if (reservation.InwardFlight != null && reservation.InwardSeats != null) {
-            SeatSelectionView.Instance.SelectedSeats.AddRange(reservation.InwardSeats);
+        if (reservation.InwardFlight != null) {
+            if (reservation.InwardSeats != null && reservation.InwardSeats.Count > 0) {
+                SeatSelectionView.Instance.SelectedSeats.AddRange(reservation.InwardSeats);
+            }
             SeatSelectionView.Instance.Display(reservation.InwardFlight, reservation.Passengers.Count, reservation.Price);
             reservation.Price = SeatSelectionView.Instance.Price;
             if (SeatSelectionView.Instance.SelectedSeats.Count > 0) {
-                reservation.Price += AmountOfSeatsChanged(reservation.InwardSeats, SeatSelectionView.Instance.SelectedSeats) * costPerSeat;
+                // reservation.Price += AmountOfSeatsChanged(reservation.InwardSeats, SeatSelectionView.Instance.SelectedSeats) * costPerSeat;
                 reservation.InwardSeats = new List<Seat>(SeatSelectionView.Instance.SelectedSeats);
             }
         }

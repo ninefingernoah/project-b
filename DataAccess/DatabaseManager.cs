@@ -91,10 +91,10 @@ public static class DatabaseManager
                 CREATE TABLE IF NOT EXISTS flight_takenseats (
                     flight_id INTEGER NOT NULL,
                     seat_number TEXT NOT NULL,
-                    airplane_id INTEGER NOT NULL,
+                    reservation_number INTEGER NOT NULL,
                     FOREIGN KEY(flight_id) REFERENCES flights(id),
-                    FOREIGN KEY(seat_number, airplane_id) REFERENCES seats(seat_number,airplane_id),
-                    PRIMARY KEY(flight_id, seat_number, airplane_id)
+                    FOREIGN KEY(reservation_number) REFERENCES reservations(number),
+                    PRIMARY KEY(flight_id, seat_number, reservation_number)
                 );
             ");
         QueryNonResult(@"
@@ -136,8 +136,8 @@ public static class DatabaseManager
                     flight_id INTEGER NOT NULL,
                     FOREIGN KEY(flight_id) REFERENCES flights(id),
                     FOREIGN KEY(reservation_number) REFERENCES reservations(number),
-                    FOREIGN KEY(seat_number, airplane_id) REFERENCES seats(seat_number,airplane_id),
-                    PRIMARY KEY(reservation_number, seat_number, airplane_id)
+                    FOREIGN KEY(airplane_id) REFERENCES airplanes(id),
+                    PRIMARY KEY(reservation_number, seat_number, flight_id)
                 );
             ");
     }
