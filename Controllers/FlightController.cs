@@ -1,3 +1,6 @@
+/// <summary>
+/// The controller for the flights.
+/// </summary>
 public class FlightController
 {
     /// <summary>
@@ -5,7 +8,7 @@ public class FlightController
     /// </summary>
     private static readonly FlightController instance = new FlightController();
 
-    Flight chosenFlight;
+    Flight? chosenFlight;
 
     static FlightController()
     {
@@ -25,7 +28,11 @@ public class FlightController
         }
     }
 
-    public Flight GetChosenFlight()
+    /// <summary>
+    /// Returns the flight that was chosen by the user in the selection menu.
+    /// </summary>
+    /// <returns>The chosen flight.</returns>
+    public Flight? GetChosenFlight()
     {
         return chosenFlight;
     }
@@ -36,7 +43,7 @@ public class FlightController
     /// <param name="flight">The flight to book.</param>
     public void ShowFlight(Flight flight)
     {
-        if (UserManager.IsLoggedIn() && UserManager.GetCurrentUser().IsAdmin())
+        if (UserManager.IsLoggedIn() && UserManager.GetCurrentUser() != null && UserManager.GetCurrentUser()!.IsAdmin())
         {
             ShowFlightAdmin(flight);
             return;
@@ -88,6 +95,10 @@ public class FlightController
     //     return null;
     // }
 
+    /// <summary>
+    /// Displays the flight menu for admins and handles the user input.
+    /// </summary>
+    /// <param name="flight">The flight to edit.</param>
     public void ShowFlightAdmin(Flight flight)
     {
         FlightView flightView = FlightView.Instance;

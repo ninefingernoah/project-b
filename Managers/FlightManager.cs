@@ -1,10 +1,15 @@
 using System.Data;
+
+/// <summary>
+/// Manages all flights. E.g. getting flights from the database.
+/// </summary>
 public static class FlightManager
 {
     /// <summary>
     /// Gets a specific flight from the database and creates a Flight object from it.
     /// </summary>
     /// <param name="id">The ID of the flight to get.</param>
+    /// <returns>A Flight object. Might return null if the flight is not found.</returns>
     public static Flight? GetFlight(int id)
     {
         // Get the flight from the database
@@ -44,6 +49,12 @@ public static class FlightManager
         return flight;
     }
 
+    /// <summary>
+    /// Returns a list of flights depending on the given parameters.
+    /// </summary>
+    /// <param name="departure">The airport to departure from.</param>
+    /// <param name="arrival">The airport to arrive on.</param>
+    /// <returns>A list of flights which are conform the parameters.</returns>
     public static List<Flight> GetFlights(Airport departure, Airport arrival)
     {
         int depID = departure.Id;
@@ -52,7 +63,9 @@ public static class FlightManager
         List<Flight> flights = new List<Flight>();
         foreach(DataRow dr in dt.Rows)
         {
-            flights.Add(GetFlight((int)(long)dr["id"]));
+            Flight? flight = GetFlight((int)(long)dr["id"]);
+            if (flight != null)
+                flights.Add(flight);
         }
         return flights;
     }
@@ -146,8 +159,12 @@ public static class FlightManager
         DatabaseManager.QueryNonResult($"DELETE FROM flights WHERE id = {id}");
     }
 
-
-    public static List<Flight> GetAllFlights(Func<Flight, bool> filter = null)
+    /// <summary>
+    /// Returns a list of flights depending on a given filter.
+    /// </summary>
+    /// <param name="filter"></param>
+    /// <returns></returns>
+    public static List<Flight> GetAllFlights(Func<Flight, bool> filter = null!)
     {
         DataTable dt;
         List<Flight> Flights = new List<Flight>();
@@ -171,8 +188,9 @@ public static class FlightManager
             //     ConsoleUtils.Error("arrival tijd error");
             // }
             // Airplane airplane = AirplaneManager.GetAirplane((int)(long)dr["id"]);
-
-            Flights.Add(GetFlight(id));
+            Flight? flight = GetFlight(id);
+            if (flight != null)
+                Flights.Add(flight);
         }
         
         return Flights.Where(filter ?? (f => true)).ToList();

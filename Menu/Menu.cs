@@ -1,5 +1,9 @@
 using System;
 using static System.Console;
+
+/// <summary>
+/// The menu class. Used for displaying menus.
+/// </summary>
 public class Menu
 {
     /// <summary>The index of the option that the user currently has selected</summary>
@@ -11,9 +15,19 @@ public class Menu
     /// <summary>The prompt that will be displayed to the user</summary>
     protected string _prompt;
 
+    /// <summary>The top string that will be displayed to the user</summary>
     protected string? _topString;
+    /// <summary>The bottom string that will be displayed to the user</summary>
     protected string? _botString;
 
+    /// <summary>
+    /// Creates a new instance of the Menu class
+    /// </summary>
+    /// <param name="prompt">The prompt that will be displayed to the user</param>
+    /// <param name="options">The options that the user can choose from</param>
+    /// <param name="selectedIndex">The index of the option that the user currently has selected</param>
+    /// <param name="TopString">The top string that will be displayed to the user</param>
+    /// <param name="BotString">The bottom string that will be displayed to the user</param>
     public Menu(string prompt, string[] options, int selectedIndex = 0, string? TopString = null, string? BotString = null)
     {
         _prompt = prompt;

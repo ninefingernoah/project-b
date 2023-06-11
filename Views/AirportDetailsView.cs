@@ -21,8 +21,8 @@ public class AirportDetailsView : IView {
     /// </summary>
     public void Display(Airport airport){
         string[] options = new string[] { "Terug" };
-        string topString = "Luchthaven details:\n";
-        topString += airport.ToFacilitiesString();
+        string topString = "Luchthaven details:\n\n";
+        topString += airport.AirportOverviewString();
         Menu menu = new Menu(topString, options);
         int choice = menu.Run();
         ViewBag["AirportDetailsSelection"] = choice.ToString();

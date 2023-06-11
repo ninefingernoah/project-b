@@ -1,3 +1,6 @@
+/// <summary>
+/// The controller for the flight list.
+/// </summary>
 public class FlightListController
 {
     private static readonly FlightListController instance = new FlightListController();
@@ -23,7 +26,6 @@ public class FlightListController
     /// <summary>
     /// Shows all the flights in the list as a menu
     /// </summary>
-    /// <param name="flights">The list of flights to show</param>
     public void ShowFlights()
     {
         FlightListView flightListView = FlightListView.Instance;
@@ -54,9 +56,13 @@ public class FlightListController
         }
     }
 
+    /// <summary>
+    /// Shows all the flights in the list as a menu conform the given parameters
+    /// </summary>
+    /// <param name="departure">The departure airport</param>
+    /// <param name="arrival">The arrival airport</param>
     public void ShowFlights(Airport departure, Airport arrival)
     {
-        //TODO: reroute this to the normal ShowFlights method
         // clear the viewbag and put departure and arrival id in it
         FlightListView flightListView = FlightListView.Instance;
         List<Flight> flights = FlightManager.GetFlights(departure, arrival);
@@ -82,6 +88,9 @@ public class FlightListController
         }
     }
 
+    /// <summary>
+    /// Shows the menu for searching flights. Shows the options for a filter or inputting a flight number.
+    /// </summary>
     public void ShowFlightSearchMenu()
     {
         FlightSearchView.Instance.Display();
@@ -109,7 +118,6 @@ public class FlightListController
         }
     }
 
-    // TODO: Break this up
     /// <summary>
     /// Shows the menu for filtering flights
     /// </summary>

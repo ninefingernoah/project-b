@@ -13,7 +13,6 @@ public class AuthenticatedMainMenuView : IView {
     public void Display() {
         List<string> optionsList = new List<string>() {
             "Bekijk reserveringen",
-            "Bekijk accountgegegvens",
             "Boek vlucht",
             "Vliegveldinformatie",
             "-",
