@@ -252,7 +252,7 @@ public sealed class ReservationController
     {
         StringInputMenu menu = new StringInputMenu("Vul uw reserveringscode in: ");
         string reservationCode = menu.Run()!;
-        if (reservationCode.ToLower() == "terug")
+        if (reservationCode == null)
         {
             MainMenuController.Instance.ShowMainMenu();
             return;
