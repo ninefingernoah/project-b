@@ -54,24 +54,16 @@ public sealed class MainMenuController {
             case 1:
                 LoginController.Instance.ShowLoginMenu();
                 break;
-            case 2:
-                FlightListController.Instance.ShowFlightSearchMenu();
+            case 2: // Book flight
+                ReservationController.Instance.ShowBookingMenu();
                 break;
             case 3: // View booking
                 ReservationController.Instance.AskReservation();
                 break;
-            case 4: // stoel selectie testje
-                Flight flight = FlightManager.GetFlight(1);
-                SeatSelectionMenu seatSelectionMenu = new SeatSelectionMenu(flight);
-                flight.TakenSeats.Add(flight.Airplane.Seats[0]);
-                flight.TakenSeats.Add(flight.Airplane.Seats[1]);
-                flight.TakenSeats.Add(flight.Airplane.Seats[6]);
-                seatSelectionMenu.Run();
-                break;
-            case 5:
+            case 4: // View airport information
                 AirportController.Instance.ShowAirportList();
                 break;
-            case 6:
+            case 5: // Exit
                 break;
             default:
                 Console.WriteLine("Ongeldige keuze.");
@@ -132,7 +124,10 @@ public sealed class MainMenuController {
                 case 1:
                     // View account info
                     break;
-                case 2:
+                case 2: // Book flight
+                    ReservationController.Instance.ShowBookingMenu();
+                    break;
+                case 3:
                     AirportController.Instance.ShowAirportList();
                     break;
                 case 4:

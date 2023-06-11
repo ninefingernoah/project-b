@@ -1,10 +1,12 @@
-﻿public class Program {
+﻿public class Program
+{
 
     /// <summary>
     /// Main entry point for the application.
     /// </summary>
     /// <param name="args">Command line arguments.</param>
-    public static void Main(string[] args) {
+    public static void Main(string[] args)
+    {
         DatabaseManager.CreateDatabase();
         // PopulateTestData();
         var mainMenuController = MainMenuController.Instance;
@@ -34,21 +36,29 @@
         // Insert airplanes
         DatabaseManager.QueryNonResult($@"
                 INSERT INTO airplanes (name, total_capacity)
-                VALUES ('Boeing_787', 500)
+                VALUES ('Boeing_787', 0)
             ");
         DatabaseManager.QueryNonResult($@"
                 INSERT INTO airplanes (name, total_capacity)
-                VALUES ('Boeing_737', 300)
+                VALUES ('Boeing_737', 0)
             ");
         // Insert flights
         DatabaseManager.QueryNonResult($@"
                 INSERT INTO flights (airplane_id, departure_id, destination_id, departure_time, arrival_time)
                 VALUES (1, 1, 2, '2025-01-01 12:00', '2025-01-01 14:00:00')
             ");
+        DatabaseManager.QueryNonResult($@"
+                INSERT INTO flights (airplane_id, departure_id, destination_id, departure_time, arrival_time)
+                VALUES (1, 1, 2, '2025-01-06 14:00', '2025-01-06 16:00:00')
+            ");
+        DatabaseManager.QueryNonResult($@"
+                INSERT INTO flights (airplane_id, departure_id, destination_id, departure_time, arrival_time)
+                VALUES (2, 2, 1, '2025-01-08 11:00', '2025-01-08 12:00:00')
+            ");
         // Insert reservations
         DatabaseManager.QueryNonResult($@"
-                INSERT INTO reservations (number, flight_id, user_id, email, price, made_on, is_paid)
-                VALUES (1234, 1, 2, 'johndoe@email.com', 400, '2020-01-01 12:00:00', 1)
+                INSERT INTO reservations (number, outward_flight_id, inward_flight_id, user_id, email, price, made_on, is_paid)
+                VALUES ('1234', 1, 2, 2, 'johndoe@email.com', 400, '2020-01-01 12:00:00', 1)
             ");
         // Insert addresses
         DatabaseManager.QueryNonResult($@"
@@ -71,11 +81,11 @@
         // Insert reservation_passengers
         DatabaseManager.QueryNonResult($@"
                 INSERT INTO reservation_passengers (reservation_number, passenger_id)
-                VALUES (1234, 1)
+                VALUES ('1234', 1)
             ");
         DatabaseManager.QueryNonResult($@"
                 INSERT INTO reservation_passengers (reservation_number, passenger_id)
-                VALUES (1234, 2)
+                VALUES ('1234', 2)
             ");
     }
 

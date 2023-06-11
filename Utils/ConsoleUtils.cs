@@ -75,9 +75,12 @@ public static class ConsoleUtils
     /// </summary>
     /// <param name="message">The message to display.</param>
     /// <returns>True if the user pressed y, false if the user pressed n.</returns>
-    public static bool Confirm(string message)
+    public static bool Confirm(string message, bool clear = true)
     {
-        Console.Clear();
+        if (clear)
+        {
+            Console.Clear();
+        }
         Console.ForegroundColor = ConsoleColor.Yellow;
         Console.WriteLine(message);
         Console.ResetColor();

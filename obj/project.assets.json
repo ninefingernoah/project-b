@@ -1304,19 +1304,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\noahm\\.nuget\\packages\\": {}
+    "C:\\Users\\Rens\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\noahm\\Documents\\school\\semester 2\\Project B v2\\project-b\\project-b.csproj",
+      "projectUniqueName": "C:\\Users\\Rens\\School\\2022-2023\\Projects\\Project-b-airline\\project-b\\project-b.csproj",
       "projectName": "project-b",
-      "projectPath": "C:\\Users\\noahm\\Documents\\school\\semester 2\\Project B v2\\project-b\\project-b.csproj",
-      "packagesPath": "C:\\Users\\noahm\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\noahm\\Documents\\school\\semester 2\\Project B v2\\project-b\\obj\\",
+      "projectPath": "C:\\Users\\Rens\\School\\2022-2023\\Projects\\Project-b-airline\\project-b\\project-b.csproj",
+      "packagesPath": "C:\\Users\\Rens\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\Rens\\School\\2022-2023\\Projects\\Project-b-airline\\project-b\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\noahm\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\Rens\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -1374,13 +1374,5 @@
         "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.405\\RuntimeIdentifierGraph.json"
       }
     }
-  },
-  "logs": [
-    {
-      "code": "Undefined",
-      "level": "Warning",
-      "warningLevel": 1,
-      "message": "Problem reading the cache file C:\\Users\\noahm\\Documents\\school\\semester 2\\Project B v2\\project-b\\obj\\project.nuget.cache : Invalid property identifier character: <. Path 'version', line 3, position 0."
-    }
-  ]
+  }
 }

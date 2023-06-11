@@ -6,8 +6,10 @@ using Newtonsoft.Json;
 // TODO: Break this class up into smaller classes
 public class SeatSelectionMenu {
     private Flight _flight;
+    private int _passengerAmount;
     public List<Seat> SelectedSeats = new List<Seat>();
     public Seat Cursor;
+    public double CurrentPrice;
 
     public Flight Flight {
         get {
@@ -15,8 +17,10 @@ public class SeatSelectionMenu {
         }
     }
 
-    public SeatSelectionMenu(Flight flight) {
+    public SeatSelectionMenu(Flight flight, int passengerAmount, double currentPrice) {
         _flight = flight;
+        _passengerAmount = passengerAmount;
+        CurrentPrice = currentPrice;
     }
 
     /// <summary>
@@ -36,8 +40,10 @@ public class SeatSelectionMenu {
         {
             Console.Clear();
             Console.WriteLine("Selecteer een stoel met de pijltjestoetsen en druk op enter om te selecteren.");
+            Console.WriteLine("Druk nogmaals op enter om een selectie ongedaan te maken.");
             Console.WriteLine("Druk op C om alle selecties te verwijderen.");
             Console.WriteLine("Druk op S of escape om uw selectie op te slaan.");
+            Console.WriteLine("\nU selecteert stoelen voor: " + _flight);
             PrintSeatLayout(allSeats, maxRow, maxColumn);
 
             ConsoleKeyInfo keyInfo = Console.ReadKey(true);
@@ -57,6 +63,9 @@ public class SeatSelectionMenu {
                     MoveCursorDown(allSeats);
                     break;
                 case ConsoleKey.Enter:
+                    if (SelectedSeats.Count >= _passengerAmount && !SelectedSeats.Contains(Cursor)) {
+                        break;
+                    }
                     ToggleSeatSelection(Cursor);
                     break;
                 case ConsoleKey.Escape:
@@ -89,7 +98,7 @@ public class SeatSelectionMenu {
                 {
                     PrintEmptyBox();
                 }
-                else if (_flight.TakenSeats.Contains(seat))
+                else if (_flight.TakenSeats.Contains(seat) && !SelectedSeats.Contains(seat))
                 {
                     PrintTakenSeatBox(seat.Color);
                 }
@@ -112,11 +121,13 @@ public class SeatSelectionMenu {
         // print the cursor position
         Console.WriteLine($"{Cursor.Number}");
         // print the selected seats
+        Console.WriteLine($"\n{SelectedSeats.Count}/{_passengerAmount} stoelen gekozen");
         Console.WriteLine("\nGeselecteerde stoelen:");
         foreach (var seat in SelectedSeats)
         {
             Console.WriteLine($"Stoel {seat.Number}");
         }
+        Console.WriteLine($"\nTotaalprijs van uw boeking: {CurrentPrice} euro");
     }
 
     /// <summary>
@@ -194,23 +205,30 @@ public class SeatSelectionMenu {
         }
     }
 
+    //TODO: fix dat taken seats wordt geupdate hierna (zie ReservationManager.UpdateReservation)
     /// <summary>
     /// Selects or deselects a seat.
     /// </summary>
     /// <param name="seat">The seat to select or deselect.</param>
     void ToggleSeatSelection(Seat seat)
     {
-        if (_flight.TakenSeats.Contains(seat))
+        if (_flight.TakenSeats.Contains(seat) && !SelectedSeats.Contains(seat))
         {
             return;
         }
         if (SelectedSeats.Contains(seat))
         {
             SelectedSeats.Remove(seat);
+            CurrentPrice -= seat.Price;
+            if(_flight.TakenSeats.Contains(seat))
+            {
+                _flight.TakenSeats.Remove(seat);
+            }
         }
         else
         {
             SelectedSeats.Add(seat);
+            CurrentPrice += seat.Price;
         }
     }
 

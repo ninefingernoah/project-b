@@ -16,6 +16,23 @@ public static class PassengerManager
         );
     }
 
+    public static void AddPassenger(Passenger pass)
+    {
+        // TODO: Address
+        DatabaseManager.QueryNonResult($"INSERT INTO addresses (city, country, street, street_number) VALUES ('{pass.Address.City}','{pass.Address.Country}','{pass.Address.Street}','{pass.Address.StreetNumber}');");
+        var address_id = (int)(long)DatabaseManager.QueryResult($"SELECT MAX(id) FROM addresses").Rows[0][0];
+        DatabaseManager.QueryNonResult($"INSERT INTO passengers (id, email, first_name, last_name, document_number, date_of_birth, address_id) VALUES ('{pass.Id}','{pass.Email}','{pass.FirstName}','{pass.LastName}','{pass.DocumentNumber}','{pass.BirthDate.ToString()}', '{address_id}');");
+        
+    }
+
+    public static void DeletePassenger(Passenger pass)
+    {
+        // TODO: TEST ADDRESS DELETION
+        var address_id = (int)(long)DatabaseManager.QueryResult($"SELECT address_id FROM passengers WHERE id = {pass.Id}").Rows[0][0];
+        DatabaseManager.QueryNonResult($"DELETE FROM passengers WHERE id = {pass.Id}");
+        DatabaseManager.QueryNonResult($"DELETE FROM addresses WHERE id = {address_id}");
+    }
+
     public static Address GetAddress(int id)
     {
         DataRow dr = DatabaseManager.QueryResult($"SELECT * FROM addresses WHERE id = {id}").Rows[0];
@@ -25,5 +42,10 @@ public static class PassengerManager
             dr["street"].ToString()!,
             dr["street_number"].ToString()!
         );
+    }
+
+    public static int GetNextId()
+    {
+        return (int)(long)DatabaseManager.QueryResult("SELECT MAX(id) FROM passengers").Rows[0][0] + 1;
     }
 }

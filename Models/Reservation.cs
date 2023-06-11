@@ -1,36 +1,63 @@
-public class Reservation {
+public class Reservation
+{
     private string _reservationNumber;
-    private Flight _flight;
-    private string _email;
+    private Flight _outwardflight;
+    private Flight? _inwardflight;
     private User _user;
-    private List<Seat> _seats;
+    private string _email;
+    private List<Seat> _outwardSeats;
+    private List<Seat> _inwardSeats;
     private double _price;
     private List<Passenger> _passengers;
-    private DateTime _madeOn;
+    private DateTime _reservationDate;
     private bool _isPaid;
 
+
     public string ReservationNumber { get => _reservationNumber; set => _reservationNumber = value; }
-    public Flight Flight { get => _flight; set => _flight = value; }
-    public string Email { get => _email; set => _email = value; }
+    public Flight OutwardFlight { get => _outwardflight; set => _outwardflight = value; }
+    public Flight InwardFlight { get => _inwardflight; set => _inwardflight = value; }
     public User User { get => _user; set => _user = value; }
-    public List<Seat> Seats { get => _seats; }
+    public string Email { get => _email; set => _email = value; }
+    public List<Seat> OutwardSeats { get => _outwardSeats; set=> _outwardSeats = value; }
+    public List<Seat> InwardSeats { get => _inwardSeats; set => _inwardSeats = value; }
     public double Price { get => _price; set => _price = value; }
     public List<Passenger> Passengers { get => _passengers; }
-    public DateTime MadeOn { get => _madeOn; set => _madeOn = value; }
+    public DateTime ReservationDate { get => _reservationDate; set => _reservationDate = value; }
     public bool IsPaid { get => _isPaid; set => _isPaid = value; }
 
-    public Reservation(string reservationNumber, Flight flight, User user, string email, double price, DateTime madeOn) {
+    //TODO: Maak reservationNumber een string en maak een methode die een random string van 6 tekens genereert
+    public Reservation(string reservationNumber, Flight outwardFlight, Flight? inwardFlight, User user, string email, List<Passenger> passengers, double price, DateTime reservationDate)
+    {
         _reservationNumber = reservationNumber;
-        _flight = flight;
-        _email = email;
-        _seats = new List<Seat>();
+        _outwardflight = outwardFlight;
+        _inwardflight = inwardFlight;
+        _user = user;
         _price = price;
-        _passengers = new List<Passenger>();
-        _madeOn = madeOn;
+        _passengers = passengers;
+        _email = email;
+        _reservationDate = reservationDate;
+        _outwardSeats = new List<Seat>();
+        _inwardSeats = new List<Seat>();
     }
 
     public override string ToString()
     {
-        return $"#{ReservationNumber} - {Flight.Departure.Code} -> {Flight.Destination.Code} ({Flight.DepartureTime.ToString("dd/MM/yyyy HH:mm")})";
+        if (InwardFlight == null)
+            return $"#{ReservationNumber} - {OutwardFlight.Departure.Code} -> {OutwardFlight.Destination.Code} ({OutwardFlight.DepartureTime.ToString("dd/MM/yyyy HH:mm")})";
+        return $"#{ReservationNumber} - {OutwardFlight.Departure.Code} -> {OutwardFlight.Destination.Code} RETOUR ({OutwardFlight.DepartureTime.ToString("dd/MM/yyyy HH:mm")} - {InwardFlight.DepartureTime.ToString("dd/MM/yyyy HH:mm")})";
+
+    }
+
+    public void AddOutwardSeat(Seat seat)
+    {
+        _outwardSeats.Add(seat);
+    }
+
+    public void AddInwardSeat(Seat seat)
+    {
+        _inwardSeats.Add(seat);
+    }
+
+    public void UpdatePrice() {
     }
 }

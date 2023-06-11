@@ -40,7 +40,6 @@ public static class SeatManager {
         DataTable dt = DatabaseManager.QueryResult(@$"
             SELECT seat_number
             FROM reservations_seats
-            JOIN reservations ON number = reservation_number
             WHERE flight_id = {flight.Id}
         ");
         List<string> takenSeatNumbers = new List<string>();
@@ -52,6 +51,6 @@ public static class SeatManager {
                 takenSeats.Add(seat);
             }
         }
-        return null;
+        return takenSeats;
     }
 }

@@ -91,14 +91,19 @@ public static class DatabaseManager
         QueryNonResult(@"
                 CREATE TABLE IF NOT EXISTS reservations (
                     number TEXT NOT NULL PRIMARY KEY,
-                    flight_id INTEGER NOT NULL,
-                    user_id INTEGER NOT NULL,
+                    outward_flight_id INTEGER NOT NULL,
+                    inward_flight_id INTEGER,
+                    user_id INTEGER,
                     email TEXT NOT NULL,
                     price REAL NOT NULL,
                     made_on TEXT NOT NULL,
                     is_paid INTEGER NOT NULL,
-                    FOREIGN KEY(flight_id) REFERENCES flights(id)
+                    FOREIGN KEY(outward_flight_id) REFERENCES flights(id),
+                    FOREIGN KEY(inward_flight_id) REFERENCES flights(id),
+                    FOREIGN KEY(user_id) REFERENCES users(id)
                 );
+              ");
+        QueryNonResult(@"
                 CREATE TABLE IF NOT EXISTS reservation_passengers (
                     reservation_number TEXT NOT NULL,
                     passenger_id INTEGER NOT NULL,
@@ -106,10 +111,14 @@ public static class DatabaseManager
                     FOREIGN KEY(passenger_id) REFERENCES passengers(id),
                     PRIMARY KEY(reservation_number, passenger_id)
                 );
+            ");
+        QueryNonResult(@"
                 CREATE TABLE IF NOT EXISTS reservations_seats (
                     reservation_number TEXT NOT NULL,
                     seat_number TEXT NOT NULL,
                     airplane_id INTEGER NOT NULL,
+                    flight_id INTEGER NOT NULL,
+                    FOREIGN KEY(flight_id) REFERENCES flights(id),
                     FOREIGN KEY(reservation_number) REFERENCES reservations(number),
                     FOREIGN KEY(seat_number, airplane_id) REFERENCES seats(seat_number,airplane_id),
                     PRIMARY KEY(reservation_number, seat_number, airplane_id)

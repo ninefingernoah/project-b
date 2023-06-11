@@ -14,9 +14,8 @@ public class MainMenuView : IView {
         List<string> optionsList = new List<string>() {
             "Registreren",
             "Inloggen",
-            "Zoek vlucht",
+            "Boek vlucht",
             "Boeking bekijken",
-            "Stoel selectie test",
             "Vliegveldinformatie",
             "Afsluiten"
         };
