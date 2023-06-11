@@ -15,18 +15,10 @@ public class SeatController {
         }
     }
 
-    public void ShowSeatSelection(Flight flight) {
-        SeatSelectionView.Instance.Display(flight);
-        try {
-            string selection = SeatSelectionView.Instance.ViewBag["SeatViewSelection"];
-            // TODO: Use a switch statement.
-            if (selection == "1") {
-                // reserve seat
-            }
-        }
-        catch (Exception) {
-            Console.WriteLine("Er is iets fout gegaan.");
-            // return to main menu
+    public void ShowSeatSelection(Reservation reservation) {
+        SeatSelectionView.Instance.Display(reservation.Flight);
+        if(SeatSelectionView.Instance.SelectedSeats.Count > 0) {
+            reservation.Seats.AddRange(SeatSelectionView.Instance.SelectedSeats);
         }
     }
 }
