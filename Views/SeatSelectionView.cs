@@ -1,7 +1,9 @@
 public class SeatSelectionView {
     public IDictionary<string, string> ViewBag = new Dictionary<string, string>();
     private static readonly SeatSelectionView instance = new SeatSelectionView();
+    /// <summary> The seats that have been selected by the user. </summary>
     public List<Seat> SelectedSeats = new List<Seat>();
+    /// <summary> The total price of the seats that have been selected by the user. </summary>
     public double Price;
 
     static SeatSelectionView() {

@@ -1,10 +1,20 @@
+/// <summary>
+/// A flight.
+/// </summary>
 public class Flight {
+    /// <summary> The id of the flight. </summary>
     private int _id;
+    /// <summary> The departure airport. </summary>
     private Airport _departure;
+    /// <summary> The destination airport. </summary>
     private Airport _destination;
+    /// <summary> The departure time. </summary>
     private DateTime _departureTime;
+    /// <summary> The arrival time. </summary>
     private DateTime _arrivalTime;
+    /// <summary> The airplane. </summary>
     private Airplane _airplane;
+    /// <summary> The taken seats. </summary>
     private List<Seat> _takenSeats;
 
     public int Id { get => _id; set => _id = value; }
@@ -26,14 +36,27 @@ public class Flight {
         SetTakenSeats();
     }
 
+    /// <summary>
+    /// Adds a taken seat to the flight.
+    /// </summary>
+    /// <param name="seat">The seat to add.</param>
     public void AddTakenSeat(Seat seat) {
         _takenSeats.Add(seat);
     }
 
+    /// <summary>
+    /// Removes a taken seat from the flight.
+    /// </summary>
+    /// <param name="seat">The seat to remove.</param>
     public void RemoveTakenSeat(Seat seat) {
         _takenSeats.Remove(seat);
     }
 
+    /// <summary>
+    /// Checks if a seat is taken.
+    /// </summary>
+    /// <param name="seat">The seat to check.</param>
+    /// <returns>Returns true if the seat is taken, false if not.</returns>
     public bool IsSeatTaken(Seat seat) {
         foreach (Seat takenSeat in _takenSeats) {
             if (takenSeat.Number == seat.Number) {
@@ -43,6 +66,9 @@ public class Flight {
         return false;
     }
 
+    /// <summary>
+    /// Sets the seat prices inside of the Airplane.
+    /// </summary>
     public void SetSeatPrices() {
         Dictionary<string, double> prices = SeatManager.GetSeatPrices(this);
         foreach (Seat seat in _airplane.Seats) {
@@ -50,6 +76,9 @@ public class Flight {
         }
     }
 
+    /// <summary>
+    /// Sets the taken seats.
+    /// </summary>
     public void SetTakenSeats() {
         List<Seat>? takenSeats = SeatManager.GetTakenSeats(this);
         if (takenSeats != null) {

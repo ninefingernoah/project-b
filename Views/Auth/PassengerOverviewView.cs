@@ -17,6 +17,7 @@ public class PassengerOverviewView : IView
 
     public Dictionary<string, object> ViewBag = new Dictionary<string, object>();
 
+    /// <summary> The passenger being shown. </summary>
     public Passenger? ThePassenger;
 
     public void Display()

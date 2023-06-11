@@ -22,6 +22,7 @@ public class Reservation
     public List<Seat>? InwardSeats { get => _inwardSeats; set => _inwardSeats = value; }
     public double Price { get => _price; set => _price = value; }
     public List<Passenger> Passengers { get => _passengers; }
+    /// <summary> The date the reservation was made. </summary>
     public DateTime ReservationDate { get => _reservationDate; set => _reservationDate = value; }
     public bool IsPaid { get => _isPaid; set => _isPaid = value; }
 
@@ -50,11 +51,19 @@ public class Reservation
 
     }
 
+    /// <summary>
+    /// Adds seats for the outward flight to the reservation.
+    /// </summary>
+    /// <param name="seat">The seat to add.</param>
     public void AddOutwardSeat(Seat seat)
     {
         _outwardSeats.Add(seat);
     }
 
+    /// <summary>
+    /// Adds seats for the inward flight to the reservation.
+    /// </summary>
+    /// <param name="seat">The seat to add.</param>
     public void AddInwardSeat(Seat seat)
     {
         if (_inwardSeats == null)

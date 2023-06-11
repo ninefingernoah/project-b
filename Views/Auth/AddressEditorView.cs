@@ -21,6 +21,7 @@ public class AddressEditorView : IView
 
     public Dictionary<string, object> ViewBag = new Dictionary<string, object>();
 
+    /// <summary> The address being edited. </summary>
     Address TheAddress;
 
     public void Display()

@@ -27,12 +27,19 @@ public class Passenger
         _address = address;
     }
 
+    /// <summary>
+    /// Checks if the passenger can change their name based on if it has been changed before.
+    /// </summary>
+    /// <returns>Returns true if the passenger can change their name, false if not.</returns>
     public bool CanChangeName()
     {
         var res = DatabaseManager.QueryResult($"SELECT * FROM passengers WHERE id = {_id}").Rows[0];
         return (int)(long)res["letters_changed"] == 0;
     }
 
+    /// <summary>
+    /// Locks the name of the name of the passenger so they can't change it anymore.
+    /// </summary>
     public void LockName()
     {
         DatabaseManager.QueryNonResult($"UPDATE passengers SET letters_changed = 1 WHERE id = {_id}");
