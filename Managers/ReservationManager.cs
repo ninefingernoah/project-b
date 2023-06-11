@@ -162,7 +162,7 @@ public static class ReservationManager
 
     public static void UpdateReservationSeats(Reservation reservation)
     {
-
+        //TODO: debug
         bool tryDelete1 = DatabaseManager.QueryNonResult($"DELETE FROM flight_takenseats WHERE flight_id = {reservation.OutwardFlight.Id} AND reservation_number = '{reservation.ReservationNumber}'");
         bool tryDelete2 = DatabaseManager.QueryNonResult($"DELETE FROM reservations_seats WHERE reservation_number = '{reservation.ReservationNumber}'");
         // if old seats are deleted, add new seats
@@ -172,7 +172,8 @@ public static class ReservationManager
             {
                 foreach (var seat in reservation.OutwardSeats)
                 {
-                    DatabaseManager.QueryNonResult($"INSERT INTO reservations_seats (reservation_number, seat_number, airplane_id, flight_id) VALUES ('{reservation.ReservationNumber}', {seat.Number}, {reservation.OutwardFlight.Airplane.Id}. {reservation.OutwardFlight.Id});");
+                    DatabaseManager.QueryNonResult($"INSERT INTO reservations_seats (reservation_number, seat_number, airplane_id, flight_id) VALUES ('{reservation.ReservationNumber}', '{seat.Number}', {reservation.OutwardFlight.Airplane.Id}, {reservation.OutwardFlight.Id});");
+                    DatabaseManager.QueryNonResult($"INSERT INTO flight_takenseats (flight_id, seat_number, reservation_number) VALUES ({reservation.OutwardFlight.Id}, '{seat.Number}', '{reservation.ReservationNumber}');");
                 }
             }
             // inward seats
@@ -180,7 +181,8 @@ public static class ReservationManager
             {
                 foreach (var seat in reservation.InwardSeats)
                 {
-                    DatabaseManager.QueryNonResult($"INSERT INTO reservations_seats (reservation_number, seat_number, airplane_id, flight_id) VALUES ('{reservation.ReservationNumber}', {seat.Number}, {reservation.InwardFlight.Airplane.Id}. {reservation.InwardFlight.Id});");
+                    DatabaseManager.QueryNonResult($"INSERT INTO reservations_seats (reservation_number, seat_number, airplane_id, flight_id) VALUES ('{reservation.ReservationNumber}', '{seat.Number}', {reservation.InwardFlight.Airplane.Id}, {reservation.InwardFlight.Id});");
+                    DatabaseManager.QueryNonResult($"INSERT INTO flight_takenseats (flight_id, seat_number, reservation_number) VALUES ({reservation.InwardFlight.Id}, '{seat.Number}', '{reservation.ReservationNumber}');");
                 }
             }
         }
