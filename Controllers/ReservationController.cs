@@ -1,3 +1,6 @@
+/// <summary>
+/// The controller responsible for handling the reservations.
+/// </summary>
 public sealed class ReservationController
 {
     private static readonly ReservationController instance = new ReservationController();
@@ -20,6 +23,9 @@ public sealed class ReservationController
         }
     }
 
+    /// <summary>
+    /// Shows the menu for creating a new reservation.
+    /// </summary>
     public void ShowBookingMenu()
     {
         bool correct = true;
@@ -123,6 +129,11 @@ public sealed class ReservationController
         MainMenuController.Instance.ShowMainMenu();
     }
 
+    /// <summary>
+    /// Gathers the flights the user wants to book.
+    /// </summary>
+    /// <param name="type">The type of booking the user wants to make. Either is 'enkel' or 'retour'</param>
+    /// <returns>A list of flights.</returns>
     private List<Flight> GetFlights(string type)
     {
         if (type == "Enkel")
@@ -158,25 +169,11 @@ public sealed class ReservationController
         return new List<Flight>();
     }
 
-    private Airport? GetAirport(string prompt)
-    {
-        List<Airport> airports = AirportManager.GetAirports();
-        List<string> options = new List<string>();
-        foreach (var airport in airports)
-        {
-            options.Add(airport.ToString());
-        }
-        options.Add("-");
-        options.Add("Annuleer");
-        Menu menu = new Menu(prompt, options.ToArray());
-        int choice = menu.Run();
-        if (choice == airports.Count + 1)
-        {
-            return null;
-        }
-        return airports[choice];
-    }
-
+    /// <summary>
+    /// Gets the type of booking the user wants to make.
+    /// </summary>
+    /// <returns>The type of booking the user wants to make.</returns>
+    // TODO: Refactor BookingType to be an enum.
     private string GetBookingType()
     {
         List<string> options = new List<string>();
@@ -199,6 +196,10 @@ public sealed class ReservationController
         }
     }
 
+    /// <summary>
+    /// Gets the passengers the user wants to book for.
+    /// </summary>
+    /// <returns>A list of passengers.</returns>
     public List<Passenger>? GetPassengerAmountInfo()
     {
         IntInputMenu menu = new IntInputMenu("Met hoeveel reizigers bent u?");
@@ -226,6 +227,10 @@ public sealed class ReservationController
         return passengers;
     }
 
+    /// <summary>
+    /// Displays the reservation data to the user.
+    /// </summary>
+    /// <param name="ress">The reservation to display.</param>
     public bool DisplayData(Reservation ress)
     {
         Console.Clear();
@@ -264,6 +269,10 @@ public sealed class ReservationController
 
     }
 
+    /// <summary>
+    /// Asks the user if they want to cancel their reservation. Cancels the reservation if they do.
+    /// </summary>
+    /// <param name="ress">The reservation to cancel.</param>
     public void UserCancelReservation(Reservation ress)
     {
         if (ConsoleUtils.Confirm("Weet u zeker dat u de reservering wilt annuleren?"))
@@ -273,6 +282,9 @@ public sealed class ReservationController
         }
     }
 
+    /// <summary>
+    /// Asks the user for their reservation code and email and shows the reservation if it exists.
+    /// </summary>
     public void AskReservation()
     {
         StringInputMenu menu = new StringInputMenu("Vul uw reserveringscode in: ");
@@ -306,6 +318,10 @@ public sealed class ReservationController
         ShowReservationToReservationOwner(reservation);
     }
 
+    /// <summary>
+    /// Shows the reservation to the owner of the reservation.
+    /// </summary>
+    /// <param name="reservation">The reservation to show.</param>
     public void ShowReservationToReservationOwner(Reservation reservation)
     {
         ReservationOverviewView.Instance.ViewBag["reservation"] = reservation;
@@ -362,6 +378,10 @@ public sealed class ReservationController
         }
     }
 
+    /// <summary>
+    /// Shows the passengers of the reservation.
+    /// </summary>
+    /// <param name="reservation">The reservation to show the passengers of.</param>
     private void ShowPassengers(Reservation reservation)
     {
         ReservationOverviewView.Instance.ViewBag["passengers"] = reservation.Passengers;
@@ -376,6 +396,10 @@ public sealed class ReservationController
         ShowPassengerEditor(passenger); // TODO: Show passenger
     }
 
+    /// <summary>
+    /// Shows the passenger editor.
+    /// </summary>
+    /// <param name="passenger">The passenger to edit.</param>
     public void ShowPassengerEditor(Passenger passenger)
     {
         PassengerOverviewView.Instance.PopulateViewBag(passenger);
@@ -461,6 +485,10 @@ public sealed class ReservationController
         }
     }
 
+    /// <summary>
+    /// Changes the first name of the passenger.
+    /// </summary>
+    /// <param name="passenger">The passenger to change the first name of.</param>
     private void ChangeFirstName(Passenger passenger)
     {
         if (!passenger.CanChangeName())
@@ -488,6 +516,10 @@ public sealed class ReservationController
         ShowPassengerEditor(passenger);
     }
 
+    /// <summary>
+    /// Changes the last name of the passenger.
+    /// </summary>
+    /// <param name="passenger">The passenger to change the last name of.</param>
     private void ChangeLastName(Passenger passenger)
     {
         if (!passenger.CanChangeName())

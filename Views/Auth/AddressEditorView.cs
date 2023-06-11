@@ -27,7 +27,7 @@ public class AddressEditorView : IView
     {
         List<string> optionsList = new List<string>() {
             $"Straat: {TheAddress.Street}",
-            $"Straat nummer: {TheAddress.StreetNumber}",
+            $"Straat nummer: {TheAddress.HouseNumber}",
             $"Stad: {TheAddress.City}",
             $"Land: {TheAddress.Country}",
             "-",

@@ -1,4 +1,8 @@
 using System.Data;
+
+/// <summary>
+/// Manages all flights. E.g. getting flights from the database.
+/// </summary>
 public static class FlightManager
 {
     /// <summary>

@@ -1,5 +1,9 @@
 using System.Data;
 using Newtonsoft.Json;
+
+/// <summary>
+/// The airplane manager class. Used for managing airplanes.
+/// </summary>
 public static class AirplaneManager {
     // These are not (yet) used, but are here for eventual future use.
     // public static bool AddAirplane(Airplane airplane) {

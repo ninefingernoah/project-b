@@ -4,19 +4,36 @@ using System.IO;
 using Newtonsoft.Json;
 
 // TODO: Break this class up into smaller classes
+/// <summary>
+/// The main menu class. Used for displaying the main menu.
+/// </summary>
 public class SeatSelectionMenu {
+    /// <summary>The flight that the user is selecting seats for</summary>
     private Flight _flight;
+    /// <summary>The amount of passengers that the user is selecting seats for</summary>
     private int _passengerAmount;
+    /// <summary>The seats that the user has selected</summary>
     public List<Seat> SelectedSeats = new List<Seat>();
+    /// <summary>The cursor position</summary>
     public Seat? Cursor;
+    /// <summary>The current price</summary>
     public double CurrentPrice;
 
+    /// <summary>
+    /// The flight that the user is selecting seats for.
+    /// </summary>
     public Flight Flight {
         get {
             return _flight;
         }
     }
 
+    /// <summary>
+    /// Constructs a new instance of the SeatSelectionMenu class.
+    /// </summary>
+    /// <param name="flight">The flight that the user is selecting seats for.</param>
+    /// <param name="passengerAmount">The amount of passengers that the user is selecting seats for.</param>
+    /// <param name="currentPrice">The current price.</param>
     public SeatSelectionMenu(Flight flight, int passengerAmount, double currentPrice) {
         _flight = flight;
         _passengerAmount = passengerAmount;

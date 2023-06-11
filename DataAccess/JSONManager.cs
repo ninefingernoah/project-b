@@ -1,4 +1,8 @@
 using Newtonsoft.Json.Linq;
+
+/// <summary>
+/// The JSON manager class. Used for reading and writing JSON files.
+/// </summary>
 public static class JSONManager {
 
     /// <summary>

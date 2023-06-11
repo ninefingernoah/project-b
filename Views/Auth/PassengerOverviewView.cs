@@ -31,7 +31,7 @@ public class PassengerOverviewView : IView
             $"Email: {ThePassenger.Email}",
             $"Document nummer: {ThePassenger.DocumentNumber}",
             $"Geboortedatum: {((DateTime) ThePassenger.BirthDate!).ToString("dd-MM-yyyy")}",
-            $"Adres: {ThePassenger.Address.Street} {ThePassenger.Address.StreetNumber}, {ThePassenger.Address.City}, {ThePassenger.Address.Country}",
+            $"Adres: {ThePassenger.Address.Street} {ThePassenger.Address.HouseNumber}, {ThePassenger.Address.City}, {ThePassenger.Address.Country}",
             "-",
             "Terug"
         };

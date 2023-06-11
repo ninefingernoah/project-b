@@ -1,3 +1,6 @@
+/// <summary>
+/// The controller for the airport.
+/// </summary>
 public class AirportController
 {
     private static readonly AirportController instance = new AirportController();
@@ -15,6 +18,10 @@ public class AirportController
         }
     }
 
+    /// <summary>
+    /// Displays the details of an airport.
+    /// </summary>
+    /// <param name="airport">The airport to display.</param>
     public void ShowAirportDetails(Airport airport)
     {
         AirportDetailsView.Instance.Display(airport);
@@ -22,6 +29,9 @@ public class AirportController
         ShowAirportList();
     }
 
+    /// <summary>
+    /// Displays a list of all the airports.
+    /// </summary>
     public void ShowAirportList()
     {
         AirportListView.Instance.Display(AirportManager.GetAirports());
@@ -37,6 +47,9 @@ public class AirportController
         }
     }
 
+    /// <summary>
+    /// Displays the menu for creating an airport.
+    /// </summary>
     public void showAirportCreationMenu()
     {
         AirportView.Instance.Display();
@@ -83,6 +96,11 @@ public class AirportController
         }
     }
 
+    /// <summary>
+    /// Displays and handles the menu for changing the facilities of an airport.
+    /// </summary>
+    /// <param name="facilities">The facilities to change.</param>
+    /// <returns>The changed facilities.</returns>
     private List<string> changeFacilities(List<string> facilities)
     {
         string[] options = new string[] { "Toevoegen", "Overzicht", "Verwijderen", "Terug" };
@@ -98,7 +116,7 @@ public class AirportController
         }
         switch (choice)
         {
-            case 0:
+            case 0: // Add
                 string? facility = askFacility();
                 if (facility != null && facility.ToLower() != "terug")
                 {
@@ -106,7 +124,7 @@ public class AirportController
                 }
                 changeFacilities(facilities);
                 break;
-            case 1:
+            case 1: // Show
                 Console.Clear();
                 System.Console.WriteLine("Faciliteiten:");
                 foreach (string facility1 in facilities)
@@ -117,7 +135,7 @@ public class AirportController
                 Console.ReadKey();
                 changeFacilities(facilities);
                 break;
-            case 2:
+            case 2: // Delete
                 List<string> deletionMenuOptions = new List<string>(facilities);
                 deletionMenuOptions.Add("-");
                 deletionMenuOptions.Add("Terug");
@@ -135,6 +153,10 @@ public class AirportController
         return facilities;
     }
 
+    /// <summary>
+    /// Asks the user for a facility.
+    /// </summary>
+    /// <returns>The facility.</returns>
     private string? askFacility()
     {
         StringInputMenu menu = new StringInputMenu("Vul de faciliteit in die u wilt toevoegen:");
@@ -142,6 +164,11 @@ public class AirportController
         return input;
     }
 
+    /// <summary>
+    /// Asks the user for input and stores it in the ViewBag.
+    /// </summary>
+    /// <param name="vraag">The question to ask.</param>
+    /// <param name="ViewBagNaam">The name of the ViewBag to store the input in.</param>
     private void showAirportInputMenu(string vraag, string ViewBagNaam)
     {
         StringInputMenu menu = new StringInputMenu(vraag);
@@ -156,6 +183,9 @@ public class AirportController
         showAirportCreationMenu();
     }
 
+    /// <summary>
+    /// Displays the menu for changing the prices of the seats in the planes.
+    /// </summary>
     private void showFlightsAndPricesMenu()
     {
         AirportSeatAndPricesView.Instance.Display();
@@ -200,9 +230,15 @@ public class AirportController
 
     }
 
-    private void ShowPlaneClassInputMenu(string kleur, string vliegtuig, string ViewBagNaam)
+    /// <summary>
+    /// Asks the user to fill in the price for a plane class.
+    /// </summary>
+    /// <param name="color">The color of the plane class.</param>
+    /// <param name="airplane">The plane.</param>
+    /// <param name="ViewBagName">The name of the ViewBag to store the input in.</param>
+    private void ShowPlaneClassInputMenu(string color, string airplane, string ViewBagName)
     {
-        StringInputMenu menu = new StringInputMenu($"Vul de prijs in voor de {kleur} klasse in de {vliegtuig}:");
+        StringInputMenu menu = new StringInputMenu($"Vul de prijs in voor de {color} klasse in de {airplane}:");
         string? price = menu.Run();
         if (price == null)
         {
@@ -210,7 +246,7 @@ public class AirportController
             return;
         }
 
-        AirportSeatAndPricesView.Instance.ViewBag[ViewBagNaam] = price!;
+        AirportSeatAndPricesView.Instance.ViewBag[ViewBagName] = price!;
         showFlightsAndPricesMenu();
     }
 }

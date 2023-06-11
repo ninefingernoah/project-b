@@ -1,4 +1,8 @@
 using System.Data;
+
+/// <summary>
+/// Manages all the airport related logic
+/// </summary>
 public static class AirportManager
 {
     /// <summary>

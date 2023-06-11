@@ -77,6 +77,9 @@ public sealed class MainMenuController {
         }
     }
 
+    /// <summary>
+    /// Shows the admin main menu and handles the user input.
+    /// </summary>
     private void ShowAdminMainMenu()
     {
         AdminMainMenuView.Instance.Display();

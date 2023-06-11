@@ -1,6 +1,11 @@
+/// <summary>
+/// The menu for inputting a string.
+/// </summary>
 public class StringInputMenu
 {
+    /// <summary>The title of the menu.</summary>
     public string Title { get; set; }
+    /// <summary>Whether the menu should tell the user about the option to go back</summary>
     private bool backoption { get; }
 
     /// <summary>

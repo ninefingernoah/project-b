@@ -2,6 +2,10 @@ using Newtonsoft.Json.Linq;
 using Newtonsoft.Json;
 using System.Data.SQLite;
 using System.Data;
+
+/// <summary>
+/// Manages all the seat related logic
+/// </summary>
 public static class SeatManager {
     // This might be useful for the future
     // public static bool AddSeat(Seat seat) {

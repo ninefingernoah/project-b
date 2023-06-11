@@ -1,3 +1,6 @@
+/// <summary>
+/// The controller for the seat selection.
+/// </summary>
 public class SeatController {
     private static readonly SeatController instance = new SeatController();
 
