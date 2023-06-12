@@ -5,11 +5,6 @@
     /// </summary>
     /// <param name="args">Command line arguments.</param>
     public static void Main(string[] args) {
-        DatabaseManager.CreateDatabase();
-        if (!IsTestDataPresent())
-        {
-            PopulateTestData();
-        }
         var mainMenuController = MainMenuController.Instance;
         mainMenuController.ShowMainMenu();
         // FlightController.Instance.ShowFlightEditor(FlightManager.GetFlight(1));
