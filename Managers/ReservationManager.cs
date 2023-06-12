@@ -162,11 +162,15 @@ public static class ReservationManager
 
     public static void UpdateReservationSeats(Reservation reservation)
     {
-        //TODO: debug
+        // delete old seats
         bool tryDelete1 = DatabaseManager.QueryNonResult($"DELETE FROM flight_takenseats WHERE flight_id = {reservation.OutwardFlight.Id} AND reservation_number = '{reservation.ReservationNumber}'");
         bool tryDelete2 = DatabaseManager.QueryNonResult($"DELETE FROM reservations_seats WHERE reservation_number = '{reservation.ReservationNumber}'");
+        bool tryDelete3 = true;
+        if (reservation.InwardFlight != null){
+            tryDelete3 = DatabaseManager.QueryNonResult($"DELETE FROM flight_takenseats WHERE flight_id = {reservation.InwardFlight.Id} AND reservation_number = '{reservation.ReservationNumber}'");
+        }
         // if old seats are deleted, add new seats
-        if (tryDelete1 && tryDelete2) {
+        if (tryDelete1 && tryDelete2 && tryDelete3) {
             // outward seats
             if(reservation.OutwardSeats != null && reservation.OutwardSeats.Count > 0)
             {
