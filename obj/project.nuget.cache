@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "jW64Uya5ayZtyz1qL+DSVbraclwQ/O8ivHx6gq2b6JZ2VHxtlSdCtURw4FA3rqXiRRF2/3Lh2MG3zBcwcchjhQ==",
+  "dgSpecHash": "rPXvLOKZPUgUXZZfaMdfmMFig19L2osj8tFlUprIC+45OV75b1SoyOT2Qknc8oPxeR46ChlCmyUjvZY7CigGNw==",
   "success": true,
-  "projectFilePath": "C:\\Users\\stein\\Desktop\\GitHub\\project-b\\project-b.csproj",
+  "projectFilePath": "c:\\Users\\stein\\Desktop\\GitHub\\project-b\\project-b.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\stein\\.nuget\\packages\\bcrypt.net-next\\4.0.3\\bcrypt.net-next.4.0.3.nupkg.sha512",
     "C:\\Users\\stein\\.nuget\\packages\\entityframework\\6.4.4\\entityframework.6.4.4.nupkg.sha512",
@@ -35,7 +35,7 @@
       "code": "Undefined",
       "level": "Warning",
       "warningLevel": 1,
-      "message": "Problem reading the cache file C:\\Users\\stein\\Desktop\\GitHub\\project-b\\obj\\project.nuget.cache : Invalid property identifier character: <. Path 'version', line 3, position 0."
+      "message": "Problem reading the cache file c:\\Users\\stein\\Desktop\\GitHub\\project-b\\obj\\project.nuget.cache : Invalid property identifier character: <. Path 'version', line 3, position 0."
     }
   ]
 }

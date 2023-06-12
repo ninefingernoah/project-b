@@ -54,13 +54,16 @@ public sealed class MainMenuController {
             case 1:
                 LoginController.Instance.ShowLoginMenu();
                 break;
-            case 2:
-                FlightListController.Instance.ShowFlightSearchMenu();
+            case 2: // Book flight
+                ReservationController.Instance.ShowBookingMenu();
                 break;
             case 3: // View booking
                 ReservationController.Instance.AskReservation();
                 break;
-            case 4: // Exit
+            case 4: // View airport information
+                AirportController.Instance.ShowAirportList();
+                break;
+            case 5: // Exit
                 break;
             default:
                 Console.WriteLine("Ongeldige keuze.");
@@ -74,6 +77,9 @@ public sealed class MainMenuController {
         }
     }
 
+    /// <summary>
+    /// Shows the admin main menu and handles the user input.
+    /// </summary>
     private void ShowAdminMainMenu()
     {
         AdminMainMenuView.Instance.Display();
@@ -118,8 +124,14 @@ public sealed class MainMenuController {
                 case 0:
                     UserController.Instance.ShowReservations();
                     break;
-                case 1:
+                // case 1:
                     // View account info
+                    // break;
+                case 1: // Book flight
+                    ReservationController.Instance.ShowBookingMenu();
+                    break;
+                case 2:
+                    AirportController.Instance.ShowAirportList();
                     break;
                 case 3:
                     // Log out

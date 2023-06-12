@@ -1,9 +1,14 @@
+/// <summary>
+/// The controller for the flights.
+/// </summary>
 public class FlightController
 {
     /// <summary>
     /// The singleton instance of the main menu controller. Used for accessing the controller. Thread safe.
     /// </summary>
     private static readonly FlightController instance = new FlightController();
+
+    Flight? chosenFlight;
 
     static FlightController()
     {
@@ -24,12 +29,21 @@ public class FlightController
     }
 
     /// <summary>
+    /// Returns the flight that was chosen by the user in the selection menu.
+    /// </summary>
+    /// <returns>The chosen flight.</returns>
+    public Flight? GetChosenFlight()
+    {
+        return chosenFlight;
+    }
+
+    /// <summary>
     /// Displays the menu for booking a flight and handles the user input.
     /// </summary>
     /// <param name="flight">The flight to book.</param>
     public void ShowFlight(Flight flight)
     {
-        if (UserManager.IsLoggedIn() && UserManager.GetCurrentUser().IsAdmin())
+        if (UserManager.IsLoggedIn() && UserManager.GetCurrentUser() != null && UserManager.GetCurrentUser()!.IsAdmin())
         {
             ShowFlightAdmin(flight);
             return;
@@ -43,7 +57,7 @@ public class FlightController
             switch (selection)
             {
                 case 0:
-                    //_seatController.Run(flight);
+                    chosenFlight = flight;
                     break;
                 case 1:
                     FlightListController.Instance.ShowFlights();
@@ -60,7 +74,31 @@ public class FlightController
             // return to main menu
         }
     }
+    // public Flight? GetFlightType()
+    // {
+    //     // ask for menu here
+    //     List<string> list = new List<string>()
+    //     {
+    //         "Retour",
+    //         "Enkele",
+    //         "Last minute",
+    //         "Terug"
+    //     };
+    //     MenuView.Instance.ClearViewBag();
+    //     MenuView.Instance.Display("Wat voor type vlucht wil je", list);
+    //     int choice = MenuView.Instance.LastChoice;
+    //     // if (choice != list.Count - 1)
+    //     // {
+    //     //     return FlightListController.Instance.SelectFlight(MenuView.Instance.ViewBag["Selection"]);
+    //     // }
+        
+    //     return null;
+    // }
 
+    /// <summary>
+    /// Displays the flight menu for admins and handles the user input.
+    /// </summary>
+    /// <param name="flight">The flight to edit.</param>
     public void ShowFlightAdmin(Flight flight)
     {
         FlightView flightView = FlightView.Instance;
@@ -71,7 +109,7 @@ public class FlightController
             switch (selection)
             {
                 case 0:
-                    //_seatController.Run(flight);
+                    chosenFlight = flight;
                     break;
                 case 1:
                     ShowFlightEditor(flight);
@@ -185,7 +223,8 @@ public class FlightController
                 try
                 {
                     FlightManager.UpdateFlight(FlightEditorView.Instance.CurrentFlight);
-                } catch(Exception e)
+                }
+                catch (Exception e)
                 {
                     ConsoleUtils.Error(e.Message);
                     FlightEditorView.Instance.ClearViewBag();
@@ -228,7 +267,7 @@ public class FlightController
         DateTime now = DateTime.Now;
 
         // Check if date is not in the past
-        if(date < now && date.Day != now.Day)
+        if (date < now && date.Day != now.Day)
         {
             ConsoleUtils.Error("Deze datum ligt in het verleden.");
             return null;

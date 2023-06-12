@@ -1,5 +1,15 @@
+/// <summary>
+/// The view for the register menu. Singleton.
+/// </summary>
 public class RegisterView : IView {
+    /// <summary>
+    /// The singleton instance.
+    /// </summary>
     private static readonly RegisterView instance = new RegisterView();
+
+    /// <summary>
+    /// The viewbag. Holds temporary data for the view.
+    /// </summary>
     public Dictionary<string, string> ViewBag = new Dictionary<string, string>();
 
     static RegisterView() {
@@ -8,7 +18,7 @@ public class RegisterView : IView {
     }
 
     /// <summary>
-    /// The singleton instance of the main menu controller. Used for accessing the controller. Thread safe.
+    /// The getter for the singleton instance.
     /// </summary>
     public static RegisterView Instance {
         get {
@@ -21,8 +31,7 @@ public class RegisterView : IView {
     /// Displays the login menu.
     /// </summary>
     public void Display() {
-        PopulateViewBag();
-        // TODO: Is deze manier een beetje oke?
+        ResetViewBag();
         List<string> optionsList = new List<string>() {
             $"Voornaam: {ViewBag["firstname"]}",
             $"Achternaam: {ViewBag["lastname"]}",
@@ -35,6 +44,7 @@ public class RegisterView : IView {
         };
         string[] options = optionsList.ToArray();
         Menu registermenu;
+        // Holds the last choice made by the user. This way the cursor will be on the last choice made by the user.
         if (ViewBag.ContainsKey("MainMenuSelection"))
         {
             registermenu = new Menu("Registreren", options, int.Parse((string)ViewBag["MainMenuSelection"]));
@@ -46,7 +56,13 @@ public class RegisterView : IView {
         ViewBag["MainMenuSelection"] = choice.ToString();
     }
 
-    private void PopulateViewBag() {
+    /// <summary>
+    /// Resets the viewbag to its default values.
+    /// </summary>
+    public void ResetViewBag()
+    {
+        ViewBag.Clear();
+
         if(!ViewBag.ContainsKey("email"))
             ViewBag["email"] = "<vul in>";
         if(!ViewBag.ContainsKey("password"))
@@ -63,7 +79,4 @@ public class RegisterView : IView {
             ViewBag["lastname"] = "<vul in>";
     }
 
-    public void ClearViewBag() {
-        ViewBag.Clear();
-    }
 }

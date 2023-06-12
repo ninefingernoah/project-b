@@ -1,3 +1,6 @@
+/// <summary>
+/// The controller for logging a user in.
+/// </summary>
 public sealed class LoginController
 {
     private static readonly LoginController instance = new LoginController();
@@ -36,7 +39,7 @@ public sealed class LoginController
                 Login(LoginView.Instance.ViewBag["email"], LoginView.Instance.ViewBag["password"]);
                 break;
             case 4:
-                LoginView.Instance.ClearViewBag();
+                LoginView.Instance.ResetViewbag();
                 MainMenuController.Instance.ShowMainMenu();
                 break;
         }

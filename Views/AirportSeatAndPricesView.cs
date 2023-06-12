@@ -1,14 +1,28 @@
+/// <summary>
+/// View for displaying the seat and prices of the different classes for editing them. Singleton.
 public class AirportSeatAndPricesView : IView
 {
+    /// <summary>
+    /// Singleton instance
+    /// </summary>
     private static readonly AirportSeatAndPricesView instance = new AirportSeatAndPricesView();
     
+    /// <summary>
+    /// The viewbag. Holds temporary data for the view.
+    /// </summary>
     public Dictionary<string, string> ViewBag = new Dictionary<string, string>();
 
+    /// <summary>
+    /// The getter for the singleton instance
+    /// </summary>
     public static AirportSeatAndPricesView Instance
     {
         get { return instance; }
     }
 
+    /// <summary>
+    /// Displays the view.
+    /// </summary>
     public void Display()
     {
         populateViewBag();
@@ -41,6 +55,9 @@ public class AirportSeatAndPricesView : IView
         ViewBag["AirportSeatAndPricesMenuSelection"] = choice.ToString();
     }
 
+    /// <summary>
+    /// Populates the viewbag with the current prices.
+    /// </summary>
     private void populateViewBag()
     {
         if(!ViewBag.ContainsKey("Boeing737Blue")) //Boeing 737 Blue
@@ -65,7 +82,23 @@ public class AirportSeatAndPricesView : IView
             ViewBag["Boeing787Orange"] = "<Vul In>";
     }
 
-    public void ClearViewBag() //Clears the viewbag
+    /// <summary>
+    /// Checks if all fields are filled in.
+    /// </summary>
+    public bool AllFieldsFilledIn()
+    {
+        foreach(KeyValuePair<string, string> entry in ViewBag)
+        {
+            if(entry.Value == "<Vul In>")
+                return false;
+        }
+        return true;
+    }
+
+    /// <summary>
+    /// Clears the viewbag.
+    /// </summary>
+    public void ClearViewBag()
     {
         ViewBag.Clear();
     }
