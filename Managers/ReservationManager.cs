@@ -144,7 +144,7 @@ public static class ReservationManager
             var oldLastName = DatabaseManager.QueryResult($"SELECT * FROM passengers WHERE id = {p.Id}").Rows[0]["last_name"];
             var oldName = $"{oldFirstName} {oldLastName}";
             if (oldName != (p.FirstName + " " + p.LastName))
-                DatabaseManager.QueryNonResult($"UPDATE passengers SET letters_changed = 1 WHERE id = {p.Id}"); // Places a lock on the passengername.
+                p.LockName();
             int address_id = (int)(long)DatabaseManager.QueryResult($"SELECT * FROM passengers WHERE id = {p.Id}").Rows[0]["address_id"];
             // Changes the passenger and their address
             DatabaseManager.QueryNonResult($"UPDATE passengers SET email = '{p.Email}', first_name = '{p.FirstName}', last_name = '{p.LastName}', document_number = '{p.DocumentNumber}', date_of_birth = '{((DateTime)p.BirthDate!).ToString("dd-MM-yyyy")}' WHERE id = {p.Id}");
