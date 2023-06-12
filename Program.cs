@@ -14,6 +14,9 @@
         // FlightController.Instance.ShowFlightEditor(FlightManager.GetFlight(1));
     }
 
+    /// <summary>
+    /// Populates the database with test data.
+    /// </summary>
     private static void PopulateTestData()
     {
         DatabaseManager.QueryNonResult($@"

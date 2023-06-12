@@ -62,11 +62,11 @@ public sealed class RegisterController
                     return;
                 }
                 UserManager.Register(fname, lname, email, password);
-                RegisterView.Instance.ClearViewBag();
+                RegisterView.Instance.ResetViewBag();
                 ConsoleUtils.Success("U bent succesvol geregistreerd!", MainMenuController.Instance.ShowMainMenu);
                 break;
             case 7:
-                RegisterView.Instance.ClearViewBag();
+                RegisterView.Instance.ResetViewBag();
                 MainMenuController.Instance.ShowMainMenu();
                 break;
         }

@@ -82,7 +82,7 @@ public static class UserManager
     {
         CurrentID = 0;
         // Clear the viewbag. Prevents the user from showing the wrong info when logging in again.
-        LoginView.Instance.ClearViewBag();
+        LoginView.Instance.ResetViewbag();
     }
 
     /// <summary>

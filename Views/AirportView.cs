@@ -1,3 +1,6 @@
+/// <summary>
+/// View for creating an airport. Singleton.
+/// </summary>
 public class AirportView : IView
 {
     private static readonly AirportView instance = new AirportView();
@@ -26,7 +29,7 @@ public class AirportView : IView
             "Vluchten en prijzen",
             "Faciliteiten",
             "-",
-            "Confirm",
+            "Opslaan",
             "Annuleren"
         };
         string[] options = optionsList.ToArray();

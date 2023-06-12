@@ -1,4 +1,7 @@
-public class AirportDetailsView : IView {
+/// <summary>
+/// View for displaying airport details.
+/// </summary>
+public class AirportDetailsView {
     public Dictionary<string, string> ViewBag = new Dictionary<string, string>();
     private static readonly AirportDetailsView instance = new AirportDetailsView();
 
@@ -28,5 +31,4 @@ public class AirportDetailsView : IView {
         ViewBag["AirportDetailsSelection"] = choice.ToString();
     }
 
-    public void Display() {}
 }
