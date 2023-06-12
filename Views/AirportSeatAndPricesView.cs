@@ -29,18 +29,18 @@ public class AirportSeatAndPricesView : IView
 
         List<string> optionsList = new List<string>() // TODO: Maak dit niet gehardcode. Haal de data uit een nog niet gekozen bron en maak het een modulaire manier dat er een nieuw soortvliegtuig makkelijk aan toegevoegd kan worden.
         {
-            $"Boeing 737:",
+            $"-Boeing 737:",
             $"   Blue:{ViewBag["Boeing737Blue"]}",
             $"   Yellow: {ViewBag["Boeing737Yellow"]}",
             "-", //Divider
-            $"Airbus 330:",
+            $"-Airbus 330:",
             $"   White:{ViewBag["Airbus330White"]}",
             $"   Darkblue: {ViewBag["Airbus330Darkblue"]}",
             $"   Purple: {ViewBag["Airbus330Purple"]}",
             $"   Pink: {ViewBag["Airbus330Pink"]}",
             $"   Grey(Business Class): {ViewBag["Airbus330Grey"]}",
             "-", //Divider
-            $"Boeing 787:",
+            $"-Boeing 787:",
             $"   White:{ViewBag["Boeing787White"]}",
             $"   Blue: {ViewBag["Boeing787Blue"]}",
             $"   Orange(Business Class): {ViewBag["Boeing787Orange"]}",

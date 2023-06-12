@@ -56,6 +56,7 @@ public class Menu
                 WriteLine();
                 continue;
             }
+            string displayOption = _options[i].StartsWith("-") ? _options[i].Substring(1) : _options[i];
             if (i == _selectedIndex)
             {
                 ForegroundColor = ConsoleColor.Black;
@@ -66,7 +67,7 @@ public class Menu
                 ForegroundColor = ConsoleColor.White;
                 BackgroundColor = ConsoleColor.Black;
             }
-            WriteLine(_options[i]);
+            WriteLine(displayOption);
         }
 
         if (_botString != null)
@@ -79,6 +80,7 @@ public class Menu
         ForegroundColor = ConsoleColor.White;
         BackgroundColor = ConsoleColor.Black;
     }
+
 
     /// <summary>
     /// Runs the menu and returns the index of the selected option
@@ -105,7 +107,7 @@ public class Menu
                 {
                     _selectedIndex = 0;
                 }
-                if (_options[_selectedIndex] == "-")
+                if (_options[_selectedIndex].StartsWith("-"))
                 {
                     _selectedIndex++;
                 }
@@ -117,7 +119,7 @@ public class Menu
                 {
                     _selectedIndex = _options.Length - 1;
                 }
-                if (_options[_selectedIndex] == "-")
+                if (_options[_selectedIndex].StartsWith("-"))
                 {
                     _selectedIndex--;
                 }
