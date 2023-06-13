@@ -152,7 +152,7 @@ public sealed class ReservationController
             }
             Airport retarr = outwardflight.Departure;
             Airport retdep = outwardflight.Destination;
-            FlightListController.Instance.ShowFlights(retdep, retarr);
+            FlightListController.Instance.ShowFlights(retdep, retarr, outwardflight.ArrivalTime);
             Flight? returnflight = FlightController.Instance.GetChosenFlight();
             List<Flight> flights = new List<Flight>();
             flights.Add(outwardflight);

@@ -55,11 +55,16 @@ public static class FlightManager
     /// <param name="departure">The airport to departure from.</param>
     /// <param name="arrival">The airport to arrive on.</param>
     /// <returns>A list of flights which are conform the parameters.</returns>
-    public static List<Flight> GetFlights(Airport departure, Airport arrival)
+    public static List<Flight> GetFlights(Airport departure, Airport arrival, DateTime? departureAfter = null)
     {
         int depID = departure.Id;
         int arrID = arrival.Id;
-        DataTable dt = DatabaseManager.QueryResult($"SELECT * FROM flights WHERE departure_id = {depID} AND destination_id = {arrID}");
+        string query = $"SELECT * FROM flights WHERE departure_id = {depID} AND destination_id = {arrID}";
+        if (departureAfter != null)
+        {
+            query += $" AND departure_time > '{departureAfter.Value.ToString("yyyy-MM-dd HH:mm:ss")}'";
+        }
+        DataTable dt = DatabaseManager.QueryResult(query);
         List<Flight> flights = new List<Flight>();
         foreach(DataRow dr in dt.Rows)
         {
