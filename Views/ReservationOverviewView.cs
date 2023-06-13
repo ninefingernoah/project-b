@@ -1,5 +1,15 @@
+/// <summary>
+/// The view for the reservation overview. Singleton.
+/// </summary>
 public class ReservationOverviewView : IView {
+    /// <summary>
+    /// The singleton instance.
+    /// </summary>
     private static readonly ReservationOverviewView instance = new ReservationOverviewView();
+
+    /// <summary>
+    /// The viewbag. Holds temporary data for the view.
+    /// </summary>
     public Dictionary<string, object> ViewBag = new Dictionary<string, object>();
 
     static ReservationOverviewView() {
@@ -8,7 +18,7 @@ public class ReservationOverviewView : IView {
     }
 
     /// <summary>
-    /// The singleton instance of the main menu controller. Used for accessing the controller. Thread safe.
+    /// The getter for the singleton instance.
     /// </summary>
     public static ReservationOverviewView Instance {
         get {
@@ -66,14 +76,23 @@ public class ReservationOverviewView : IView {
         ViewBag["MainMenuSelection"] = choice.ToString();
     }
 
+    /// <summary>
+    /// Resets the viewbag to its default values.
+    /// </summary>
     private void PopulateViewBag() {
         
     }
 
+    /// <summary>
+    /// Clears the viewbag.
+    /// </summary>
     public void ClearViewBag() {
         ViewBag.Clear();
     }
 
+    /// <summary>
+    /// Displays the passengers in the reservation.
+    /// </summary>
     public void DisplayPassengers()
     {
         List<Passenger> passengers = (List<Passenger>)ViewBag["passengers"];

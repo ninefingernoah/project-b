@@ -1,8 +1,20 @@
+/// <summary>
+/// The view for editing a passenger. Singleton.
 public class PassengerView
 {
+    /// <summary>
+    /// The singleton instance.
+    /// </summary>
     private static readonly PassengerView instance = new PassengerView();
+
+    /// <summary>
+    /// The viewbag. Holds temporary data for the view.
+    /// </summary>
     public Dictionary<string, string> ViewBag = new Dictionary<string, string>();
 
+    /// <summary>
+    /// List that holds temporary data for the view.
+    /// </summary>
     public List<string> views = new List<string>();
 
     static PassengerView()
@@ -56,6 +68,10 @@ public class PassengerView
         ViewBag["MainMenuSelection"] = choice.ToString();
     }
 
+    /// <summary>
+    /// Displays the menu for editing a passenger.
+    /// </summary>
+    /// <param name="passenger">The passenger that has been edited.</param>
     public Passenger? Run()
     {
         bool loop = true;
@@ -144,10 +160,17 @@ public class PassengerView
         return new Passenger(PassengerManager.GetNextId(), email!, voornaam!, achternaam!, docnummer!, date, address); // Same here.
     }
 
+    /// <summary>
+    /// Clears the viewbag.
+    /// </summary>
     public void ClearViewBag()
     {
         ViewBag.Clear();
     }
+
+    /// <summary>
+    /// Clears the views.
+    /// </summary>
     public void ClearView()
     {
         views.Clear();
