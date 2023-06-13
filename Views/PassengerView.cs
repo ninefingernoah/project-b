@@ -53,7 +53,7 @@ public class PassengerView
             $"Land: {views[8]}",
             "-",
             "Sla op",
-            "Ga terug"
+            "Terug"
         };
         Menu passengerMenu;
         string[] options = optionsList.ToArray();

@@ -33,7 +33,7 @@ public class FlightView {
     public void Display(Flight flight) {
         string[] options = { "Boek vlucht", "Terug" };
         if (UserManager.IsLoggedIn() && UserManager.GetCurrentUser != null && UserManager.GetCurrentUser()!.IsAdmin()) {
-            options = new string[] { "Kies vlucht", "Bewerk vlucht [ADMIN]", "Verwijder vlucht [ADMIN]",  "Terug" };
+            options = new string[] { "Kies vlucht", "Bewerk vlucht", "Verwijder vlucht",  "Terug" };
         }
         Menu menu = new Menu(flight.ToString(), options);
         int selection = menu.Run();

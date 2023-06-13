@@ -137,7 +137,7 @@ public sealed class AddressController
             case 0: // Street name
                 StringInputMenu streetMenu = new StringInputMenu("Vul de straatnaam in: ");
                 string street = streetMenu.Run()!;
-                if (street.ToLower() == "terug")
+                if (street == null || street.ToLower() == "terug")
                 {
                     ShowAddressEditingMenu(passenger);
                     return;
@@ -155,7 +155,7 @@ public sealed class AddressController
             case 1: // House number
                 StringInputMenu streetNumberMenu = new StringInputMenu("Vul het huisnummer in: ");
                 string streetNumber = streetNumberMenu.Run()!;
-                if (streetNumber.ToLower() == "terug")
+                if (streetNumber == null || streetNumber.ToLower() == "terug")
                 {
                     ShowAddressEditingMenu(passenger);
                     return;
@@ -173,7 +173,7 @@ public sealed class AddressController
             case 2: // City
                 StringInputMenu cityMenu = new StringInputMenu("Vul de plaats in: ");
                 string city = cityMenu.Run()!;
-                if (city.ToLower() == "terug")
+                if (city == null || city.ToLower() == "terug")
                 {
                     ShowAddressEditingMenu(passenger);
                     return;
@@ -191,7 +191,7 @@ public sealed class AddressController
             case 3: // Country
                 StringInputMenu countryMenu = new StringInputMenu("Vul het land in: ");
                 string country = countryMenu.Run()!;
-                if (country.ToLower() == "terug")
+                if (country == null || country.ToLower() == "terug")
                 {
                     ShowAddressEditingMenu(passenger);
                     return;
