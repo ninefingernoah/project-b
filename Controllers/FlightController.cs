@@ -294,25 +294,29 @@ public class FlightController
                 break;
             case 3: // Departure time
                 DateTime? departureTime = GetDateTime();
-                if (departureTime != null)
+                if(departureTime == null)
                 {
-                    FlightEditorView.Instance.CurrentFlight.DepartureTime = departureTime.Value;
+                    ShowFlightEditor();
+                    break;
                 }
+                FlightEditorView.Instance.CurrentFlight.DepartureTime = departureTime.Value;
                 ShowFlightEditor();
                 break;
             case 4: // Arrival time
                 DateTime? arrivalTime = GetDateTime();
-                if (arrivalTime != null)
+                if (arrivalTime == null)
                 {
-                    // Check if arrival time is after departure time. You can't arrive before you depart.
-                    if (arrivalTime < FlightEditorView.Instance.CurrentFlight.DepartureTime)
-                    {
-                        ConsoleUtils.Error("De aankomsttijd kan niet voor de vertrektijd liggen.");
-                    }
-                    else
-                    {
-                        FlightEditorView.Instance.CurrentFlight.ArrivalTime = arrivalTime.Value;
-                    }
+                    ShowFlightEditor();
+                    break;
+                }
+                // Check if arrival time is after departure time. You can't arrive before you depart.
+                if (arrivalTime < FlightEditorView.Instance.CurrentFlight.DepartureTime)
+                {
+                    ConsoleUtils.Error("De aankomsttijd kan niet voor de vertrektijd liggen.");
+                }
+                else
+                {
+                    FlightEditorView.Instance.CurrentFlight.ArrivalTime = arrivalTime.Value;
                 }
                 ShowFlightEditor();
                 break;
@@ -352,7 +356,7 @@ public class FlightController
     {
         StringInputMenu menu = new StringInputMenu("Voer een datum in (dd-mm-jjjj), of 'Terug' om terug te gaan.");
         string? input = menu.Run();
-        if (input == "Terug" || input == "") return null;
+        if (input == null || input.ToLower() == "terug" || input == "") return null;
 
         // Validate input
         if (!DateTime.TryParse(input, out DateTime date))
