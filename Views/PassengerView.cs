@@ -81,7 +81,7 @@ public class PassengerView
         string? docnummer = "";
         DateTime? date = DateTime.MinValue;
         string? street = "";
-        int? huisnummer = -1;
+        string? huisnummer = "";
         string? city = "";
         string? country = "";
 
@@ -130,9 +130,9 @@ public class PassengerView
                         views[5] = street;
                     break;
                 case 6:
-                    huisnummer = new IntInputMenu("Vul uw huisnummer in:").Run();
-                    if (huisnummer != null && huisnummer > 0)
-                        views[6] = huisnummer.ToString()!;
+                    huisnummer = new StringInputMenu("Vul uw huisnummer in:").Run();
+                    if(huisnummer != null)
+                        views[6] = huisnummer;
                     break;
                 case 7:
                     city = new StringInputMenu("Vul uw plaats in:").Run();
