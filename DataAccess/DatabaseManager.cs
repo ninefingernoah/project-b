@@ -116,7 +116,7 @@ public static class DatabaseManager
                 CREATE TABLE IF NOT EXISTS reservation_passengers (
                     reservation_number TEXT NOT NULL,
                     passenger_id INTEGER NOT NULL,
-                    outward_seat_number TEXT NOT NULL,
+                    outward_seat_number TEXT,
                     inward_seat_number TEXT,
                     FOREIGN KEY(reservation_number) REFERENCES reservations(number),
                     FOREIGN KEY(passenger_id) REFERENCES passengers(id),
