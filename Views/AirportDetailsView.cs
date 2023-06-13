@@ -1,4 +1,7 @@
-public class AirportDetailsView : IView {
+/// <summary>
+/// View for displaying airport details.
+/// </summary>
+public class AirportDetailsView {
     public Dictionary<string, string> ViewBag = new Dictionary<string, string>();
     private static readonly AirportDetailsView instance = new AirportDetailsView();
 
@@ -21,12 +24,11 @@ public class AirportDetailsView : IView {
     /// </summary>
     public void Display(Airport airport){
         string[] options = new string[] { "Terug" };
-        string topString = "Luchthaven details:\n";
-        topString += airport.ToFacilitiesString();
+        string topString = "Luchthaven details:\n\n";
+        topString += airport.AirportOverviewString();
         Menu menu = new Menu(topString, options);
         int choice = menu.Run();
         ViewBag["AirportDetailsSelection"] = choice.ToString();
     }
 
-    public void Display() {}
 }

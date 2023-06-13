@@ -4,19 +4,36 @@ using System.IO;
 using Newtonsoft.Json;
 
 // TODO: Break this class up into smaller classes
+/// <summary>
+/// The main menu class. Used for displaying the main menu.
+/// </summary>
 public class SeatSelectionMenu {
+    /// <summary>The flight that the user is selecting seats for</summary>
     private Flight _flight;
+    /// <summary>The amount of passengers that the user is selecting seats for</summary>
     private int _passengerAmount;
+    /// <summary>The seats that the user has selected</summary>
     public List<Seat> SelectedSeats = new List<Seat>();
-    public Seat Cursor;
+    /// <summary>The cursor position</summary>
+    public Seat? Cursor;
+    /// <summary>The current price</summary>
     public double CurrentPrice;
 
+    /// <summary>
+    /// The flight that the user is selecting seats for.
+    /// </summary>
     public Flight Flight {
         get {
             return _flight;
         }
     }
 
+    /// <summary>
+    /// Constructs a new instance of the SeatSelectionMenu class.
+    /// </summary>
+    /// <param name="flight">The flight that the user is selecting seats for.</param>
+    /// <param name="passengerAmount">The amount of passengers that the user is selecting seats for.</param>
+    /// <param name="currentPrice">The current price.</param>
     public SeatSelectionMenu(Flight flight, int passengerAmount, double currentPrice) {
         _flight = flight;
         _passengerAmount = passengerAmount;
@@ -87,12 +104,16 @@ public class SeatSelectionMenu {
     /// <param name="maxRow">The maximum row number.</param>
     /// <param name="maxColumn">The maximum column number.</param>
     void PrintSeatLayout(List<Seat> seats, int maxRow, int maxColumn){
+        if (Cursor == null)
+        {
+            throw new Exception("Cursor is null");
+        }
         for (int column = maxColumn; column > 0; column--)
         {
             Console.Write($"{GetColumnLetter(column)} ");
             for (int row = 1; row <= maxRow; row++)
             {
-                Seat seat = GetSeatAtPosition(seats, row, column);
+                Seat? seat = GetSeatAtPosition(seats, row, column);
 
                 if (seat == null)
                 {
@@ -136,7 +157,7 @@ public class SeatSelectionMenu {
     /// <param name="seats">The list of seats to search in.</param>
     /// <param name="row">The row number.</param>
     /// <param name="column">The column number.</param>
-    static Seat GetSeatAtPosition(List<Seat> seats, int row, int column)
+    static Seat? GetSeatAtPosition(List<Seat> seats, int row, int column)
     {
         foreach (var seat in seats)
         {
@@ -155,6 +176,10 @@ public class SeatSelectionMenu {
     /// <param name="seats">The list of seats to move through.</param>
     void MoveCursorDown(List<Seat> seats)
     {
+        if(Cursor == null)
+        {
+            throw new Exception("Cursor is null");
+        }
         int columnIndex = GetColumnIndex(Cursor.Column);
         string newColumn = GetPreviousColumn(seats, Cursor.Column, Cursor.Row);
         if (GetSeatAtPosition(seats, Cursor.Row, GetColumnIndex(newColumn)) != null)
@@ -169,6 +194,10 @@ public class SeatSelectionMenu {
     /// <param name="seats">The list of seats to move through.</param>
     void MoveCursorUp(List<Seat> seats)
     {
+        if (Cursor == null)
+        {
+            throw new Exception("Cursor is null");
+        }
         int columnIndex = GetColumnIndex(Cursor.Column);
         string newColumn = GetNextColumn(seats, Cursor.Column, Cursor.Row);
         if (GetSeatAtPosition(seats, Cursor.Row, GetColumnIndex(newColumn)) != null)
@@ -183,6 +212,10 @@ public class SeatSelectionMenu {
     /// <param name="seats">The list of seats to move through.</param>
     void MoveCursorLeft(List<Seat> seats)
     {
+        if (Cursor == null)
+        {
+            throw new Exception("Cursor is null");
+        }
         int newRow = GetPreviousRow(seats, Cursor.Row, Cursor.Column);
         string newColumn = Cursor.Column;
         if (GetSeatAtPosition(seats, newRow, GetColumnIndex(newColumn)) != null)
@@ -197,6 +230,10 @@ public class SeatSelectionMenu {
     /// <param name="seats">The list of seats to move through.</param>
     void MoveCursorRight(List<Seat> seats)
     {
+        if (Cursor == null)
+        {
+            throw new Exception("Cursor is null");
+        }
         int newRow = GetNextRow(seats, Cursor.Row, Cursor.Column);
         string newColumn = Cursor.Column;
         if (GetSeatAtPosition(seats, newRow, GetColumnIndex(newColumn)) != null)

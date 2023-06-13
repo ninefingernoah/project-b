@@ -1,3 +1,6 @@
+/// <summary>
+/// The controller for the passenger.
+/// </summary>
 public class PassengerController
 {
     private static readonly PassengerController instance = new PassengerController();
@@ -21,7 +24,11 @@ public class PassengerController
     }
 
 
-    public Passenger NewPassenger()
+    /// <summary>
+    /// Shows the menu for creating a new passenger and returns the passenger.
+    /// </summary>
+    /// <returns>The passenger that was created.</returns>
+    public Passenger? NewPassenger()
     {
         PassengerView.Instance.ClearView();
         return PassengerView.Instance.Run();

@@ -1,3 +1,6 @@
+/// <summary>
+/// The controller for logging a user in.
+/// </summary>
 public sealed class LoginController
 {
     private static readonly LoginController instance = new LoginController();

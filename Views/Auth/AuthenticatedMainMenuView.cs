@@ -1,5 +1,12 @@
+/// <summary>
+/// View for displaying the main menu for authenticated users. Singleton.
+/// </summary>
 public class AuthenticatedMainMenuView : IView {
+    /// <summary>
+    /// Singleton instance
+    /// </summary>
     private static readonly AuthenticatedMainMenuView instance = new AuthenticatedMainMenuView();
+    /// <summary>The viewbag. Holds temporary data for the view.</summary>
     public Dictionary<string, string> ViewBag = new Dictionary<string, string>();
 
     static AuthenticatedMainMenuView() {
@@ -13,7 +20,6 @@ public class AuthenticatedMainMenuView : IView {
     public void Display() {
         List<string> optionsList = new List<string>() {
             "Bekijk reserveringen",
-            "Bekijk accountgegegvens",
             "Boek vlucht",
             "Vliegveldinformatie",
             "-",

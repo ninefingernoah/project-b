@@ -14,6 +14,9 @@
         // FlightController.Instance.ShowFlightEditor(FlightManager.GetFlight(1));
     }
 
+    /// <summary>
+    /// Populates the database with test data.
+    /// </summary>
     private static void PopulateTestData()
     {
         DatabaseManager.QueryNonResult($@"
@@ -32,6 +35,23 @@
         DatabaseManager.QueryNonResult($@"
                 INSERT INTO airports (name, city, country, code)
                 VALUES ('Heathrow', 'Londen', 'Verenigd Koninkrijk', 'LHR')
+            ");
+        // Insert airport_facilities
+        DatabaseManager.QueryNonResult($@"
+                INSERT INTO airport_facilities (airport_id, facility)
+                VALUES (1, 'Wifi')
+            ");
+        DatabaseManager.QueryNonResult($@"
+                INSERT INTO airport_facilities (airport_id, facility)
+                VALUES (1, 'Restaurant')
+            ");
+        DatabaseManager.QueryNonResult($@"
+                INSERT INTO airport_facilities (airport_id, facility)
+                VALUES (2, 'Wifi')
+            ");
+        DatabaseManager.QueryNonResult($@"
+                INSERT INTO airport_facilities (airport_id, facility)
+                VALUES (2, 'Taco bar')
             ");
         // Insert airplanes
         DatabaseManager.QueryNonResult($@"

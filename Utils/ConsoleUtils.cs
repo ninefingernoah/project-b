@@ -1,7 +1,7 @@
 public static class ConsoleUtils
 {
     /// <summary>
-    /// Clears the console and displays the given message.
+    /// Clears the console and displays the given message. Also calls the given function.
     /// </summary>
     /// <param name="message">The message to display.</param>
     /// <param name="func">The function to call after the user presses a key.</param>

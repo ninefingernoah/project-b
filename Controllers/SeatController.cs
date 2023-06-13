@@ -1,3 +1,6 @@
+/// <summary>
+/// The controller for the seat selection.
+/// </summary>
 public class SeatController {
     private static readonly SeatController instance = new SeatController();
 
@@ -41,8 +44,8 @@ public class SeatController {
 
         // repeat for inward flight
         SeatSelectionView.Instance.SelectedSeats.Clear();
-        SeatSelectionView.Instance.SelectedSeats.AddRange(reservation.InwardSeats);
-        if (reservation.InwardFlight != null) {
+        if (reservation.InwardFlight != null && reservation.InwardSeats != null) {
+            SeatSelectionView.Instance.SelectedSeats.AddRange(reservation.InwardSeats);
             SeatSelectionView.Instance.Display(reservation.InwardFlight, reservation.Passengers.Count, reservation.Price);
             reservation.Price = SeatSelectionView.Instance.Price;
             if (SeatSelectionView.Instance.SelectedSeats.Count > 0) {

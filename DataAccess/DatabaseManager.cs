@@ -1,12 +1,21 @@
 using System.Data.SQLite;
 using System.Data;
+
+/// <summary>
+/// Manages all the database related logic
+/// </summary>
 public static class DatabaseManager
 {
+    /// <summary>
+    /// The name of the database file
+    /// </summary>
     private const string _dbName = "airline.db";
 
+    /// <summary>
+    /// Creates the tables, if they do not already exist.
+    /// </summary>
     public static void CreateDatabase()
     {
-        // TODO: Implement logic
         QueryNonResult(@"
                 CREATE TABLE IF NOT EXISTS users (
                     id INTEGER NOT NULL PRIMARY KEY,
@@ -112,6 +121,13 @@ public static class DatabaseManager
                     PRIMARY KEY(reservation_number, passenger_id)
                 );
             ");
+        QueryNonResult(@"
+                CREATE TABLE IF NOT EXISTS airport_facilities (
+                    airport_id INTEGER NOT NULL,
+                    facility TEXT NOT NULL,
+                    FOREIGN KEY(airport_id) REFERENCES airports(id)
+                );
+        ");
         QueryNonResult(@"
                 CREATE TABLE IF NOT EXISTS reservations_seats (
                     reservation_number TEXT NOT NULL,
