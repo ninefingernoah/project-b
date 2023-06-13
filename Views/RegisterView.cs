@@ -46,7 +46,7 @@ public class RegisterView : IView
             $"Bevestig wachtwoord: {ViewBag["cdisplaypassword"]}",
             "-",
             "Registreer",
-            "Ga terug"
+            "Terug"
         };
         string[] options = optionsList.ToArray();
         Menu registermenu;
