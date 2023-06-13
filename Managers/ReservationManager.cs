@@ -200,12 +200,17 @@ public static class ReservationManager
         {
             user = null;
         }
+        string email = "";
+        if(dr["email"] != DBNull.Value)
+        {
+            email = (string)dr["email"];
+        }
         Reservation? r = new Reservation(
             (string)dr["number"],
             f_out,
             f_in,
             user,
-            (string)dr["email"],
+            email,
             new List<Passenger>(),
             (double)dr["price"],
             DateTime.Parse((string)dr["made_on"])
