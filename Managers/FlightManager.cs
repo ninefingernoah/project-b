@@ -50,6 +50,15 @@ public static class FlightManager
     }
 
     /// <summary>
+    /// Creates a new flight in the database.
+    /// </summary>
+    /// <param name="flight">The flight to create.</param>
+    public static void NewFlight(Flight flight)
+    {
+        DataTable dt = DatabaseManager.QueryResult($"INSERT INTO flights (departure_id,destination_id,departure_time,arrival_time,airplane_id) VALUES ('{flight.Departure.Id}','{flight.Destination.Id}','{flight.DepartureTime}','{flight.ArrivalTime}','{flight.Airplane.Id}');");
+    }
+
+    /// <summary>
     /// Returns a list of flights depending on the given parameters.
     /// </summary>
     /// <param name="departure">The airport to departure from.</param>
@@ -61,7 +70,7 @@ public static class FlightManager
         int arrID = arrival.Id;
         DataTable dt = DatabaseManager.QueryResult($"SELECT * FROM flights WHERE departure_id = {depID} AND destination_id = {arrID}");
         List<Flight> flights = new List<Flight>();
-        foreach(DataRow dr in dt.Rows)
+        foreach (DataRow dr in dt.Rows)
         {
             Flight? flight = GetFlight((int)(long)dr["id"]);
             if (flight != null)
@@ -192,13 +201,13 @@ public static class FlightManager
             if (flight != null)
                 Flights.Add(flight);
         }
-        
+
         return Flights.Where(filter ?? (f => true)).ToList();
     }
 
     public static int GetNewestId()
     {
-        DataTable dt = DatabaseManager.QueryResult($"SELECT id FROM flights ORDER BY id ASC");
+        DataTable dt = DatabaseManager.QueryResult($"SELECT id FROM flights ORDER BY id DESC");
         try
         {
             DataRow dr = dt.Rows[0];

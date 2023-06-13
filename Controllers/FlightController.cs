@@ -37,6 +37,8 @@ public class FlightController
         return chosenFlight;
     }
 
+
+
     /// <summary>
     /// Displays the menu for booking a flight and handles the user input.
     /// </summary>
@@ -91,7 +93,7 @@ public class FlightController
     //     // {
     //     //     return FlightListController.Instance.SelectFlight(MenuView.Instance.ViewBag["Selection"]);
     //     // }
-        
+
     //     return null;
     // }
 
@@ -144,6 +146,101 @@ public class FlightController
             // return to main menu
         }
     }
+
+    public void NewFlight()
+    {
+        int selection = NewFlightView.Instance.Display();
+        switch (selection)
+        {
+            case 0: // Departure
+                Airport? temp = GetAirport();
+                if (temp != null)
+                {
+                    NewFlightView.Instance.Departure = temp;
+                }
+                NewFlight();
+                break;
+            case 1: // Destination
+                temp = GetAirport();
+                if (temp != null)
+                {
+                    NewFlightView.Instance.Arrival = temp;
+                }
+                NewFlight();
+                break;
+            case 2: // Airplane
+                Airplane? airplane = GetAirplane();
+                if (airplane != null)
+                {
+                    Airplane oldPlane = NewFlightView.Instance.Plane;
+                    if (oldPlane != null)
+                    {
+                        if (airplane.TotalCapacity < oldPlane.TotalCapacity)
+                            ConsoleUtils.Warn($"Let op: Het nieuwe vliegtuig ({airplane}) heeft een kleinere capaciteit dan ({oldPlane}). Sommige stoelen zullen moeten worden herboekt.");
+
+                    }
+                    NewFlightView.Instance.Plane = airplane;
+                }
+                NewFlight();
+                break;
+            case 3: // Departure time
+                DateTime? departureTime = GetDateTime();
+                if (departureTime != null)
+                {
+                    NewFlightView.Instance.depTime = departureTime.Value;
+                }
+                NewFlight();
+                break;
+            case 4: // Arrival time
+                DateTime? arrivalTime = GetDateTime();
+                if (arrivalTime != null)
+                {
+                    // Check if arrival time is after departure time. You can't arrive before you depart.
+                    if (arrivalTime < NewFlightView.Instance.depTime)
+                    {
+                        ConsoleUtils.Error("De aankomsttijd kan niet voor de vertrektijd liggen.");
+                    }
+                    else
+                    {
+                        NewFlightView.Instance.ArrTime = arrivalTime.Value;
+                    }
+                }
+                NewFlight();
+                break;
+            case 6: //Save
+                if (NewFlightView.Instance.CheckValid())
+                {
+                    try
+                    {
+                        int id = FlightManager.GetNewestId();
+                        FlightManager.NewFlight(new Flight(id, NewFlightView.Instance.Departure, NewFlightView.Instance.Arrival, NewFlightView.Instance.depTime, NewFlightView.Instance.ArrTime, NewFlightView.Instance.Plane));
+                        string departcode = NewFlightView.Instance.Departure.Code;
+                        string destinationcode = NewFlightView.Instance.Arrival.Code;
+                        ConsoleUtils.Success($"Vlucht #{id} ({departcode} -> {destinationcode}) succesvol opgeslagen.");
+                        FlightEditorView.Instance.ClearViewBag();
+                        MainMenuController.Instance.ShowMainMenu();
+                    }
+                    catch (Exception e)
+                    {
+                        ConsoleUtils.Error(e.Message);
+                        NewFlightView.Instance.ClearViewBag();
+                        MainMenuController.Instance.ShowMainMenu();
+                        break;
+                    }
+
+                }
+                else
+                {
+                    NewFlight();
+                }
+
+                break;
+            case 8: // Go back
+                MainMenuController.Instance.ShowMainMenu();
+                break;
+        }
+    }
+
 
     /// <summary>
     /// Displays the menu for booking a flight and handles the user input. This method populates the viewbag with the flight.
