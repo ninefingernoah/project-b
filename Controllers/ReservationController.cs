@@ -55,7 +55,7 @@ public sealed class ReservationController
 
             // get passengers
             List<Passenger>? passengers = new();
-            while(passengers != null && passengers.Count < 1)
+            while(passengers != null && passengers.Count < 1 && passengers.Count <= 10)
             {
                 passengers = GetPassengerAmountInfo();
                 // This can lead to weird situations, so I'll leave it out for now.
@@ -207,7 +207,7 @@ public sealed class ReservationController
         if (amount == null) return null;
         if (amount == 0)
         {
-            return new List<Passenger>();
+            return new List<Passenger>(); // wat gebeurt er precies al iemand 0 invoert??
         }
         List<Passenger> passengers = new List<Passenger>();
         // Why do we perform this check? This was checked before?
@@ -222,6 +222,11 @@ public sealed class ReservationController
                 }
                 passengers.Add(newPassenger);
             }
+        }
+        //TODO: test this 
+        else {
+            ConsoleUtils.Error("U kunt maximaal 10 reizigers tegelijk boeken.");
+            return GetPassengerAmountInfo();
         }
 
         return passengers;

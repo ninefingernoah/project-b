@@ -30,7 +30,7 @@ public class SeatController {
         SeatSelectionView.Instance.SelectedSeats.AddRange(reservation.OutwardSeats);
 
         // display view
-        SeatSelectionView.Instance.Display(reservation.OutwardFlight, reservation.Passengers.Count, reservation.Price);
+        SeatSelectionView.Instance.Display(reservation.OutwardFlight, reservation.Passengers, reservation.Price);
 
         // update price
         reservation.Price = SeatSelectionView.Instance.Price;
@@ -48,7 +48,7 @@ public class SeatController {
             if (reservation.InwardSeats != null && reservation.InwardSeats.Count > 0) {
                 SeatSelectionView.Instance.SelectedSeats.AddRange(reservation.InwardSeats);
             }
-            SeatSelectionView.Instance.Display(reservation.InwardFlight, reservation.Passengers.Count, reservation.Price);
+            SeatSelectionView.Instance.Display(reservation.InwardFlight, reservation.Passengers, reservation.Price);
             reservation.Price = SeatSelectionView.Instance.Price;
             if (SeatSelectionView.Instance.SelectedSeats.Count > 0) {
                 // reservation.Price += AmountOfSeatsChanged(reservation.InwardSeats, SeatSelectionView.Instance.SelectedSeats) * costPerSeat;
