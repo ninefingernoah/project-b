@@ -121,7 +121,7 @@ public class PassengerView
                         views[3] = docnummer;
                     break;
                 case 4:
-                    date = new DateTimeInputMenu("Vul uw geboorte datum in:").Run();
+                    date = new DateTimeInputMenu("Vul uw geboorte datum in (dd/mm/jjjj):").Run();
                     if (date > DateTime.Now)
                     {
                         ConsoleUtils.Error("Geboorte datum is later dan nu.");
