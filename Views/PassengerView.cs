@@ -120,7 +120,7 @@ public class PassengerView
                         views[3] = docnummer;
                     break;
                 case 4:
-                    date = new DateTimeInputMenu("Vul uw geboorte datum in:").Run();
+                    date = new DateTimeInputMenu("Vul uw geboorte datum in (dd/mm/jjjj):").Run();
                     if(date != null)
                         views[4] = ((DateTime)date).ToString("dd/MM/yyyy"); // Forces the datetime to be displayed in the correct format.
                     break;
