@@ -85,6 +85,15 @@ public static class AirportManager
         }       
     }
 
+    public static void AddFacilitiesToAirport(Airport newAirport, List<string> facilities)
+    {
+        int airportId = newAirport.Id;
+        foreach(string facility in facilities)
+        {
+            DatabaseManager.QueryNonResult($"INSERT INTO airport_facilities (airport_id, facility) VALUES ({airportId}, '{facility}')");
+        }
+    }
+
     /// <summary>
     /// Gets a specific airport from the database.
     /// </summary>
