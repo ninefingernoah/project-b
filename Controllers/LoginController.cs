@@ -39,7 +39,7 @@ public sealed class LoginController
                 Login(LoginView.Instance.ViewBag["email"], LoginView.Instance.ViewBag["password"]);
                 break;
             case 4:
-                LoginView.Instance.ResetViewbag();
+                LoginView.Instance.ClearViewBag();
                 MainMenuController.Instance.ShowMainMenu();
                 break;
         }

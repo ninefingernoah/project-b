@@ -45,7 +45,7 @@ public class AirportSeatAndPricesView : IView
             $"   Blue: {ViewBag["Boeing787Blue"]}",
             $"   Orange(Business Class): {ViewBag["Boeing787Orange"]}",
             "-", //Divider
-            "terug"
+            "Terug"
         };
 
         string[] options = optionsList.ToArray();

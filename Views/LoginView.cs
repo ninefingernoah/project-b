@@ -31,13 +31,13 @@ public class LoginView : IView {
     /// Displays the login menu.
     /// </summary>
     public void Display() {
-        ResetViewbag();
+        PopulateViewBag();
         List<string> optionsList = new List<string>() {
             $"Email: {ViewBag["email"]}",
             $"Password: {ViewBag["displaypassword"]}",
             "-",
             "Login",
-            "Ga terug"
+            "Terug"
         };
         string[] options = optionsList.ToArray();
         Menu loginMenu = new Menu("Inloggen", options);
@@ -48,14 +48,18 @@ public class LoginView : IView {
     /// <summary>
     /// Resets the viewbag to its default values.
     /// </summary>
-    public void ResetViewbag()
+    public void PopulateViewBag()
     {
-        ViewBag.Clear();
         if(!ViewBag.ContainsKey("email"))
             ViewBag["email"] = "<vul in>";
         if(!ViewBag.ContainsKey("password"))
             ViewBag["password"] = "";
         if(!ViewBag.ContainsKey("displaypassword"))
             ViewBag["displaypassword"] = "<vul in>";
+    }
+
+    public void ClearViewBag()
+    {
+        ViewBag.Clear();
     }
 }

@@ -327,7 +327,7 @@ public sealed class ReservationController
         ReservationOverviewView.Instance.ViewBag["reservation"] = reservation;
         ReservationOverviewView.Instance.Display();
         int choice = int.Parse((string)ReservationOverviewView.Instance.ViewBag["MainMenuSelection"]);
-        if (choice == 0 || (choice > 1 && choice <= 4))
+        if (choice == 0 || (choice > 1 && choice <= 3))
         {
             ShowReservationToReservationOwner(reservation);
             return;
@@ -337,7 +337,7 @@ public sealed class ReservationController
             case 1:
                 StringInputMenu emailMenu = new StringInputMenu("Vul uw emailadres in: ");
                 string email = emailMenu.Run()!;
-                if (email.ToLower() == "terug")
+                if (email == null || email.ToLower() == "terug")
                 {
                     ShowReservationToReservationOwner(reservation);
                     return;

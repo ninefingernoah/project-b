@@ -87,6 +87,9 @@ public class AirportController
                 Airport NewAirport = new Airport(0, AirportView.Instance.ViewBag["AirportName"], AirportView.Instance.ViewBag["AirportCity"], AirportView.Instance.ViewBag["AirportCountry"], AirportView.Instance.ViewBag["AirportCode"]);
                 JSONManager.AddAirportToJson(NewAirport);
                 AirportManager.AddAirport(NewAirport);
+                AirportManager.AddFacilitiesToAirport(NewAirport, AirportView.Instance.facilities);
+                ConsoleUtils.Success($"Het vliegveld ({NewAirport}) is succesvol aangemaakt.", showAirportCreationMenu);
+                MainMenuController.Instance.ShowMainMenu();
                 break;
             case 8: // Cancel (Cancels the creation of the airport.)
                 AirportView.Instance.ClearViewBag();

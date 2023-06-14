@@ -89,6 +89,7 @@ public sealed class MainMenuController {
             switch (selection)
             {
                 case 0: // Add flight
+                    FlightController.Instance.NewFlight();
                     break;
                 case 1: // Change flight
                     FlightListController.Instance.ShowFlightSearchMenu();
@@ -133,7 +134,7 @@ public sealed class MainMenuController {
                 case 2:
                     AirportController.Instance.ShowAirportList();
                     break;
-                case 3:
+                case 4:
                     // Log out
                     UserManager.LogOut();
                     ConsoleUtils.Success("U bent uitgelogd.");

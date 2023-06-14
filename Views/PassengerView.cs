@@ -53,14 +53,15 @@ public class PassengerView
             $"Land: {views[8]}",
             "-",
             "Sla op",
-            "Ga terug"
+            "Terug"
         };
         Menu passengerMenu;
         string[] options = optionsList.ToArray();
         if (ViewBag.ContainsKey("MainMenuSelection"))
         {
             passengerMenu = new Menu("Nieuwe reiziger", options, int.Parse((string)ViewBag["MainMenuSelection"]));
-        } else
+        }
+        else
         {
             passengerMenu = new Menu("Nieuwe reiziger", options);
         }
@@ -81,7 +82,7 @@ public class PassengerView
         string? docnummer = "";
         DateTime? date = DateTime.MinValue;
         string? street = "";
-        int? huisnummer = -1;
+        string? huisnummer = "";
         string? city = "";
         string? country = "";
 
@@ -97,17 +98,17 @@ public class PassengerView
             {
                 case 0:
                     voornaam = new StringInputMenu("Vul uw voornaam in:").Run();
-                    if(voornaam != null)
+                    if (voornaam != null)
                         views[0] = voornaam;
                     break;
                 case 1:
                     achternaam = new StringInputMenu("Vul uw achternaam in:").Run();
-                    if(achternaam != null)
+                    if (achternaam != null)
                         views[1] = achternaam;
                     break;
                 case 2:
                     email = new StringInputMenu("Vul uw email in:").Run();
-                    if(email == null || !StringUtils.CheckValidEmail(email))
+                    if (email == null || !StringUtils.CheckValidEmail(email))
                     {
                         ConsoleUtils.Error("Dit is geen geldig email adres.");
                         break;
@@ -116,12 +117,17 @@ public class PassengerView
                     break;
                 case 3:
                     docnummer = new StringInputMenu("Vul uw Document nummer in:").Run();
-                    if(docnummer != null)
+                    if (docnummer != null)
                         views[3] = docnummer;
                     break;
                 case 4:
                     date = new DateTimeInputMenu("Vul uw geboorte datum in:").Run();
-                    if(date != null)
+                    if (date > DateTime.Now)
+                    {
+                        ConsoleUtils.Error("Geboorte datum is later dan nu.");
+                        break;
+                    }
+                    if (date != null)
                         views[4] = ((DateTime)date).ToString("dd/MM/yyyy"); // Forces the datetime to be displayed in the correct format.
                     break;
                 case 5:
@@ -130,9 +136,9 @@ public class PassengerView
                         views[5] = street;
                     break;
                 case 6:
-                    huisnummer = new IntInputMenu("Vul uw huisnummer in:").Run();
-                    if (huisnummer != null && huisnummer > 0)
-                        views[6] = huisnummer.ToString()!;
+                    huisnummer = new StringInputMenu("Vul uw huisnummer in:").Run();
+                    if (huisnummer != null)
+                        views[6] = huisnummer;
                     break;
                 case 7:
                     city = new StringInputMenu("Vul uw plaats in:").Run();
