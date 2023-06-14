@@ -1304,19 +1304,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\Rens\\.nuget\\packages\\": {}
+    "C:\\Users\\stein\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "c:\\Users\\Rens\\Documents\\School\\2022-2023\\Projecten\\project-b-air\\project-b.csproj",
+      "projectUniqueName": "C:\\Users\\stein\\Desktop\\GitHub\\project-b\\project-b.csproj",
       "projectName": "project-b",
-      "projectPath": "c:\\Users\\Rens\\Documents\\School\\2022-2023\\Projecten\\project-b-air\\project-b.csproj",
-      "packagesPath": "C:\\Users\\Rens\\.nuget\\packages\\",
-      "outputPath": "c:\\Users\\Rens\\Documents\\School\\2022-2023\\Projecten\\project-b-air\\obj\\",
+      "projectPath": "C:\\Users\\stein\\Desktop\\GitHub\\project-b\\project-b.csproj",
+      "packagesPath": "C:\\Users\\stein\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\stein\\Desktop\\GitHub\\project-b\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\Rens\\AppData\\Roaming\\NuGet\\NuGet.Config"
+        "C:\\Users\\stein\\AppData\\Roaming\\NuGet\\NuGet.Config"
       ],
       "originalTargetFrameworks": [
         "net6.0"
@@ -1369,16 +1369,8 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.102\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.407\\RuntimeIdentifierGraph.json"
       }
     }
-  },
-  "logs": [
-    {
-      "code": "Undefined",
-      "level": "Warning",
-      "warningLevel": 1,
-      "message": "Problem reading the cache file c:\\Users\\Rens\\Documents\\School\\2022-2023\\Projecten\\project-b-air\\obj\\project.nuget.cache : Invalid property identifier character: <. Path 'version', line 3, position 0."
-    }
-  ]
+  }
 }

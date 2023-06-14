@@ -241,14 +241,20 @@ public class AirportController
     /// <param name="ViewBagName">The name of the ViewBag to store the input in.</param>
     private void ShowPlaneClassInputMenu(string color, string airplane, string ViewBagName)
     {
-        StringInputMenu menu = new StringInputMenu($"Vul de prijs in voor de {color} klasse in de {airplane}:");
+        StringInputMenu menu = new StringInputMenu($"Vul de prijs in voor de {color} klasse in de {airplane}(let op dat de prijs wel een positief getal is):");
         string? price = menu.Run();
         if (price == null)
         {
             showFlightsAndPricesMenu();
             return;
         }
+        if (!int.TryParse(price, out int parsedPrice) || parsedPrice <= 0)
+        {
+            ShowPlaneClassInputMenu(color, airplane, ViewBagName);
+            return;
+        }
 
+        // If the price is a valid positive non-zero integer, assign it to the specified ViewBagName
         AirportSeatAndPricesView.Instance.ViewBag[ViewBagName] = price!;
         showFlightsAndPricesMenu();
     }
