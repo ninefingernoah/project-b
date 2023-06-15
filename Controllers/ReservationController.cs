@@ -106,6 +106,45 @@ public sealed class ReservationController
                 int kostenPerStoel = 4;
                 SeatController.Instance.ShowSeatSelection(res, kostenPerStoel);
             }
+            else
+            {
+                Dictionary<string, double> resPriceDict = SeatManager.GetSeatPrices(res.OutwardFlight);
+                int LowestPriceClass = 30000000;
+                int LowestPriceClass2 = 30000000;
+                bool returnFlight = false;
+                foreach (KeyValuePair<string, double> entry in resPriceDict)
+                {
+                    if (entry.Value < LowestPriceClass)
+                    {
+                        LowestPriceClass = (int)entry.Value;
+                    }
+                }
+                if (res.InwardFlight != null)
+                {
+                    returnFlight = true;
+                    Dictionary<string, double> resPriceDict2 = SeatManager.GetSeatPrices(res.InwardFlight);
+                    foreach (KeyValuePair<string, double> entry in resPriceDict2)
+                    {
+                        if (entry.Value < LowestPriceClass2)
+                        {
+                            LowestPriceClass2 = (int)entry.Value;
+                        }
+                    }
+                }
+                int pricePerPassenger = 0;
+                if (returnFlight)
+                {
+                    pricePerPassenger = LowestPriceClass + LowestPriceClass2;
+                }
+                else
+                {
+                    pricePerPassenger = LowestPriceClass;
+                }
+
+                res.Price = pricePerPassenger * passengers.Count;
+
+
+            }
 
             if (ReservationManager.MakeReservation(res))
             {
