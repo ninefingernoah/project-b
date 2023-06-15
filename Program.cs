@@ -8,7 +8,6 @@
     public static void Main(string[] args)
     {
         DatabaseManager.CreateDatabase();
-        // PopulateTestData();
         var mainMenuController = MainMenuController.Instance;
         mainMenuController.ShowMainMenu();
         // FlightController.Instance.ShowFlightEditor(FlightManager.GetFlight(1));
