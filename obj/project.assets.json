@@ -1304,24 +1304,26 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\stein\\.nuget\\packages\\": {}
+    "C:\\Users\\noahm\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\stein\\OneDrive\\Documenten\\GitHub\\Project B 2023\\project-b\\project-b.csproj",
+      "projectUniqueName": "C:\\Users\\noahm\\Documents\\school\\semester 2\\Project B v2\\project-b\\project-b.csproj",
       "projectName": "project-b",
-      "projectPath": "C:\\Users\\stein\\OneDrive\\Documenten\\GitHub\\Project B 2023\\project-b\\project-b.csproj",
-      "packagesPath": "C:\\Users\\stein\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\stein\\OneDrive\\Documenten\\GitHub\\Project B 2023\\project-b\\obj\\",
+      "projectPath": "C:\\Users\\noahm\\Documents\\school\\semester 2\\Project B v2\\project-b\\project-b.csproj",
+      "packagesPath": "C:\\Users\\noahm\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\noahm\\Documents\\school\\semester 2\\Project B v2\\project-b\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\stein\\AppData\\Roaming\\NuGet\\NuGet.Config"
+        "C:\\Users\\noahm\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
         "net6.0"
       ],
       "sources": {
+        "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
@@ -1372,5 +1374,13 @@
         "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.405\\RuntimeIdentifierGraph.json"
       }
     }
-  }
+  },
+  "logs": [
+    {
+      "code": "Undefined",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "Problem reading the cache file C:\\Users\\noahm\\Documents\\school\\semester 2\\Project B v2\\project-b\\obj\\project.nuget.cache : Invalid property identifier character: <. Path 'version', line 3, position 0."
+    }
+  ]
 }

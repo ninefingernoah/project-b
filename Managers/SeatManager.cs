@@ -7,26 +7,6 @@ using System.Data;
 /// Manages all the seat related logic
 /// </summary>
 public static class SeatManager {
-    // This might be useful for the future
-    // public static bool AddSeat(Seat seat) {
-    //     // Add a seat to the database
-    //     return true;
-    // }
-
-    // public static bool RemoveSeat(Seat seat) {
-    //     // Remove a seat from the database
-    //     return true;
-    // }
-
-    // public static bool UpdateSeat(Seat seat) {
-    //     // Update a seat in the database
-    //     return true;
-    // }
-
-    // public static Seat GetSeat(int id) {
-    //     // Get a seat from the database
-    //     return null;
-    // }
 
     /// <summary>
     /// Gathers the seatprices for a flight.
