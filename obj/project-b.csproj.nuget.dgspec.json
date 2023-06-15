@@ -1,11 +1,7 @@
 {
   "format": 1,
   "restore": {
-<<<<<<< HEAD
-    "C:\\Users\\noahm\\Documents\\school\\semester 2\\Project B v2\\project-b\\project-b.csproj": {}
-=======
     "C:\\Users\\stein\\OneDrive\\Documenten\\GitHub\\Project B 2023\\project-b\\project-b.csproj": {}
->>>>>>> b58c54f2c2e65eaf10cf30cf9f7f3147b37157a6
   },
   "projects": {
     "C:\\Users\\stein\\OneDrive\\Documenten\\GitHub\\Project B 2023\\project-b\\project-b.csproj": {
@@ -18,18 +14,12 @@
         "outputPath": "C:\\Users\\stein\\OneDrive\\Documenten\\GitHub\\Project B 2023\\project-b\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-<<<<<<< HEAD
-          "C:\\Users\\noahm\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
-=======
           "C:\\Users\\stein\\AppData\\Roaming\\NuGet\\NuGet.Config"
->>>>>>> b58c54f2c2e65eaf10cf30cf9f7f3147b37157a6
         ],
         "originalTargetFrameworks": [
           "net6.0"
         ],
         "sources": {
-          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
