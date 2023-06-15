@@ -61,11 +61,15 @@ public class FlightListController
     /// </summary>
     /// <param name="departure">The departure airport</param>
     /// <param name="arrival">The arrival airport</param>
-    public void ShowFlights(Airport departure, Airport arrival)
+    public void ShowFlights(Airport departure, Airport arrival, DateTime? departureAfter = null)
     {
         // clear the viewbag and put departure and arrival id in it
+        if (departureAfter == null)
+        {
+            departureAfter = DateTime.Now;
+        }
         FlightListView flightListView = FlightListView.Instance;
-        List<Flight> flights = FlightManager.GetFlights(departure, arrival);
+        List<Flight> flights = FlightManager.GetFlights(departure, arrival, departureAfter);
         flightListView.Display(flights);
         try
         {

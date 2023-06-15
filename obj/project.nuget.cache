@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "jW64Uya5ayZtyz1qL+DSVbraclwQ/O8ivHx6gq2b6JZ2VHxtlSdCtURw4FA3rqXiRRF2/3Lh2MG3zBcwcchjhQ==",
+  "dgSpecHash": "IY6dYTGXTCdzJ+lla1bpEaFiabExhkPRpkC/42kXVmup/1vzEuFcOT6paTfmSP5lVjlEHC7edaTbGJ1RvZ8GcA==",
   "success": true,
-  "projectFilePath": "C:\\Users\\stein\\Desktop\\GitHub\\project-b\\project-b.csproj",
+  "projectFilePath": "c:\\Users\\stein\\OneDrive\\Documenten\\GitHub\\Project B 2023\\project-b\\project-b.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\stein\\.nuget\\packages\\bcrypt.net-next\\4.0.3\\bcrypt.net-next.4.0.3.nupkg.sha512",
     "C:\\Users\\stein\\.nuget\\packages\\entityframework\\6.4.4\\entityframework.6.4.4.nupkg.sha512",
@@ -30,5 +30,12 @@
     "C:\\Users\\stein\\.nuget\\packages\\system.security.principal.windows\\4.7.0\\system.security.principal.windows.4.7.0.nupkg.sha512",
     "C:\\Users\\stein\\.nuget\\packages\\system.windows.extensions\\4.7.0\\system.windows.extensions.4.7.0.nupkg.sha512"
   ],
-  "logs": []
+  "logs": [
+    {
+      "code": "Undefined",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "Problem reading the cache file c:\\Users\\stein\\OneDrive\\Documenten\\GitHub\\Project B 2023\\project-b\\obj\\project.nuget.cache : Invalid property identifier character: <. Path 'version', line 3, position 0."
+    }
+  ]
 }

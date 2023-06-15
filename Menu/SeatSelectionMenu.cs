@@ -11,7 +11,7 @@ public class SeatSelectionMenu {
     /// <summary>The flight that the user is selecting seats for</summary>
     private Flight _flight;
     /// <summary>The amount of passengers that the user is selecting seats for</summary>
-    private int _passengerAmount;
+    private List<Passenger> _passengers;
     /// <summary>The seats that the user has selected</summary>
     public List<Seat> SelectedSeats = new List<Seat>();
     /// <summary>The cursor position</summary>
@@ -34,9 +34,9 @@ public class SeatSelectionMenu {
     /// <param name="flight">The flight that the user is selecting seats for.</param>
     /// <param name="passengerAmount">The amount of passengers that the user is selecting seats for.</param>
     /// <param name="currentPrice">The current price.</param>
-    public SeatSelectionMenu(Flight flight, int passengerAmount, double currentPrice) {
+    public SeatSelectionMenu(Flight flight, List<Passenger> passengers, double currentPrice) {
         _flight = flight;
-        _passengerAmount = passengerAmount;
+        _passengers = passengers;
         CurrentPrice = currentPrice;
     }
 
@@ -80,7 +80,7 @@ public class SeatSelectionMenu {
                     MoveCursorDown(allSeats);
                     break;
                 case ConsoleKey.Enter:
-                    if (SelectedSeats.Count >= _passengerAmount && !SelectedSeats.Contains(Cursor)) {
+                    if (SelectedSeats.Count >= _passengers.Count && !SelectedSeats.Contains(Cursor)) {
                         break;
                     }
                     ToggleSeatSelection(Cursor);
@@ -140,9 +140,13 @@ public class SeatSelectionMenu {
             Console.WriteLine(); // Move to the next row
         }
         // print the cursor position
-        Console.WriteLine($"{Cursor.Number}");
+        Console.WriteLine($"{Cursor.Number}: {Cursor.Price} euro");
+        // print passenger name
+        if (SelectedSeats.Count < _passengers.Count) {
+            Console.WriteLine("\nPassagier: " + _passengers[SelectedSeats.Count].FirstName + " " + _passengers[SelectedSeats.Count].LastName);
+        }
         // print the selected seats
-        Console.WriteLine($"\n{SelectedSeats.Count}/{_passengerAmount} stoelen gekozen");
+        Console.WriteLine($"\n{SelectedSeats.Count}/{_passengers.Count} stoelen gekozen");
         Console.WriteLine("\nGeselecteerde stoelen:");
         foreach (var seat in SelectedSeats)
         {

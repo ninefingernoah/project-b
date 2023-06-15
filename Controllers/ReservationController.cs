@@ -55,12 +55,17 @@ public sealed class ReservationController
 
             // get passengers
             List<Passenger>? passengers = new();
-            while(passengers != null && passengers.Count < 1)
+            while(passengers != null && passengers.Count < 1 || passengers.Count > 10)
             {
                 passengers = GetPassengerAmountInfo();
-                // This can lead to weird situations, so I'll leave it out for now.
-                if (passengers != null && passengers.Count < 1)
-                    ConsoleUtils.Error("Helaas is die hoeveelheid passagiers ongeldig. Vul alstublieft een geldige hoeveelheid in.");
+                if (passengers.Count > 10)
+                {
+                    ConsoleUtils.Error("U kunt maximaal 10 passagiers per reservering toevoegen.");
+                }
+                else if (passengers.Count < 1)
+                {
+                    ConsoleUtils.Error("U moet minimaal 1 passagier toevoegen.");
+                }
             }
             
             if (passengers == null)
@@ -101,6 +106,45 @@ public sealed class ReservationController
                 int kostenPerStoel = 4;
                 SeatController.Instance.ShowSeatSelection(res, kostenPerStoel);
             }
+            else
+            {
+                Dictionary<string, double> resPriceDict = SeatManager.GetSeatPrices(res.OutwardFlight);
+                int LowestPriceClass = 30000000;
+                int LowestPriceClass2 = 30000000;
+                bool returnFlight = false;
+                foreach (KeyValuePair<string, double> entry in resPriceDict)
+                {
+                    if (entry.Value < LowestPriceClass)
+                    {
+                        LowestPriceClass = (int)entry.Value;
+                    }
+                }
+                if (res.InwardFlight != null)
+                {
+                    returnFlight = true;
+                    Dictionary<string, double> resPriceDict2 = SeatManager.GetSeatPrices(res.InwardFlight);
+                    foreach (KeyValuePair<string, double> entry in resPriceDict2)
+                    {
+                        if (entry.Value < LowestPriceClass2)
+                        {
+                            LowestPriceClass2 = (int)entry.Value;
+                        }
+                    }
+                }
+                int pricePerPassenger = 0;
+                if (returnFlight)
+                {
+                    pricePerPassenger = LowestPriceClass + LowestPriceClass2;
+                }
+                else
+                {
+                    pricePerPassenger = LowestPriceClass;
+                }
+
+                res.Price = pricePerPassenger * passengers.Count;
+
+
+            }
 
             if (ReservationManager.MakeReservation(res))
             {
@@ -114,7 +158,7 @@ public sealed class ReservationController
                     if (ConsoleUtils.Confirm("Wilt u de huidige reservering bewerken? (Zo niet keert u terug naar het hoofdmenu)"))
                     {
                         correct = true;
-                        ShowReservationToReservationOwner(res); // TODO: add seat selection to editor //TODO: maybe also add changing the flights if its more than 30 days away uwu
+                        ShowReservationToReservationOwner(res);
                     }
                     else
                     {
@@ -125,7 +169,7 @@ public sealed class ReservationController
                 }
 
             }
-        } while (!correct); //TODO: remove loop
+        } while (!correct);
         MainMenuController.Instance.ShowMainMenu();
     }
 
@@ -155,7 +199,7 @@ public sealed class ReservationController
             }
             Airport retarr = outwardflight.Departure;
             Airport retdep = outwardflight.Destination;
-            FlightListController.Instance.ShowFlights(retdep, retarr);
+            FlightListController.Instance.ShowFlights(retdep, retarr, outwardflight.ArrivalTime);
             Flight? returnflight = FlightController.Instance.GetChosenFlight();
             List<Flight> flights = new List<Flight>();
             flights.Add(outwardflight);
@@ -204,26 +248,21 @@ public sealed class ReservationController
     {
         IntInputMenu menu = new IntInputMenu("Met hoeveel reizigers bent u?");
         int? amount = menu.Run();
-        if (amount == null) return null;
-        if (amount == 0)
+        if (amount == null) return new List<Passenger>();
+        if (amount <= 0 || amount > 10)
         {
             return new List<Passenger>();
         }
         List<Passenger> passengers = new List<Passenger>();
-        // Why do we perform this check? This was checked before?
-        if (amount != null && amount > 0)
+        for (int i = 0; i < amount; i++)
         {
-            for (int i = 0; i < amount; i++)
+            Passenger? newPassenger = PassengerController.Instance.NewPassenger();
+            if (newPassenger == null)
             {
-                Passenger? newPassenger = PassengerController.Instance.NewPassenger();
-                if (newPassenger == null)
-                {
-                    return new List<Passenger>();
-                }
-                passengers.Add(newPassenger);
+                return new List<Passenger>();
             }
+            passengers.Add(newPassenger);
         }
-
         return passengers;
     }
 

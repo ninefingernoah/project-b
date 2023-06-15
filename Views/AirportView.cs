@@ -6,6 +6,7 @@ public class AirportView : IView
     private static readonly AirportView instance = new AirportView();
     
     public Dictionary<string, string> ViewBag = new Dictionary<string, string>();
+    /// <summary> The facilities that the airport has. </summary>
     public List<string> facilities = new List<string>();
 
     public static AirportView Instance

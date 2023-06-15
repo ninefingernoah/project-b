@@ -42,9 +42,10 @@ public class SeatSelectionView {
     /// <param name="flight">The flight.</param>
     /// <param name="passengerAmount">The passenger amount.</param>
     /// <param name="startPrice">The start price.</param>
-    public void Display(Flight flight, int passengerAmount, double startPrice) {
+    public void Display(Flight flight, List<Passenger> passengers, double startPrice) {
         // show seat grid
-        SeatSelectionMenu menu = new SeatSelectionMenu(flight, passengerAmount, startPrice);
+        SeatSelectionMenu menu = new SeatSelectionMenu(flight, passengers, startPrice);
+        menu.SelectedSeats = new List<Seat>(SelectedSeats);
         menu.Run();
         SelectedSeats = new List<Seat>(menu.SelectedSeats);
         // if (menu.SelectedSeats.Count > 0) {
