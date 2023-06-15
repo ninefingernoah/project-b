@@ -1,15 +1,5 @@
-/// <summary>
-/// View for displaying a list of flights. Singleton.
-/// </summary>
-public class FlightListView {
-    /// <summary>
-    /// The viewbag. Holds temporary data for the view.
-    /// </summary>
+public class FlightListView : IView {
     public IDictionary<string, string> ViewBag = new Dictionary<string, string>();
-
-    /// <summary>
-    /// Singleton instance
-    /// </summary>
     private static readonly FlightListView instance = new FlightListView();
 
     static FlightListView() {
@@ -37,4 +27,7 @@ public class FlightListView {
         int selection = menu.Run();
         ViewBag["FlightListSelection"] = selection.ToString();
     }
+
+    public void Display()
+    {}
 }

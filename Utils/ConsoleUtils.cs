@@ -1,7 +1,7 @@
 public static class ConsoleUtils
 {
     /// <summary>
-    /// Clears the console and displays the given message. Also calls the given function.
+    /// Clears the console and displays the given message.
     /// </summary>
     /// <param name="message">The message to display.</param>
     /// <param name="func">The function to call after the user presses a key.</param>
@@ -75,12 +75,9 @@ public static class ConsoleUtils
     /// </summary>
     /// <param name="message">The message to display.</param>
     /// <returns>True if the user pressed y, false if the user pressed n.</returns>
-    public static bool Confirm(string message, bool clear = true)
+    public static bool Confirm(string message)
     {
-        if (clear)
-        {
-            Console.Clear();
-        }
+        Console.Clear();
         Console.ForegroundColor = ConsoleColor.Yellow;
         Console.WriteLine(message);
         Console.ResetColor();

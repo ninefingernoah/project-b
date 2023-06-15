@@ -1,7 +1,4 @@
 using System.Text.RegularExpressions;
-/// <summary>
-/// The controller for the register menu.
-/// </summary>
 public sealed class RegisterController
 {
     private static readonly RegisterController instance = new RegisterController();

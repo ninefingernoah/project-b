@@ -1,8 +1,4 @@
 using System.Data;
-
-/// <summary>
-/// Manages all the user related logic
-/// </summary>
 public static class UserManager
 {
     /// <summary>
@@ -39,15 +35,10 @@ public static class UserManager
         return user;
     }
 
-    /// <summary>
-    /// Gets a user from the database by ID.
-    /// </summary>
-    /// <param name="id">The ID of the user to get.</param>
-    /// <returns>Returns the user if found, null if not.</returns>
-    public static User? GetUser(int id)
+    public static User GetUser(int id)
     {
         DataRow dr = DatabaseManager.QueryResult($"SELECT * FROM users WHERE id = {id}").Rows[0];
-        return GetUser(dr);
+        return GetUser(dr)!;
     }
 
     /// <summary>

@@ -24,16 +24,10 @@ public sealed class UserController {
 
     public void ShowReservations()
     {
-        int numberOfReservations = UserManager.GetCurrentUser().GetReservationCount();
-        if(numberOfReservations < 1)
-        {
-            ConsoleUtils.Error("U heeft nog geen reserveringen.");
-            MainMenuController.Instance.ShowMainMenu();
-            return;
-        }
         ReservationsOverviewView.Instance.Display();
         int choice = int.Parse((string)ReservationsOverviewView.Instance.ViewBag["MainMenuSelection"]);
-        if(choice == numberOfReservations + 1)
+        int numberOfReservations = UserManager.GetCurrentUser().GetReservationCount();
+        if(choice == numberOfReservations + 2)
         {
             MainMenuController.Instance.ShowMainMenu();
         } else

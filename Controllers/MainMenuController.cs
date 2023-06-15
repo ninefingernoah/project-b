@@ -54,16 +54,13 @@ public sealed class MainMenuController {
             case 1:
                 LoginController.Instance.ShowLoginMenu();
                 break;
-            case 2: // Book flight
-                ReservationController.Instance.ShowBookingMenu();
+            case 2:
+                FlightListController.Instance.ShowFlightSearchMenu();
                 break;
             case 3: // View booking
                 ReservationController.Instance.AskReservation();
                 break;
-            case 4: // View airport information
-                AirportController.Instance.ShowAirportList();
-                break;
-            case 5: // Exit
+            case 4: // Exit
                 break;
             default:
                 Console.WriteLine("Ongeldige keuze.");
@@ -77,9 +74,6 @@ public sealed class MainMenuController {
         }
     }
 
-    /// <summary>
-    /// Shows the admin main menu and handles the user input.
-    /// </summary>
     private void ShowAdminMainMenu()
     {
         AdminMainMenuView.Instance.Display();
@@ -89,7 +83,6 @@ public sealed class MainMenuController {
             switch (selection)
             {
                 case 0: // Add flight
-                    FlightController.Instance.NewFlight();
                     break;
                 case 1: // Change flight
                     FlightListController.Instance.ShowFlightSearchMenu();
@@ -125,16 +118,10 @@ public sealed class MainMenuController {
                 case 0:
                     UserController.Instance.ShowReservations();
                     break;
-                // case 1:
+                case 1:
                     // View account info
-                    // break;
-                case 1: // Book flight
-                    ReservationController.Instance.ShowBookingMenu();
                     break;
-                case 2:
-                    AirportController.Instance.ShowAirportList();
-                    break;
-                case 4:
+                case 3:
                     // Log out
                     UserManager.LogOut();
                     ConsoleUtils.Success("U bent uitgelogd.");

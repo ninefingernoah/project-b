@@ -1,15 +1,5 @@
-/// <summary>
-/// The view for the flight filter. Singleton.
-/// </summary>
 public class FlightFilterView : IView {
-    /// <summary>
-    /// The viewbag. Holds temporary data for the view.
-    /// </summary>
     public IDictionary<string, string> ViewBag = new Dictionary<string, string>();
-
-    /// <summary>
-    /// Singleton instance
-    /// </summary>
     private static readonly FlightFilterView instance = new FlightFilterView();
 
     static FlightFilterView() {
@@ -47,15 +37,12 @@ public class FlightFilterView : IView {
     }
 
     /// <summary>
-    /// Populates the ViewBag with default values if they don't exist yet. Deprecated.
+    /// Populates the ViewBag with default values if they don't exist yet.
     /// </summary>
     public void PopulateViewBag() {
         // deprecated
     }
 
-    /// <summary>
-    /// Resets the ViewBag to default values. Clears the ViewBag first.
-    /// </summary>
     public void ResetViewBag() {
         ViewBag.Clear();
         ViewBag.Add("FlightFilterSelection", "");
