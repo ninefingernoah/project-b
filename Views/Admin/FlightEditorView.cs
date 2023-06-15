@@ -1,16 +1,19 @@
-public class FlightEditorView : IView {
+public class FlightEditorView : IView
+{
     private static readonly FlightEditorView instance = new FlightEditorView();
     public Dictionary<string, object> ViewBag = new Dictionary<string, object>();
     public Flight? CurrentFlight;
 
-    static FlightEditorView() {
+    static FlightEditorView()
+    {
     }
 
     /// <summary>
     /// Displays the flight editor view.
     /// </summary>
-    public void Display() {
-        if(CurrentFlight == null)
+    public void Display()
+    {
+        if (CurrentFlight == null)
         {
             throw new Exception("Flight is null");
         }
@@ -29,10 +32,11 @@ public class FlightEditorView : IView {
         };
         string[] options = optionsList.ToArray();
         Menu editorMenu;
-        if(ViewBag.ContainsKey("MainMenuSelection"))
+        if (ViewBag.ContainsKey("MainMenuSelection"))
         {
             editorMenu = new Menu("Vlucht bewerken", options, int.Parse((string)ViewBag["MainMenuSelection"]));
-        } else
+        }
+        else
         {
             editorMenu = new Menu("Vlucht bewerken", options);
         }
@@ -43,19 +47,22 @@ public class FlightEditorView : IView {
     /// <summary>
     /// The singleton instance of the main menu controller. Used for accessing the controller. Thread safe.
     /// </summary>
-    public static FlightEditorView Instance {
-        get {
+    public static FlightEditorView Instance
+    {
+        get
+        {
             return instance;
         }
     }
 
     public void PopulateViewBag(Flight flight)
     {
-        if(CurrentFlight == null)
+        if (CurrentFlight == null)
             CurrentFlight = new Flight(flight);
     }
 
-    public void ClearViewBag() {
+    public void ClearViewBag()
+    {
         ViewBag.Clear();
         CurrentFlight = null;
     }

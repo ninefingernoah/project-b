@@ -1,12 +1,21 @@
+/// <summary>
+/// View for displaying a passenger overview. Singleton.
+/// </summary>
 public class PassengerOverviewView : IView
 {
 
+    /// <summary>
+    /// Singleton instance
+    /// </summary>
     private static readonly PassengerOverviewView instance = new PassengerOverviewView();
 
     static PassengerOverviewView()
     {
     }
 
+    /// <summary>
+    /// The getter for the singleton instance
+    /// </summary>
     public static PassengerOverviewView Instance
     {
         get
@@ -15,10 +24,19 @@ public class PassengerOverviewView : IView
         }
     }
 
+    /// <summary>
+    /// The viewbag. Holds temporary data for the view.
+    /// </summary>
     public Dictionary<string, object> ViewBag = new Dictionary<string, object>();
 
+    /// <summary>
+    /// The passenger that is being overviewed.
+    /// </summary>
     public Passenger? ThePassenger;
 
+    /// <summary>
+    /// Displays the view.
+    /// </summary>
     public void Display()
     {
         if (ThePassenger == null)
@@ -31,7 +49,7 @@ public class PassengerOverviewView : IView
             $"Email: {ThePassenger.Email}",
             $"Document nummer: {ThePassenger.DocumentNumber}",
             $"Geboortedatum: {((DateTime) ThePassenger.BirthDate!).ToString("dd-MM-yyyy")}",
-            $"Adres: {ThePassenger.Address.Street} {ThePassenger.Address.StreetNumber}, {ThePassenger.Address.City}, {ThePassenger.Address.Country}",
+            $"Adres: {ThePassenger.Address.Street} {ThePassenger.Address.HouseNumber}, {ThePassenger.Address.City}, {ThePassenger.Address.Country}",
             "-",
             "Terug"
         };
@@ -40,13 +58,20 @@ public class PassengerOverviewView : IView
         ViewBag["MainMenuSelection"] = choice.ToString();
     }
 
+    /// <summary>
+    /// Populates the viewbag with the passenger that is being overviewed.
+    /// </summary>
     public void PopulateViewBag(Passenger passenger)
     {
        ThePassenger = passenger;
     }
 
+    /// <summary>
+    /// Clears the viewbag.
+    /// </summary>
     public void ClearViewBag()
     {
         ViewBag.Clear();
+        ThePassenger = null;
     }
 }
