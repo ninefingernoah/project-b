@@ -7,4 +7,8 @@ build_property.InvariantGlobalization =
 build_property.PlatformNeutralAssembly = 
 build_property._SupportedPlatformList = Linux,macOS,Windows
 build_property.RootNamespace = project_b
+<<<<<<< HEAD
+build_property.ProjectDir = C:\Users\noahm\Documents\school\semester 2\Project B v2\project-b\
+=======
 build_property.ProjectDir = C:\Users\stein\OneDrive\Documenten\GitHub\Project B 2023\project-b\
+>>>>>>> b58c54f2c2e65eaf10cf30cf9f7f3147b37157a6

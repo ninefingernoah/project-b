@@ -11,7 +11,10 @@ public static class PassengerManager
     /// <param name="id">The ID of the passenger to get.</param>
     public static Passenger GetPassenger(int id)
     {
-        DataRow dr = DatabaseManager.QueryResult($"SELECT * FROM passengers WHERE id = {id}").Rows[0];
+        DataRowCollection drc = DatabaseManager.QueryResult($"SELECT * FROM passengers WHERE id = {id}").Rows;
+        if (drc == null || drc.Count == 0)
+            return null;
+        DataRow dr = drc[0];
         Address address = GetAddress((int)(long)dr["address_id"]);
         return new Passenger(
             (int)(long)dr["id"],
@@ -54,7 +57,10 @@ public static class PassengerManager
     /// <param name="id">The ID of the address to get.</param>
     public static Address GetAddress(int id)
     {
-        DataRow dr = DatabaseManager.QueryResult($"SELECT * FROM addresses WHERE id = {id}").Rows[0];
+        DataTable dt = DatabaseManager.QueryResult($"SELECT * FROM addresses WHERE id = {id}");
+        if (dt.Rows.Count == 0)
+            return null;
+        DataRow dr = dt.Rows[0];
         return new Address(
             dr["city"].ToString()!,
             dr["country"].ToString()!,

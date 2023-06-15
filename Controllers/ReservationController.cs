@@ -158,7 +158,7 @@ public sealed class ReservationController
                     if (ConsoleUtils.Confirm("Wilt u de huidige reservering bewerken? (Zo niet keert u terug naar het hoofdmenu)"))
                     {
                         correct = true;
-                        ShowReservationToReservationOwner(res); // TODO: add seat selection to editor //TODO: maybe also add changing the flights if its more than 30 days away uwu
+                        ShowReservationToReservationOwner(res);
                     }
                     else
                     {
@@ -169,7 +169,7 @@ public sealed class ReservationController
                 }
 
             }
-        } while (!correct); //TODO: remove loop
+        } while (!correct);
         MainMenuController.Instance.ShowMainMenu();
     }
 
