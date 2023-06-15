@@ -300,6 +300,8 @@ public class FlightController
                     break;
                 }
                 FlightEditorView.Instance.CurrentFlight.DepartureTime = departureTime.Value;
+                FlightEditorView.Instance.CurrentFlight.ArrivalTime = default(DateTime);
+
                 ShowFlightEditor();
                 break;
             case 4: // Arrival time
@@ -321,6 +323,18 @@ public class FlightController
                 ShowFlightEditor();
                 break;
             case 6: //Save
+                if (FlightEditorView.Instance.CurrentFlight.ArrivalTime < FlightEditorView.Instance.CurrentFlight.DepartureTime)
+                {
+                    ConsoleUtils.Error("De aankomsttijd kan niet voor de vertrektijd liggen.");
+                    ShowFlightEditor();
+                    return;
+                }
+                if(FlightEditorView.Instance.CurrentFlight.ArrivalTime < DateTime.Now || FlightEditorView.Instance.CurrentFlight.DepartureTime < DateTime.Now)
+                {
+                    ConsoleUtils.Error("De vlucht kan niet in het verleden plaatsvinden.");
+                    ShowFlightEditor();
+                    return;
+                }
                 try
                 {
                     FlightManager.UpdateFlight(FlightEditorView.Instance.CurrentFlight);
