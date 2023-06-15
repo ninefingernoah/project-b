@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "c:\\Users\\stein\\OneDrive\\Documenten\\GitHub\\Project B 2023\\project-b\\project-b.csproj": {}
+    "C:\\Users\\stein\\OneDrive\\Documenten\\GitHub\\Project B 2023\\project-b\\project-b.csproj": {}
   },
   "projects": {
-    "c:\\Users\\stein\\OneDrive\\Documenten\\GitHub\\Project B 2023\\project-b\\project-b.csproj": {
+    "C:\\Users\\stein\\OneDrive\\Documenten\\GitHub\\Project B 2023\\project-b\\project-b.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "c:\\Users\\stein\\OneDrive\\Documenten\\GitHub\\Project B 2023\\project-b\\project-b.csproj",
+        "projectUniqueName": "C:\\Users\\stein\\OneDrive\\Documenten\\GitHub\\Project B 2023\\project-b\\project-b.csproj",
         "projectName": "project-b",
-        "projectPath": "c:\\Users\\stein\\OneDrive\\Documenten\\GitHub\\Project B 2023\\project-b\\project-b.csproj",
+        "projectPath": "C:\\Users\\stein\\OneDrive\\Documenten\\GitHub\\Project B 2023\\project-b\\project-b.csproj",
         "packagesPath": "C:\\Users\\stein\\.nuget\\packages\\",
-        "outputPath": "c:\\Users\\stein\\OneDrive\\Documenten\\GitHub\\Project B 2023\\project-b\\obj\\",
+        "outputPath": "C:\\Users\\stein\\OneDrive\\Documenten\\GitHub\\Project B 2023\\project-b\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\stein\\AppData\\Roaming\\NuGet\\NuGet.Config"
