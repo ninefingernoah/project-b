@@ -1,14 +1,8 @@
 {
   "version": 2,
-<<<<<<< HEAD
   "dgSpecHash": "xu8OBGxG8KINpHBu1CouZEnZl4MHdBrHXkqh480OTiiniQ+icMzDRmuWGWoPT3a5UhvHnk7Yf66QvqLc8rQ7XA==",
   "success": true,
   "projectFilePath": "C:\\Users\\noahm\\Documents\\school\\semester 2\\Project B v2\\project-b\\project-b.csproj",
-=======
-  "dgSpecHash": "9I1f3Gg076U41A7e82r6yriYS60yjPLk+9/5CxpWc/ePkaYZX2ryJ7zWM794YljgNJ1AD05/Oo6UYjvY+bygxA==",
-  "success": true,
-  "projectFilePath": "c:\\Users\\Rens\\Documents\\School\\2022-2023\\Projecten\\project-b-air\\project-b.csproj",
->>>>>>> 86c311269d2fc8f4e178d79ba2d3eda03edc1bf4
   "expectedPackageFiles": [
     "C:\\Users\\noahm\\.nuget\\packages\\bcrypt.net-next\\4.0.3\\bcrypt.net-next.4.0.3.nupkg.sha512",
     "C:\\Users\\noahm\\.nuget\\packages\\entityframework\\6.4.4\\entityframework.6.4.4.nupkg.sha512",
@@ -41,7 +35,7 @@
       "code": "Undefined",
       "level": "Warning",
       "warningLevel": 1,
-      "message": "Problem reading the cache file c:\\Users\\Rens\\Documents\\School\\2022-2023\\Projecten\\project-b-air\\obj\\project.nuget.cache : Invalid property identifier character: <. Path 'version', line 3, position 0."
+      "message": "Problem reading the cache file C:\\Users\\noahm\\Documents\\school\\semester 2\\Project B v2\\project-b\\obj\\project.nuget.cache : Invalid property identifier character: <. Path 'version', line 3, position 0."
     }
   ]
 }

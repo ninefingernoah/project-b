@@ -1309,7 +1309,6 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-<<<<<<< HEAD
       "projectUniqueName": "C:\\Users\\noahm\\Documents\\school\\semester 2\\Project B v2\\project-b\\project-b.csproj",
       "projectName": "project-b",
       "projectPath": "C:\\Users\\noahm\\Documents\\school\\semester 2\\Project B v2\\project-b\\project-b.csproj",
@@ -1319,21 +1318,12 @@
       "configFilePaths": [
         "C:\\Users\\noahm\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
-=======
-      "projectUniqueName": "c:\\Users\\Rens\\Documents\\School\\2022-2023\\Projecten\\project-b-air\\project-b.csproj",
-      "projectName": "project-b",
-      "projectPath": "c:\\Users\\Rens\\Documents\\School\\2022-2023\\Projecten\\project-b-air\\project-b.csproj",
-      "packagesPath": "C:\\Users\\Rens\\.nuget\\packages\\",
-      "outputPath": "c:\\Users\\Rens\\Documents\\School\\2022-2023\\Projecten\\project-b-air\\obj\\",
-      "projectStyle": "PackageReference",
-      "configFilePaths": [
-        "C:\\Users\\Rens\\AppData\\Roaming\\NuGet\\NuGet.Config"
->>>>>>> 86c311269d2fc8f4e178d79ba2d3eda03edc1bf4
       ],
       "originalTargetFrameworks": [
         "net6.0"
       ],
       "sources": {
+        "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
@@ -1381,7 +1371,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.102\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.405\\RuntimeIdentifierGraph.json"
       }
     }
   },
@@ -1390,7 +1380,7 @@
       "code": "Undefined",
       "level": "Warning",
       "warningLevel": 1,
-      "message": "Problem reading the cache file c:\\Users\\Rens\\Documents\\School\\2022-2023\\Projecten\\project-b-air\\obj\\project.nuget.cache : Invalid property identifier character: <. Path 'version', line 3, position 0."
+      "message": "Problem reading the cache file C:\\Users\\noahm\\Documents\\school\\semester 2\\Project B v2\\project-b\\obj\\project.nuget.cache : Invalid property identifier character: <. Path 'version', line 3, position 0."
     }
   ]
 }

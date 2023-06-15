@@ -57,6 +57,7 @@ public sealed class ReservationController
             List<Passenger>? passengers = new();
             while(passengers != null && passengers.Count < 1 || passengers.Count > 10)
             {
+                passengers = GetPassengerAmountInfo();
                 if (passengers.Count > 10)
                 {
                     ConsoleUtils.Error("U kunt maximaal 10 passagiers per reservering toevoegen.");
@@ -65,7 +66,6 @@ public sealed class ReservationController
                 {
                     ConsoleUtils.Error("U moet minimaal 1 passagier toevoegen.");
                 }
-                passengers = GetPassengerAmountInfo();
             }
             
             if (passengers == null)
@@ -119,7 +119,7 @@ public sealed class ReservationController
                     if (ConsoleUtils.Confirm("Wilt u de huidige reservering bewerken? (Zo niet keert u terug naar het hoofdmenu)"))
                     {
                         correct = true;
-                        ShowReservationToReservationOwner(res); // TODO: add seat selection to editor //TODO: maybe also add changing the flights if its more than 30 days away uwu
+                        ShowReservationToReservationOwner(res);
                     }
                     else
                     {
@@ -130,7 +130,7 @@ public sealed class ReservationController
                 }
 
             }
-        } while (!correct); //TODO: remove loop
+        } while (!correct);
         MainMenuController.Instance.ShowMainMenu();
     }
 
@@ -209,7 +209,7 @@ public sealed class ReservationController
     {
         IntInputMenu menu = new IntInputMenu("Met hoeveel reizigers bent u?");
         int? amount = menu.Run();
-        if (amount == null) return null;
+        if (amount == null) return new List<Passenger>();
         if (amount <= 0 || amount > 10)
         {
             return new List<Passenger>();
