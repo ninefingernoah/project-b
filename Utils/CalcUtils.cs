@@ -1,5 +1,11 @@
 public static class CalcUtils
 {
+    /// <summary>
+    /// Calculates the amount of characters that are different between two strings.
+    /// </summary>
+    /// <param name="oldString">The old string.</param>
+    /// <param name="newString">The new string.</param>
+    /// <returns>The amount of characters.</returns>
     public static int DeltaString(string oldString, string newString)
     {
         int count = 0;

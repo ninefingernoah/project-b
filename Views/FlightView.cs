@@ -1,5 +1,15 @@
+/// <summary>
+/// The view for the flight menu. Singleton.
+/// </summary>
 public class FlightView {
+    /// <summary>
+    /// The singleton instance.
+    /// </summary>
     private static readonly FlightView instance = new FlightView();
+
+    /// <summary>
+    /// The viewbag. Holds temporary data for the view.
+    /// </summary>
     public IDictionary<string, string> ViewBag = new Dictionary<string, string>();
 
     static FlightView() {
@@ -8,7 +18,7 @@ public class FlightView {
     }
 
     /// <summary>
-    /// The singleton instance of the main menu controller. Used for accessing the controller. Thread safe.
+    /// The singleton instance.
     /// </summary>
     public static FlightView Instance {
         get {
@@ -22,8 +32,8 @@ public class FlightView {
     /// <param name="flight">The flight to display.</param>
     public void Display(Flight flight) {
         string[] options = { "Boek vlucht", "Terug" };
-        if (UserManager.IsLoggedIn() && UserManager.GetCurrentUser().IsAdmin()) {
-            options = new string[] { "Boek vlucht", "Bewerk vlucht [ADMIN]", "Verwijder vlucht [ADMIN]",  "Terug" };
+        if (UserManager.IsLoggedIn() && UserManager.GetCurrentUser != null && UserManager.GetCurrentUser()!.IsAdmin()) {
+            options = new string[] { "Kies vlucht", "Bewerk vlucht", "Verwijder vlucht",  "Terug" };
         }
         Menu menu = new Menu(flight.ToString(), options);
         int selection = menu.Run();

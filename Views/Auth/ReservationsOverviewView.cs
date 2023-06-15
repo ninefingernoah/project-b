@@ -1,6 +1,12 @@
+/// <summary>
+/// View for displaying the reservations a user has. Singleton.
+/// </summary>
 public class ReservationsOverviewView : IView
 {
 
+    /// <summary>
+    /// Singleton instance
+    /// </summary>
     private static readonly ReservationsOverviewView instance = new ReservationsOverviewView();
 
     static ReservationsOverviewView()
@@ -11,6 +17,9 @@ public class ReservationsOverviewView : IView
     {
     }
 
+    /// <summary>
+    /// The getter for the singleton instance
+    /// </summary>
     public static ReservationsOverviewView Instance
     {
         get
@@ -19,8 +28,14 @@ public class ReservationsOverviewView : IView
         }
     }
 
+    /// <summary>
+    /// The viewbag. Holds temporary data for the view.
+    /// </summary>
     public Dictionary<string, object> ViewBag = new Dictionary<string, object>();
 
+    /// <summary>
+    /// Displays the view.
+    /// </summary>
     public void Display()
     {
         User user = UserManager.GetCurrentUser()!;
@@ -46,11 +61,16 @@ public class ReservationsOverviewView : IView
         }
     }
 
+    /// <summary>
+    /// Populates the viewbag with data.
     public void PopulateViewBag()
     {
 
     }
 
+    /// <summary>
+    /// Clears the viewbag.
+    /// </summary>
     public void ClearViewBag()
     {
 

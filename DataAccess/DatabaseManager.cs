@@ -1,12 +1,21 @@
 using System.Data.SQLite;
 using System.Data;
+
+/// <summary>
+/// Manages all the database related logic
+/// </summary>
 public static class DatabaseManager
 {
+    /// <summary>
+    /// The name of the database file
+    /// </summary>
     private const string _dbName = "airline.db";
 
+    /// <summary>
+    /// Creates the tables, if they do not already exist.
+    /// </summary>
     public static void CreateDatabase()
     {
-        // TODO: Implement logic
         QueryNonResult(@"
                 CREATE TABLE IF NOT EXISTS users (
                     id INTEGER NOT NULL PRIMARY KEY,
@@ -82,38 +91,55 @@ public static class DatabaseManager
                 CREATE TABLE IF NOT EXISTS flight_takenseats (
                     flight_id INTEGER NOT NULL,
                     seat_number TEXT NOT NULL,
-                    airplane_id INTEGER NOT NULL,
+                    reservation_number INTEGER NOT NULL,
                     FOREIGN KEY(flight_id) REFERENCES flights(id),
-                    FOREIGN KEY(seat_number, airplane_id) REFERENCES seats(seat_number,airplane_id),
-                    PRIMARY KEY(flight_id, seat_number, airplane_id)
+                    FOREIGN KEY(reservation_number) REFERENCES reservations(number),
+                    PRIMARY KEY(flight_id, seat_number, reservation_number)
                 );
             ");
         QueryNonResult(@"
                 CREATE TABLE IF NOT EXISTS reservations (
                     number TEXT NOT NULL PRIMARY KEY,
-                    flight_id INTEGER NOT NULL,
-                    user_id INTEGER NOT NULL,
-                    email TEXT NOT NULL,
+                    outward_flight_id INTEGER NOT NULL,
+                    inward_flight_id INTEGER,
+                    user_id INTEGER,
+                    email TEXT,
                     price REAL NOT NULL,
                     made_on TEXT NOT NULL,
                     is_paid INTEGER NOT NULL,
-                    FOREIGN KEY(flight_id) REFERENCES flights(id),
+                    FOREIGN KEY(outward_flight_id) REFERENCES flights(id),
+                    FOREIGN KEY(inward_flight_id) REFERENCES flights(id),
                     FOREIGN KEY(user_id) REFERENCES users(id)
                 );
+              ");
+        QueryNonResult(@"
                 CREATE TABLE IF NOT EXISTS reservation_passengers (
                     reservation_number TEXT NOT NULL,
                     passenger_id INTEGER NOT NULL,
+                    outward_seat_number TEXT,
+                    inward_seat_number TEXT,
                     FOREIGN KEY(reservation_number) REFERENCES reservations(number),
                     FOREIGN KEY(passenger_id) REFERENCES passengers(id),
                     PRIMARY KEY(reservation_number, passenger_id)
                 );
+            ");
+        QueryNonResult(@"
+                CREATE TABLE IF NOT EXISTS airport_facilities (
+                    airport_id INTEGER NOT NULL,
+                    facility TEXT NOT NULL,
+                    FOREIGN KEY(airport_id) REFERENCES airports(id)
+                );
+        ");
+        QueryNonResult(@"
                 CREATE TABLE IF NOT EXISTS reservations_seats (
                     reservation_number TEXT NOT NULL,
                     seat_number TEXT NOT NULL,
                     airplane_id INTEGER NOT NULL,
+                    flight_id INTEGER NOT NULL,
+                    FOREIGN KEY(flight_id) REFERENCES flights(id),
                     FOREIGN KEY(reservation_number) REFERENCES reservations(number),
-                    FOREIGN KEY(seat_number, airplane_id) REFERENCES seats(seat_number,airplane_id),
-                    PRIMARY KEY(reservation_number, seat_number, airplane_id)
+                    FOREIGN KEY(airplane_id) REFERENCES airplanes(id),
+                    PRIMARY KEY(reservation_number, seat_number, flight_id)
                 );
             ");
     }
