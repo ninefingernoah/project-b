@@ -57,6 +57,14 @@ public sealed class ReservationController
             List<Passenger>? passengers = new();
             while(passengers != null && passengers.Count < 1 || passengers.Count > 10)
             {
+                if (passengers.Count > 10)
+                {
+                    ConsoleUtils.Error("U kunt maximaal 10 passagiers per reservering toevoegen.");
+                }
+                else if (passengers.Count < 1)
+                {
+                    ConsoleUtils.Error("U moet minimaal 1 passagier toevoegen.");
+                }
                 passengers = GetPassengerAmountInfo();
             }
             
