@@ -8,7 +8,7 @@
     public static void Main(string[] args)
     {
         DatabaseManager.CreateDatabase();
-        // PopulateTestData();
+        PopulateTestData();
         var mainMenuController = MainMenuController.Instance;
         mainMenuController.ShowMainMenu();
         // FlightController.Instance.ShowFlightEditor(FlightManager.GetFlight(1));
@@ -74,6 +74,10 @@
         DatabaseManager.QueryNonResult($@"
                 INSERT INTO flights (airplane_id, departure_id, destination_id, departure_time, arrival_time)
                 VALUES (2, 2, 1, '2025-01-08 11:00', '2025-01-08 12:00:00')
+            ");
+        DatabaseManager.QueryNonResult($@"
+                INSERT INTO flights (airplane_id, departure_id, destination_id, departure_time, arrival_time)
+                VALUES (2, 2, 1, '2024-12-30 11:00', '2025-01-08 12:00:00')
             ");
         // Insert reservations
         DatabaseManager.QueryNonResult($@"
