@@ -37,7 +37,7 @@ public class LoginView : IView {
             $"Password: {ViewBag["displaypassword"]}",
             "-",
             "Login",
-            "Ga terug"
+            "Terug"
         };
         string[] options = optionsList.ToArray();
         Menu loginMenu = new Menu("Inloggen", options);

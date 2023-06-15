@@ -46,7 +46,7 @@ public class ReservationOverviewView : IView {
             "-",
             "Wijzigingen opslaan",
             "Annuleer reservering",
-            "Ga terug"
+            "Terug"
         };
         }
         else {
@@ -60,7 +60,7 @@ public class ReservationOverviewView : IView {
             "-",
             "Wijzigingen opslaan",
             "Annuleer reservering",
-            "Ga terug"
+            "Terug"
         };
         }
         string[] options = optionsList.ToArray();
