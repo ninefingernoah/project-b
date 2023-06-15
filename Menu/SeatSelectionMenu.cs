@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.IO;
 using Newtonsoft.Json;
 
-// TODO: Break this class up into smaller classes
 /// <summary>
 /// The main menu class. Used for displaying the main menu.
 /// </summary>

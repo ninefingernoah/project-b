@@ -1304,28 +1304,20 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\stein\\.nuget\\packages\\": {}
+    "C:\\Users\\noahm\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-<<<<<<< HEAD
       "projectUniqueName": "C:\\Users\\noahm\\Documents\\school\\semester 2\\Project B v2\\project-b\\project-b.csproj",
-=======
-      "projectUniqueName": "C:\\Users\\stein\\OneDrive\\Documenten\\GitHub\\Project B 2023\\project-b\\project-b.csproj",
->>>>>>> b58c54f2c2e65eaf10cf30cf9f7f3147b37157a6
       "projectName": "project-b",
-      "projectPath": "C:\\Users\\stein\\OneDrive\\Documenten\\GitHub\\Project B 2023\\project-b\\project-b.csproj",
-      "packagesPath": "C:\\Users\\stein\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\stein\\OneDrive\\Documenten\\GitHub\\Project B 2023\\project-b\\obj\\",
+      "projectPath": "C:\\Users\\noahm\\Documents\\school\\semester 2\\Project B v2\\project-b\\project-b.csproj",
+      "packagesPath": "C:\\Users\\noahm\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\noahm\\Documents\\school\\semester 2\\Project B v2\\project-b\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-<<<<<<< HEAD
         "C:\\Users\\noahm\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
-=======
-        "C:\\Users\\stein\\AppData\\Roaming\\NuGet\\NuGet.Config"
->>>>>>> b58c54f2c2e65eaf10cf30cf9f7f3147b37157a6
       ],
       "originalTargetFrameworks": [
         "net6.0"
@@ -1382,7 +1374,6 @@
         "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.405\\RuntimeIdentifierGraph.json"
       }
     }
-<<<<<<< HEAD
   },
   "logs": [
     {
@@ -1392,7 +1383,4 @@
       "message": "Problem reading the cache file C:\\Users\\noahm\\Documents\\school\\semester 2\\Project B v2\\project-b\\obj\\project.nuget.cache : Invalid property identifier character: <. Path 'version', line 3, position 0."
     }
   ]
-=======
-  }
->>>>>>> b58c54f2c2e65eaf10cf30cf9f7f3147b37157a6
 }

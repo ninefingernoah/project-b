@@ -63,6 +63,7 @@ public static class FlightManager
     /// </summary>
     /// <param name="departure">The airport to departure from.</param>
     /// <param name="arrival">The airport to arrive on.</param>
+    /// <param name="departureAfter">The departure time after which the flights should depart.</param>
     /// <returns>A list of flights which are conform the parameters.</returns>
     public static List<Flight> GetFlights(Airport departure, Airport arrival, DateTime? departureAfter = null)
     {
