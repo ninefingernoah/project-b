@@ -57,6 +57,7 @@ public sealed class ReservationController
             List<Passenger>? passengers = new();
             while(passengers != null && passengers.Count < 1 || passengers.Count > 10)
             {
+                passengers = GetPassengerAmountInfo();
                 if (passengers.Count > 10)
                 {
                     ConsoleUtils.Error("U kunt maximaal 10 passagiers per reservering toevoegen.");
@@ -65,7 +66,6 @@ public sealed class ReservationController
                 {
                     ConsoleUtils.Error("U moet minimaal 1 passagier toevoegen.");
                 }
-                passengers = GetPassengerAmountInfo();
             }
             
             if (passengers == null)
@@ -105,6 +105,45 @@ public sealed class ReservationController
                 // show seat selection menu
                 int kostenPerStoel = 4;
                 SeatController.Instance.ShowSeatSelection(res, kostenPerStoel);
+            }
+            else
+            {
+                Dictionary<string, double> resPriceDict = SeatManager.GetSeatPrices(res.OutwardFlight);
+                int LowestPriceClass = 30000000;
+                int LowestPriceClass2 = 30000000;
+                bool returnFlight = false;
+                foreach (KeyValuePair<string, double> entry in resPriceDict)
+                {
+                    if (entry.Value < LowestPriceClass)
+                    {
+                        LowestPriceClass = (int)entry.Value;
+                    }
+                }
+                if (res.InwardFlight != null)
+                {
+                    returnFlight = true;
+                    Dictionary<string, double> resPriceDict2 = SeatManager.GetSeatPrices(res.InwardFlight);
+                    foreach (KeyValuePair<string, double> entry in resPriceDict2)
+                    {
+                        if (entry.Value < LowestPriceClass2)
+                        {
+                            LowestPriceClass2 = (int)entry.Value;
+                        }
+                    }
+                }
+                int pricePerPassenger = 0;
+                if (returnFlight)
+                {
+                    pricePerPassenger = LowestPriceClass + LowestPriceClass2;
+                }
+                else
+                {
+                    pricePerPassenger = LowestPriceClass;
+                }
+
+                res.Price = pricePerPassenger * passengers.Count;
+
+
             }
 
             if (ReservationManager.MakeReservation(res))
@@ -209,7 +248,7 @@ public sealed class ReservationController
     {
         IntInputMenu menu = new IntInputMenu("Met hoeveel reizigers bent u?");
         int? amount = menu.Run();
-        if (amount == null) return null;
+        if (amount == null) return new List<Passenger>();
         if (amount <= 0 || amount > 10)
         {
             return new List<Passenger>();
